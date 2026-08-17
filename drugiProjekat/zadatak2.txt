@@ -1,0 +1,6 @@
+Na osnovu baze podataka koju ste projektovali za I domaći zadatak, treba kreirati desktop aplikaciju koja za pristup podacima koristi komponentu baziranu na korišćenju NHibernate ORM biblioteke.
+Kao rezultat domaćeg zadatka predajete:
+1. neophodne NHibernate POCO klase
+2. neophodna Fluent NHibernate mapiranja
+3. desktop aplikaciju (po ugledu na demo aplikaciju na sajtu predmeta) koja testira korišćenje kreiranih mapiranja
+4. dokument u kome su navedene sve izmene u šemi baze podataka (ukoliko ih ima) u odnosu na verziiju baze podataka koju ste implementirali za potrebe I domaćeg zadatka.

@@ -1,0 +1,3 @@
+Za III projekat potrebno je kreirati Web API aplikaciju (korišćenjem C# programskog jezika) koja demonstrira korišćenje NHibernate komponente za pristup podacima koja je projektovana u okviru II domaćeg zadatka.
+Neophodno je da aplikacija poseduje Web API kontrolere čije metode omogućavaju pribavljanje, dodavanje, ažuriranje i brisanje svih tipova domenskih entiteta (po ugledu na primer sa laboratorijskih vežbi).
+Kao rezultat domaćeg zadatka predajete projekat koji sadrži izvorni kod Web aplikacije koju ste kreirali.

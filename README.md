@@ -1,10 +1,3 @@
-Zadatak: Na osnovu specificiranih zahteva projektovati bazu podataka.
-Izveštaj treba da sadrži:
-1. EER model baze podataka
-2. Relacioni model baze podataka
-3. SQL naredbe za kreiranje tabela i pratećih ograničenja.
-4. SQL naredbe za punjenje tabela sample podacima. 
-
 Zadatak 13 - Baza podataka SELEKCIJA KANDIDATA
 Potrebno je projektovati relacionu bazu podataka koja će čuvati sve informacije neophodne za proces
 regrutacije i selekcije kandidata. Potrebno je čuvati sve podatke o objavljenim konkursima za radna mesta
