@@ -80,7 +80,12 @@ CREATE TABLE ODLUKA (
     ),
     plata NUMERIC,
     razlog_odbijanja VARCHAR2(50),
-    id_CV INT NOT NULL UNIQUE REFERENCES CV(id)
+    id_CV INT NOT NULL UNIQUE REFERENCES CV(id),
+    CHECK(
+        (prihvaceno = true AND pocetak_rada IS NOT NULL AND razlog_odbijanja IS NULL) OR
+        (prihvaceno = false AND pocetak_rada IS NULL AND razlog_odbijanja IS NOT NULL) OR
+        (prihvaceno IS NULL AND pocetak_rada IS NULL AND razlog_odbijanja IS NULL)
+    )
 );
 
 CREATE TABLE TEST (
