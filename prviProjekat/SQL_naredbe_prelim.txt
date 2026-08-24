@@ -1,0 +1,115 @@
+CREATE TABLE ZAPOSLENI (
+    Id INT PRIMARY KEY,
+    Ime VARCHAR(50) NOT NULL,
+    Prezime VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE OGLAS (
+    Id INT PRIMARY KEY,
+    Naziv_pozicije VARCHAR(100) NOT NULL,
+    Vrsta_oglasa VARCHAR(30) NOT NULL CHECK (
+        Vrsta_oglasa IN ('stalni rad', 'privremeni rad', 'sezonski rad', 'praksa')
+    ),
+    Opis VARCHAR(100),
+    Min_plata INT,
+    Max_plata INT,
+    Datum_objave DATE NOT NULL,
+    Datum_zatvaranja DATE,
+    Status VARCHAR(20) NOT NULL CHECK (
+        Status IN ('aktivan', 'zatvoren', 'u toku selekcije')
+    ),
+    CHECK (Datum_zatvaranja IS NULL OR Datum_zatvaranja >= Datum_objave),
+    CHECK (Max_plata IS NULL OR Min_plata IS NULL OR Max_plata >= Min_plata)
+);
+
+CREATE TABLE CV (
+    Id INT PRIMARY KEY,
+    Ime VARCHAR(30) NOT NULL,
+    Prezime VARCHAR(30) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
+    Datum_podnosenja DATE NOT NULL,
+    Status VARCHAR(20) NOT NULL CHECK (
+        Status IN ('primljen', 'u procesu', 'odbijen', 'pozvan na intervju')
+    ),
+    Id_oglasa INT NOT NULL REFERENCES OGLAS(Id)
+);
+
+CREATE TABLE STALNI_OGLAS (
+    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE
+);
+
+CREATE TABLE PRIVREMENI_OGLAS (
+    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
+    Projekat VARCHAR(100) NOT NULL,
+    Period_angazovanja VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE SEZONSKI_OGLAS (
+    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
+    Sezona VARCHAR(30) NOT NULL,
+    Lokacija VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE PRAKSA (
+    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
+    Trajanje_meseci INT NOT NULL CHECK (Trajanje_meseci > 0),
+    Id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+);
+
+CREATE TABLE INTERVJU (
+    Id INT PRIMARY KEY,
+    Tip VARCHAR(20) NOT NULL CHECK(
+        Tip IN ('licni', 'video', 'telefonski')
+    ),
+    Datum DATE NOT NULL,
+    Vreme TIME NOT NULL,
+    Lokacija VARCHAR(100) NOT NULL,
+    Ocena INT,
+    Id_CV INT NOT NULL REFERENCES CV(Id),
+    Id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+);
+
+CREATE TABLE ODLUKA (
+    Id INT PRIMARY KEY,
+    Datum DATE NOT NULL,
+    Pocetak_rada DATE,
+    Prihvaceno BOOLEAN,
+    Status VARCHAR(20) NOT NULL CHECK (
+        Status IN ('izabran', 'odbijen', 'rezerva', 'na cekanju')
+    ),
+    Plata INT,
+    Razlog_odbijanja VARCHAR(50),
+    Id_CV INT NOT NULL UNIQUE REFERENCES CV(Id)
+);
+
+CREATE TABLE TEST (
+    Id INT PRIMARY KEY,
+    Datum DATE NOT NULL,
+    Vrsta VARCHAR(100) NOT NULL,
+    Rezultat INT,
+    Id_CV INT NOT NULL REFERENCES CV(Id)
+);
+
+CREATE TABLE BR_TEL_CV (
+    Id INT NOT NULL REFERENCES CV(Id),
+    Broj_telefona VARCHAR(30) NOT NULL,
+    PRIMARY KEY (Id, Broj_telefona)
+);
+
+CREATE TABLE ZAHTEVI_OGLAS (
+    Id INT NOT NULL REFERENCES OGLAS(Id),
+    Zahtev VARCHAR(30) NOT NULL,
+    PRIMARY KEY (Id, Zahtev)
+);
+
+CREATE TABLE NAPOMENA_INTERVJU (
+    Id INT NOT NULL REFERENCES INTERVJU(Id),
+    Napomena VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Id, Napomena)
+);
+
+CREATE TABLE KOMENTAR_TEST (
+    Id INT NOT NULL REFERENCES TEST(Id),
+    Komentar VARCHAR(100) NOT NULL,
+    PRIMARY KEY (Id, Komentar)
+);
