@@ -54,7 +54,7 @@ CREATE TABLE SEZONSKI_OGLAS (
 CREATE TABLE PRAKSA (
     id INT PRIMARY KEY REFERENCES OGLAS(id) ON DELETE CASCADE,
     trajanje_meseci INT NOT NULL CHECK (Trajanje_meseci > 0),
-    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(id)
 );
 
 CREATE TABLE INTERVJU (
@@ -62,19 +62,18 @@ CREATE TABLE INTERVJU (
     tip VARCHAR2(20) NOT NULL CHECK(
         tip IN ('licni', 'video', 'telefonski')
     ),
-    datum DATE NOT NULL,
-    vreme TIME NOT NULL,
+    datum_i_vreme DATE NOT NULL,
     lokacija VARCHAR2(100) NOT NULL,
     ocena INT,
-    id_CV INT NOT NULL REFERENCES CV(Id),
-    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+    id_CV INT NOT NULL REFERENCES CV(id),
+    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(id)
 );
 
 CREATE TABLE ODLUKA (
     id INT PRIMARY KEY,
     datum DATE NOT NULL,
     pocetak_rada DATE,
-    prihvaceno BOOLEAN,
+    prihvaceno NUMBER(1,0),
     status VARCHAR2(20) NOT NULL CHECK (
         status IN ('izabran', 'odbijen', 'rezerva', 'na cekanju')
     ),
@@ -82,8 +81,8 @@ CREATE TABLE ODLUKA (
     razlog_odbijanja VARCHAR2(50),
     id_CV INT NOT NULL UNIQUE REFERENCES CV(id),
     CHECK(
-        (prihvaceno = true AND pocetak_rada IS NOT NULL AND razlog_odbijanja IS NULL) OR
-        (prihvaceno = false AND pocetak_rada IS NULL AND razlog_odbijanja IS NOT NULL) OR
+        (prihvaceno = 1 AND pocetak_rada IS NOT NULL AND razlog_odbijanja IS NULL) OR
+        (prihvaceno = 0 AND pocetak_rada IS NULL AND razlog_odbijanja IS NOT NULL) OR
         (prihvaceno IS NULL AND pocetak_rada IS NULL AND razlog_odbijanja IS NULL)
     )
 );
