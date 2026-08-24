@@ -1,115 +1,105 @@
 CREATE TABLE ZAPOSLENI (
-    Id INT PRIMARY KEY,
-    Ime VARCHAR(50) NOT NULL,
-    Prezime VARCHAR(50) NOT NULL
+    id INT PRIMARY KEY,
+    ime VARCHAR2(50) NOT NULL,
+    prezime VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE OGLAS (
-    Id INT PRIMARY KEY,
-    Naziv_pozicije VARCHAR(100) NOT NULL,
-    Vrsta_oglasa VARCHAR(30) NOT NULL CHECK (
-        Vrsta_oglasa IN ('stalni rad', 'privremeni rad', 'sezonski rad', 'praksa')
+    id INT PRIMARY KEY,
+    naziv_pozicije VARCHAR2(100) NOT NULL,
+    vrsta_oglasa VARCHAR2(30) NOT NULL CHECK (
+        vrsta_oglasa IN ('stalni rad', 'privremeni rad', 'sezonski rad', 'praksa')
     ),
-    Opis VARCHAR(100),
-    Min_plata INT,
-    Max_plata INT,
-    Datum_objave DATE NOT NULL,
-    Datum_zatvaranja DATE,
-    Status VARCHAR(20) NOT NULL CHECK (
-        Status IN ('aktivan', 'zatvoren', 'u toku selekcije')
+    opis VARCHAR2(100),
+    min_plata NUMERIC,
+    max_plata NUMERIC,
+    datum_objave DATE NOT NULL,
+    datum_zatvaranja DATE,
+    status VARCHAR2(20) NOT NULL CHECK (
+        status IN ('aktivan', 'zatvoren', 'u toku selekcije')
     ),
-    CHECK (Datum_zatvaranja IS NULL OR Datum_zatvaranja >= Datum_objave),
-    CHECK (Max_plata IS NULL OR Min_plata IS NULL OR Max_plata >= Min_plata)
+    CHECK (datum_zatvaranja IS NULL OR datum_zatvaranja >= datum_objave),
+    CHECK (max_plata IS NULL OR min_plata IS NULL OR max_plata >= min_plata)
 );
 
 CREATE TABLE CV (
-    Id INT PRIMARY KEY,
-    Ime VARCHAR(30) NOT NULL,
-    Prezime VARCHAR(30) NOT NULL,
-    Email VARCHAR(50) NOT NULL,
-    Datum_podnosenja DATE NOT NULL,
-    Status VARCHAR(20) NOT NULL CHECK (
-        Status IN ('primljen', 'u procesu', 'odbijen', 'pozvan na intervju')
+    id INT PRIMARY KEY,
+    ime VARCHAR2(30) NOT NULL,
+    prezime VARCHAR2(30) NOT NULL,
+    email VARCHAR2(50) NOT NULL,
+    datum_podnosenja DATE NOT NULL,
+    status VARCHAR2(20) NOT NULL CHECK (
+        status IN ('primljen', 'u procesu', 'odbijen', 'pozvan na intervju')
     ),
-    Id_oglasa INT NOT NULL REFERENCES OGLAS(Id)
+    broj_telefona VARCHAR2(20) NOT NULL,
+    id_oglasa INT NOT NULL REFERENCES OGLAS(id)
 );
 
 CREATE TABLE STALNI_OGLAS (
-    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE
+    id INT PRIMARY KEY REFERENCES OGLAS(id) ON DELETE CASCADE
 );
 
 CREATE TABLE PRIVREMENI_OGLAS (
-    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
-    Projekat VARCHAR(100) NOT NULL,
-    Period_angazovanja VARCHAR(100) NOT NULL
+    id INT PRIMARY KEY REFERENCES OGLAS(id) ON DELETE CASCADE,
+    projekat VARCHAR2(100) NOT NULL,
+    period_angazovanja VARCHAR2(100) NOT NULL
 );
 
 CREATE TABLE SEZONSKI_OGLAS (
-    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
-    Sezona VARCHAR(30) NOT NULL,
-    Lokacija VARCHAR(50) NOT NULL
+    id INT PRIMARY KEY REFERENCES OGLAS(id) ON DELETE CASCADE,
+    sezona VARCHAR2(30) NOT NULL,
+    lokacija VARCHAR2(50) NOT NULL
 );
 
 CREATE TABLE PRAKSA (
-    Id INT PRIMARY KEY REFERENCES OGLAS(Id) ON DELETE CASCADE,
-    Trajanje_meseci INT NOT NULL CHECK (Trajanje_meseci > 0),
-    Id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+    id INT PRIMARY KEY REFERENCES OGLAS(id) ON DELETE CASCADE,
+    trajanje_meseci INT NOT NULL CHECK (Trajanje_meseci > 0),
+    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
 );
 
 CREATE TABLE INTERVJU (
-    Id INT PRIMARY KEY,
-    Tip VARCHAR(20) NOT NULL CHECK(
-        Tip IN ('licni', 'video', 'telefonski')
+    id INT PRIMARY KEY,
+    tip VARCHAR2(20) NOT NULL CHECK(
+        tip IN ('licni', 'video', 'telefonski')
     ),
-    Datum DATE NOT NULL,
-    Vreme TIME NOT NULL,
-    Lokacija VARCHAR(100) NOT NULL,
-    Ocena INT,
-    Id_CV INT NOT NULL REFERENCES CV(Id),
-    Id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
+    datum DATE NOT NULL,
+    vreme TIME NOT NULL,
+    lokacija VARCHAR2(100) NOT NULL,
+    ocena INT,
+    id_CV INT NOT NULL REFERENCES CV(Id),
+    id_zaposlenog INT NOT NULL REFERENCES ZAPOSLENI(Id)
 );
 
 CREATE TABLE ODLUKA (
-    Id INT PRIMARY KEY,
-    Datum DATE NOT NULL,
-    Pocetak_rada DATE,
-    Prihvaceno BOOLEAN,
-    Status VARCHAR(20) NOT NULL CHECK (
-        Status IN ('izabran', 'odbijen', 'rezerva', 'na cekanju')
+    id INT PRIMARY KEY,
+    datum DATE NOT NULL,
+    pocetak_rada DATE,
+    prihvaceno BOOLEAN,
+    status VARCHAR2(20) NOT NULL CHECK (
+        status IN ('izabran', 'odbijen', 'rezerva', 'na cekanju')
     ),
-    Plata INT,
-    Razlog_odbijanja VARCHAR(50),
-    Id_CV INT NOT NULL UNIQUE REFERENCES CV(Id)
+    plata NUMERIC,
+    razlog_odbijanja VARCHAR2(50),
+    id_CV INT NOT NULL UNIQUE REFERENCES CV(id)
 );
 
 CREATE TABLE TEST (
-    Id INT PRIMARY KEY,
-    Datum DATE NOT NULL,
-    Vrsta VARCHAR(100) NOT NULL,
-    Rezultat INT,
-    Id_CV INT NOT NULL REFERENCES CV(Id)
-);
-
-CREATE TABLE BR_TEL_CV (
-    Id INT NOT NULL REFERENCES CV(Id),
-    Broj_telefona VARCHAR(30) NOT NULL,
-    PRIMARY KEY (Id, Broj_telefona)
+    id INT PRIMARY KEY,
+    datum DATE NOT NULL,
+    vrsta VARCHAR2(100) NOT NULL,
+    rezultat INT,
+    komentar VARCHAR2(50),
+    id_CV INT NOT NULL REFERENCES CV(id)
 );
 
 CREATE TABLE ZAHTEVI_OGLAS (
-    Id INT NOT NULL REFERENCES OGLAS(Id),
-    Zahtev VARCHAR(30) NOT NULL,
-    PRIMARY KEY (Id, Zahtev)
+    id INT NOT NULL REFERENCES OGLAS(id),
+    zahtev VARCHAR2(30) NOT NULL,
+    PRIMARY KEY (id, zahtev)
 );
 
 CREATE TABLE NAPOMENA_INTERVJU (
-    Id INT NOT NULL REFERENCES INTERVJU(Id),
-    Napomena VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Id, Napomena)
-);
-
-CREATE TABLE KOMENTAR_TEST (
-    Id INT NOT NULL REFERENCES TEST(Id),
-    Komentar VARCHAR(100) NOT NULL,
-    PRIMARY KEY (Id, Komentar)
+    id INT NOT NULL REFERENCES INTERVJU(id),
+    napomena VARCHAR2(100) NOT NULL,
+    PRIMARY KEY (id, napomena)
 );
