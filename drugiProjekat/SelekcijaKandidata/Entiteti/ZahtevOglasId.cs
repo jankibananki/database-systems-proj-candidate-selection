@@ -1,16 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
     public class ZahtevOglasId
     {
-        //kolko sam skontala ovo valjda mora kad se kljuc
-        //sastoji od vise vrednosti a ovde imamo id + zahtev oglasa
-        //i tu se sad pise onaj bool Equals blabla to ne znam necu mrckam
-        //ce pogledamo zajedno
+        public virtual Oglas Oglas { get; set; }
+        public virtual string Zahtev { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            ZahtevOglasId other = obj as ZahtevOglasId;
+
+            if (other == null)
+                return false;
+
+            return Oglas.Id == other.Oglas.Id
+                && Zahtev == other.Zahtev;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Oglas.Id, Zahtev);
+        }
     }
 }
+
