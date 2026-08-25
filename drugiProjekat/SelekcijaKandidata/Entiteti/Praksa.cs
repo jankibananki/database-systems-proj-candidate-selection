@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class Praksa : Oglas
+    public class Praksa : Oglas
     {
         public virtual int TrajanjeMeseci {  get; set; }
         public virtual Zaposleni Mentor {  get; set; }

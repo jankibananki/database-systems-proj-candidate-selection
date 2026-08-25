@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class ZahtevOglasId
+    public class ZahtevOglasId
     {
         //kolko sam skontala ovo valjda mora kad se kljuc
         //sastoji od vise vrednosti a ovde imamo id + zahtev oglasa

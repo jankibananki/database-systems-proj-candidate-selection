@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class StalniOglas : Oglas
+    public class StalniOglas : Oglas
     {
     }
 }

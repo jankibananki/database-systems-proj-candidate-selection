@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class Test
+    public class Test
     {
         public virtual int Id { get; set; }
         public virtual DateTime Datum { get; set; }

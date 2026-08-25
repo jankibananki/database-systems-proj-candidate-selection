@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class SezonskiOglas : Oglas
+    public class SezonskiOglas : Oglas
     {
         public virtual string Sezona { get; set; }
         public virtual string Lokacija { get; set; }

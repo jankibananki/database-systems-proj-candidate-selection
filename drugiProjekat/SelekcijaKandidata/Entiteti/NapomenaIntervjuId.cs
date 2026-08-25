@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class NapomenaIntervjuId
+    public class NapomenaIntervjuId
     {
         //isto ko zahtevoglasid
         // i kolko vidim kad se pravi ovako ova blablaid klasa

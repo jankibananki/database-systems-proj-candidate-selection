@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class NapomenaIntervju
+    public class NapomenaIntervju
     {
         //ista prica ko za zahtevoglas
     }

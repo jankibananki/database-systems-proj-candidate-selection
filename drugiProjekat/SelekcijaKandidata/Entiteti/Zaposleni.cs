@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class Zaposleni
+    public class Zaposleni
     {
 
         public virtual int Id { get; set; }

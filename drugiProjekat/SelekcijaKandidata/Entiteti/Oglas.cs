@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class Oglas
+    public class Oglas
     {
 
         public virtual int Id { get; set; }

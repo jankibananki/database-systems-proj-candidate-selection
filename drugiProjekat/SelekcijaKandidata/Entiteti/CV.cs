@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
-    internal class CV
+    public class CV
     {
         public virtual int Id { get; set; }
         public virtual string Ime { get; set; }
