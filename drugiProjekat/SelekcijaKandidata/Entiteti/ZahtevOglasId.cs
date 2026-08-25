@@ -15,15 +15,10 @@
             return Id == other.Id && Zahtev == other.Zahtev;
         }
 
+
         public override int GetHashCode()
         {
-            unchecked
-            {
-                int hash = 17;
-                hash = hash * 31 + Id.GetHashCode();
-                hash = hash * 31 + (Zahtev == null ? 0 : Zahtev.GetHashCode());
-                return hash;
-            }
+            return HashCode.Combine(Oglas.Id, Zahtev);
         }
     }
 }
