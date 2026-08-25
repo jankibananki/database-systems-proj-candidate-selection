@@ -10,7 +10,7 @@ namespace SelekcijaKandidata.Mapiranja
             Table("ZAHTEVI_OGLAS");
 
             CompositeId()
-                .KeyProperty(x => x.Id.Id, "ID")
+                .KeyReference(x => x.Id.Oglas, "ID")
                 .KeyProperty(x => x.Id.Zahtev, "ZAHTEV");
         }
     }
