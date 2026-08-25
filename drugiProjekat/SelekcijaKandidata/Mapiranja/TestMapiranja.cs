@@ -14,7 +14,7 @@ namespace SelekcijaKandidata.Mapiranja
         {
             Table("TEST");
 
-            Id(x => x.Id).Column("ID").GeneratedBy.Assigned();
+            Id(x => x.Id).Column("ID").GeneratedBy.Increment();
             Map(x => x.Datum).Column("DATUM").Not.Nullable();
             Map(x => x.Vrsta).Column("VRSTA").Length(100).Not.Nullable();
             Map(x => x.Rezultat).Column("REZULTAT");
