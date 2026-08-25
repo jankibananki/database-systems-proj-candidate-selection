@@ -1,15 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SelekcijaKandidata.Entiteti
 {
     public class NapomenaIntervjuId
     {
-        //isto ko zahtevoglasid
-        // i kolko vidim kad se pravi ovako ova blablaid klasa
-        // mora da postoji i ovaj GetHash code
+        public virtual Intervju Intervju { get; set; }
+        public virtual string Napomena { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(this, obj))
+                return true;
+
+            NapomenaIntervjuId other = obj as NapomenaIntervjuId;
+            if (other == null)
+                return false;
+
+            return Intervju.Id == other.Intervju.Id
+                && Napomena == other.Napomena;
+        }
+
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Intervju.Id, Napomena);
+        }
     }
 }

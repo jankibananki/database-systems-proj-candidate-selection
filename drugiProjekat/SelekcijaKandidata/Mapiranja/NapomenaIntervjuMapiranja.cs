@@ -1,12 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentNHibernate.Mapping;
+using SelekcijaKandidata.Entiteti;
 
 namespace SelekcijaKandidata.Mapiranja
 {
-    internal class NapomenaIntervjuMapiranja
+    class NapomenaIntervjuMapiranja: ClassMap<NapomenaIntervju>
     {
+        public NapomenaIntervjuMapiranja()
+        {
+            Table("NAPOMENA_INTERVJU");
+
+            CompositeId(x => x.Id)
+                .KeyReference(x => x.Intervju, "ID_INTERVJUA")
+                .KeyProperty(x => x.Napomena, "NAPOMENA");
+        }
     }
 }

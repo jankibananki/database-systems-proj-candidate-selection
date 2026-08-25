@@ -8,6 +8,6 @@ namespace SelekcijaKandidata.Entiteti
 {
     public class NapomenaIntervju
     {
-        //ista prica ko za zahtevoglas
+        public virtual NapomenaIntervjuId Id { get; set; }
     }
 }
