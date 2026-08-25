@@ -16,5 +16,10 @@ namespace SelekcijaKandidata
         {
             InitializeComponent();
         }
+
+        private void btnCV_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
