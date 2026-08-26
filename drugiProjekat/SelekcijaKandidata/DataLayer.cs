@@ -41,8 +41,8 @@ namespace SelekcijaKandidata
             }
             catch (Exception ec)
             {
-                System.Windows.Forms.MessageBox.Show(ec.Message);
-                return null;
+                System.Windows.Forms.MessageBox.Show(ec.ToString(), "Nhibernate greska");
+                throw;
             }
         }
     }

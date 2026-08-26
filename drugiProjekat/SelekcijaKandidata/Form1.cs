@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SelekcijaKandidata.Forme;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -19,7 +20,10 @@ namespace SelekcijaKandidata
 
         private void btnCV_Click(object sender, EventArgs e)
         {
+            CVforma forma = new CVforma();
 
+            this.Hide();
+            forma.Show();
         }
     }
 }
