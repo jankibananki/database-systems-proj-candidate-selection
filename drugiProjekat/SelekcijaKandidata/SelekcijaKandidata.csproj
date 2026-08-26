@@ -94,6 +94,18 @@
     <Compile Include="Forme\DodajCVforma.Designer.cs">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forme\OdlukaForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\OdlukaForma.Designer.cs">
+      <DependentUpon>OdlukaForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\OglasForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\OglasForma.Designer.cs">
+      <DependentUpon>OglasForma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mapiranja\CVMapiranja.cs" />
     <Compile Include="Mapiranja\IntervjuMapiranja.cs" />
     <Compile Include="Mapiranja\NapomenaIntervjuMapiranja.cs" />
@@ -115,6 +127,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\OdlukaForma.resx">
+      <DependentUpon>OdlukaForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\OglasForma.resx">
+      <DependentUpon>OglasForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

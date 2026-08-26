@@ -25,5 +25,17 @@ namespace SelekcijaKandidata
             this.Hide();
             forma.Show();
         }
+
+        private void btnOglas_Click(object sender, EventArgs e)
+        {
+            OglasForma forma = new OglasForma();
+            forma.ShowDialog();
+        }
+
+        private void btnOdluka_Click(object sender, EventArgs e)
+        {
+            OdlukaForma forma = new OdlukaForma();
+            forma.ShowDialog();
+        }
     }
 }

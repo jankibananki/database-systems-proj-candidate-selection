@@ -63,6 +63,7 @@
             this.btnOdluka.TabIndex = 2;
             this.btnOdluka.Text = "Odluke";
             this.btnOdluka.UseVisualStyleBackColor = true;
+            this.btnOdluka.Click += new System.EventHandler(this.btnOdluka_Click);
             // 
             // btnOglas
             // 
@@ -72,6 +73,7 @@
             this.btnOglas.TabIndex = 3;
             this.btnOglas.Text = "Oglasi";
             this.btnOglas.UseVisualStyleBackColor = true;
+            this.btnOglas.Click += new System.EventHandler(this.btnOglas_Click);
             // 
             // btnTest
             // 
