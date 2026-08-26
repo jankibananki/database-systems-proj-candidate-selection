@@ -36,6 +36,7 @@ namespace SelekcijaKandidata.Forme
                 {
                     IList<Test> testovi = s.QueryOver<Test>()
                                            .Fetch(x => x.CV).Eager
+                                           .OrderBy(x => x.Id).Asc
                                            .List<Test>();
                     dgvTestovi.DataSource = testovi;
                 }
@@ -80,9 +81,35 @@ namespace SelekcijaKandidata.Forme
             }
         }
 
+        private void btnIzmeniTest_Click(object sender, EventArgs e)
+        {
+            Test test = dgvTestovi.CurrentRow?.DataBoundItem as Test;
+            if (test == null)
+            {
+                MessageBox.Show("Izaberite test koji želite da izmenite.");
+                return;
+            }
+
+            using (IzmeniTestForma forma = new IzmeniTestForma(test))
+            {
+                if (forma.ShowDialog() == DialogResult.OK)
+                    UcitajTestove();
+            }
+        }
+
         private void labelTestovi_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dgvTestovi_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

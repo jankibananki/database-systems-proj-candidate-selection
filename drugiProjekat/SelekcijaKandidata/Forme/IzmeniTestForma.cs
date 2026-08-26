@@ -1,4 +1,4 @@
-using NHibernate;
+﻿using NHibernate;
 using NHibernate.Linq;
 using SelekcijaKandidata.Entiteti;
 using System;
@@ -7,24 +7,36 @@ using System.Windows.Forms;
 
 namespace SelekcijaKandidata.Forme
 {
-    public partial class DodajTestforma : Form
+    public partial class IzmeniTestForma : Form
     {
-        public DodajTestforma()
+        private Test test;
+
+        public IzmeniTestForma(Test test)
         {
             InitializeComponent();
+            this.test = test;
         }
 
-        private void DodajTestforma_Load(object sender, EventArgs e)
+        private void IzmeniTestForma_Load(object sender, EventArgs e)
         {
             try
             {
                 using (ISession s = DataLayer.GetSession())
                 {
                     IList<CV> cvjevi = s.QueryOver<CV>().List<CV>();
+
                     cbCV.DataSource = cvjevi;
                     cbCV.DisplayMember = "KandidatPrikaz";
                     cbCV.ValueMember = "Id";
+                    cbCV.SelectedValue = test.CV.Id;
                 }
+
+                dtpDatum.Value = test.Datum;
+                tbVrsta.Text = test.Vrsta;
+                tbRezultat.Text = test.Rezultat.HasValue
+                    ? test.Rezultat.Value.ToString()
+                    : "";
+                tbKomentar.Text = test.Komentar;
             }
             catch (Exception ec)
             {
@@ -32,7 +44,12 @@ namespace SelekcijaKandidata.Forme
             }
         }
 
-        private void btnDodaj_Click(object sender, EventArgs e)
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnSacuvaj_Click(object sender, EventArgs e)
         {
             if (cbCV.SelectedItem == null || string.IsNullOrWhiteSpace(tbVrsta.Text))
             {
@@ -42,19 +59,18 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                Test test = new Test
-                {
-                    Datum = dtpDatum.Value,
-                    Vrsta = tbVrsta.Text.Trim(),
-                    Rezultat = string.IsNullOrWhiteSpace(tbRezultat.Text) ? (int?)null : int.Parse(tbRezultat.Text),
-                    Komentar = tbKomentar.Text.Trim(),
-                    CV = (CV)cbCV.SelectedItem
-                };
+                test.Datum = dtpDatum.Value;
+                test.Vrsta = tbVrsta.Text.Trim();
+                test.Rezultat = string.IsNullOrWhiteSpace(tbRezultat.Text)
+                    ? (int?)null
+                    : int.Parse(tbRezultat.Text);
+                test.Komentar = tbKomentar.Text.Trim();
+                test.CV = (CV)cbCV.SelectedItem;
 
                 using (ISession s = DataLayer.GetSession())
                 using (ITransaction tx = s.BeginTransaction())
                 {
-                    s.Save(test);
+                    s.Update(test);
                     tx.Commit();
                 }
 
@@ -69,19 +85,6 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ec.Message);
             }
-        }
-
-        private void btnOcisti_Click(object sender, EventArgs e)
-        {
-            tbVrsta.Clear();
-            tbRezultat.Clear();
-            tbKomentar.Clear();
-            dtpDatum.Value = DateTime.Today;
-        }
-
-        private void btnNazad_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

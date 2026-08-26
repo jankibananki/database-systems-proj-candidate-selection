@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             this.dgvTestovi = new System.Windows.Forms.DataGridView();
+            this.labelTestovi = new System.Windows.Forms.Label();
+            this.btnDodajTest = new System.Windows.Forms.Button();
+            this.btnObrisiTest = new System.Windows.Forms.Button();
+            this.btnIzmeniTest = new System.Windows.Forms.Button();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIme = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPrezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,9 +40,7 @@
             this.colDatumPodnosenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBrojTelefona = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.labelTestovi = new System.Windows.Forms.Label();
-            this.btnDodajTest = new System.Windows.Forms.Button();
-            this.btnObrisiTest = new System.Windows.Forms.Button();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestovi)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +64,47 @@
             this.dgvTestovi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvTestovi.Size = new System.Drawing.Size(985, 527);
             this.dgvTestovi.TabIndex = 0;
+            this.dgvTestovi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTestovi_CellContentClick);
+            // 
+            // labelTestovi
+            // 
+            this.labelTestovi.Location = new System.Drawing.Point(13, 9);
+            this.labelTestovi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.labelTestovi.Name = "labelTestovi";
+            this.labelTestovi.Size = new System.Drawing.Size(133, 28);
+            this.labelTestovi.TabIndex = 1;
+            this.labelTestovi.Text = "Testovi";
+            this.labelTestovi.Click += new System.EventHandler(this.labelTestovi_Click);
+            // 
+            // btnDodajTest
+            // 
+            this.btnDodajTest.Location = new System.Drawing.Point(1009, 92);
+            this.btnDodajTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnDodajTest.Name = "btnDodajTest";
+            this.btnDodajTest.Size = new System.Drawing.Size(235, 60);
+            this.btnDodajTest.TabIndex = 2;
+            this.btnDodajTest.Text = "Dodaj test";
+            this.btnDodajTest.Click += new System.EventHandler(this.btnDodajTest_Click);
+            // 
+            // btnObrisiTest
+            // 
+            this.btnObrisiTest.Location = new System.Drawing.Point(1009, 160);
+            this.btnObrisiTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnObrisiTest.Name = "btnObrisiTest";
+            this.btnObrisiTest.Size = new System.Drawing.Size(235, 60);
+            this.btnObrisiTest.TabIndex = 0;
+            this.btnObrisiTest.Text = "Obriši test";
+            this.btnObrisiTest.Click += new System.EventHandler(this.btnObrisiTest_Click);
+            // 
+            // btnIzmeniTest
+            // 
+            this.btnIzmeniTest.Location = new System.Drawing.Point(1009, 228);
+            this.btnIzmeniTest.Margin = new System.Windows.Forms.Padding(4);
+            this.btnIzmeniTest.Name = "btnIzmeniTest";
+            this.btnIzmeniTest.Size = new System.Drawing.Size(235, 60);
+            this.btnIzmeniTest.TabIndex = 3;
+            this.btnIzmeniTest.Text = "Izmeni test";
+            this.btnIzmeniTest.Click += new System.EventHandler(this.btnIzmeniTest_Click);
             // 
             // colId
             // 
@@ -125,41 +168,22 @@
             this.colBrojTelefona.ReadOnly = true;
             this.colBrojTelefona.Width = 125;
             // 
-            // labelTestovi
+            // btnNazad
             // 
-            this.labelTestovi.Location = new System.Drawing.Point(13, 9);
-            this.labelTestovi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTestovi.Name = "labelTestovi";
-            this.labelTestovi.Size = new System.Drawing.Size(133, 28);
-            this.labelTestovi.TabIndex = 1;
-            this.labelTestovi.Text = "Testovi";
-            this.labelTestovi.Click += new System.EventHandler(this.labelTestovi_Click);
-            // 
-            // btnDodajTest
-            // 
-            this.btnDodajTest.Location = new System.Drawing.Point(1071, 94);
-            this.btnDodajTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnDodajTest.Name = "btnDodajTest";
-            this.btnDodajTest.Size = new System.Drawing.Size(100, 28);
-            this.btnDodajTest.TabIndex = 2;
-            this.btnDodajTest.Text = "Dodaj test";
-            this.btnDodajTest.Click += new System.EventHandler(this.btnDodajTest_Click);
-            // 
-            // btnObrisiTest
-            // 
-            this.btnObrisiTest.Location = new System.Drawing.Point(1071, 130);
-            this.btnObrisiTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnObrisiTest.Name = "btnObrisiTest";
-            this.btnObrisiTest.Size = new System.Drawing.Size(100, 28);
-            this.btnObrisiTest.TabIndex = 0;
-            this.btnObrisiTest.Text = "Obriši test";
-            this.btnObrisiTest.Click += new System.EventHandler(this.btnObrisiTest_Click);
+            this.btnNazad.Location = new System.Drawing.Point(1082, 594);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(95, 25);
+            this.btnNazad.TabIndex = 13;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
             // TestForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1257, 661);
+            this.Controls.Add(this.btnNazad);
+            this.Controls.Add(this.btnIzmeniTest);
             this.Controls.Add(this.btnObrisiTest);
             this.Controls.Add(this.labelTestovi);
             this.Controls.Add(this.btnDodajTest);
@@ -179,6 +203,7 @@
         private System.Windows.Forms.Label labelTestovi;
         private System.Windows.Forms.Button btnDodajTest;
         private System.Windows.Forms.Button btnObrisiTest;
+        private System.Windows.Forms.Button btnIzmeniTest;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
         private System.Windows.Forms.DataGridViewTextBoxColumn colIme;
         private System.Windows.Forms.DataGridViewTextBoxColumn colPrezime;
@@ -186,5 +211,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDatumPodnosenja;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBrojTelefona;
+        private System.Windows.Forms.Button btnNazad;
     }
 }
