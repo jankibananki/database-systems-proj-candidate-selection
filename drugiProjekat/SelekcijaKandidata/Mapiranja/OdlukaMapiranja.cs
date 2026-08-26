@@ -8,7 +8,7 @@ namespace SelekcijaKandidata.Mapiranja
         public OdlukaMapiranja()
         {
             Table("ODLUKA");
-            Id(x => x.Id, "ID").GeneratedBy.Increment();
+            Id(x => x.Id, "ID").GeneratedBy.TriggerIdentity();
             Map(x => x.Datum, "DATUM");
             Map(x => x.PocetakRada, "POCETAK_RADA");
             Map(x => x.Prihvaceno, "PRIHVACENO");

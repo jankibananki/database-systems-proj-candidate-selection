@@ -35,12 +35,12 @@
             this.labeldgvCV = new System.Windows.Forms.Label();
             this.dgvOdluke = new System.Windows.Forms.DataGridView();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colIme = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colPrezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colEmail = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colDatumPodnosenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colBrojTelefona = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Datum = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PocetakRada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Prihvaceno = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Plata = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.RazlogOdbijanja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdluke)).BeginInit();
             this.SuspendLayout();
             // 
@@ -80,6 +80,7 @@
             this.btnDodajOdluku.TabIndex = 14;
             this.btnDodajOdluku.Text = "Dodaj odluku";
             this.btnDodajOdluku.UseVisualStyleBackColor = true;
+            this.btnDodajOdluku.Click += new System.EventHandler(this.btnDodajOdluku_Click);
             // 
             // labeldgvCV
             // 
@@ -96,12 +97,12 @@
             this.dgvOdluke.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvOdluke.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colId,
-            this.colIme,
-            this.colPrezime,
-            this.colEmail,
-            this.colDatumPodnosenja,
-            this.colStatus,
-            this.colBrojTelefona});
+            this.Datum,
+            this.PocetakRada,
+            this.Prihvaceno,
+            this.Status,
+            this.Plata,
+            this.RazlogOdbijanja});
             this.dgvOdluke.Location = new System.Drawing.Point(18, 87);
             this.dgvOdluke.MultiSelect = false;
             this.dgvOdluke.Name = "dgvOdluke";
@@ -117,47 +118,47 @@
             this.colId.Name = "colId";
             this.colId.ReadOnly = true;
             // 
-            // colIme
+            // Datum
             // 
-            this.colIme.DataPropertyName = "Ime";
-            this.colIme.HeaderText = "Ime";
-            this.colIme.Name = "colIme";
-            this.colIme.ReadOnly = true;
+            this.Datum.DataPropertyName = "Datum";
+            this.Datum.HeaderText = "Datum";
+            this.Datum.Name = "Datum";
+            this.Datum.ReadOnly = true;
             // 
-            // colPrezime
+            // PocetakRada
             // 
-            this.colPrezime.DataPropertyName = "Prezime";
-            this.colPrezime.HeaderText = "Prezime";
-            this.colPrezime.Name = "colPrezime";
-            this.colPrezime.ReadOnly = true;
+            this.PocetakRada.DataPropertyName = "PocetakRada";
+            this.PocetakRada.HeaderText = "Pocetak rada";
+            this.PocetakRada.Name = "PocetakRada";
+            this.PocetakRada.ReadOnly = true;
             // 
-            // colEmail
+            // Prihvaceno
             // 
-            this.colEmail.DataPropertyName = "Email";
-            this.colEmail.HeaderText = "Email";
-            this.colEmail.Name = "colEmail";
-            this.colEmail.ReadOnly = true;
+            this.Prihvaceno.DataPropertyName = "Prihvaceno";
+            this.Prihvaceno.HeaderText = "Prihvaceno";
+            this.Prihvaceno.Name = "Prihvaceno";
+            this.Prihvaceno.ReadOnly = true;
             // 
-            // colDatumPodnosenja
+            // Status
             // 
-            this.colDatumPodnosenja.DataPropertyName = "DatumPodnosenja";
-            this.colDatumPodnosenja.HeaderText = "Datum Podnošenja";
-            this.colDatumPodnosenja.Name = "colDatumPodnosenja";
-            this.colDatumPodnosenja.ReadOnly = true;
+            this.Status.DataPropertyName = "Status";
+            this.Status.HeaderText = "Status";
+            this.Status.Name = "Status";
+            this.Status.ReadOnly = true;
             // 
-            // colStatus
+            // Plata
             // 
-            this.colStatus.DataPropertyName = "Status";
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
+            this.Plata.DataPropertyName = "Plata";
+            this.Plata.HeaderText = "Plata";
+            this.Plata.Name = "Plata";
+            this.Plata.ReadOnly = true;
             // 
-            // colBrojTelefona
+            // RazlogOdbijanja
             // 
-            this.colBrojTelefona.DataPropertyName = "BrojTelefona";
-            this.colBrojTelefona.HeaderText = "BrojTelefona";
-            this.colBrojTelefona.Name = "colBrojTelefona";
-            this.colBrojTelefona.ReadOnly = true;
+            this.RazlogOdbijanja.DataPropertyName = "RazlogOdbijanja";
+            this.RazlogOdbijanja.HeaderText = "Razlog odbijanja";
+            this.RazlogOdbijanja.Name = "RazlogOdbijanja";
+            this.RazlogOdbijanja.ReadOnly = true;
             // 
             // OdlukaForma
             // 
@@ -188,11 +189,11 @@
         private System.Windows.Forms.Label labeldgvCV;
         private System.Windows.Forms.DataGridView dgvOdluke;
         private System.Windows.Forms.DataGridViewTextBoxColumn colId;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colIme;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colPrezime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colEmail;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colDatumPodnosenja;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colBrojTelefona;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Datum;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PocetakRada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Prihvaceno;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Status;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Plata;
+        private System.Windows.Forms.DataGridViewTextBoxColumn RazlogOdbijanja;
     }
 }

@@ -94,6 +94,42 @@
     <Compile Include="Forme\DodajCVforma.Designer.cs">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forme\DodajOdlukuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\DodajOdlukuForma.Designer.cs">
+      <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\DodajOglasForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\DodajOglasForma.Designer.cs">
+      <DependentUpon>DodajOglasForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IzmeniOdlukuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniOdlukuForma.Designer.cs">
+      <DependentUpon>IzmeniOdlukuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IzmeniOglasForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniOglasForma.Designer.cs">
+      <DependentUpon>IzmeniOglasForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\ObrisiOdlukuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\ObrisiOdlukuForma.Designer.cs">
+      <DependentUpon>ObrisiOdlukuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\ObrisiOglasForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\ObrisiOglasForma.Designer.cs">
+      <DependentUpon>ObrisiOglasForma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forme\OdlukaForma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -127,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\DodajOdlukuForma.resx">
+      <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OdlukaForma.resx">
       <DependentUpon>OdlukaForma.cs</DependentUpon>

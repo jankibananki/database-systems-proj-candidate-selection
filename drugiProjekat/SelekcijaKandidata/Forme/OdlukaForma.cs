@@ -42,5 +42,12 @@ namespace SelekcijaKandidata.Forme
                 MessageBox.Show(ec.Message);
             }
         }
+
+        private void btnDodajOdluku_Click(object sender, EventArgs e)
+        {
+            var forma = new DodajOdlukuForma();
+            if (forma.ShowDialog() == DialogResult.OK)
+                UcitajPodatke();
+        }
     }
 }
