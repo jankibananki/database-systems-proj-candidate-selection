@@ -94,6 +94,12 @@
     <Compile Include="Forme\DodajCVforma.Designer.cs">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forme\IzmeniCVforma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniCVforma.Designer.cs">
+      <DependentUpon>IzmeniCVforma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Mapiranja\CVMapiranja.cs" />
     <Compile Include="Mapiranja\IntervjuMapiranja.cs" />
     <Compile Include="Mapiranja\NapomenaIntervjuMapiranja.cs" />
@@ -115,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniCVforma.resx">
+      <DependentUpon>IzmeniCVforma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

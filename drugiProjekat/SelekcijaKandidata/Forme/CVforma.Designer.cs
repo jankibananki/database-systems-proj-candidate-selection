@@ -101,6 +101,7 @@
             this.btnIzmeniCV.TabIndex = 4;
             this.btnIzmeniCV.Text = "Izmeni CV";
             this.btnIzmeniCV.UseVisualStyleBackColor = true;
+            this.btnIzmeniCV.Click += new System.EventHandler(this.btnIzmeniCV_Click);
             // 
             // btnObrisiCV
             // 
@@ -110,6 +111,7 @@
             this.btnObrisiCV.TabIndex = 5;
             this.btnObrisiCV.Text = "Obriši CV";
             this.btnObrisiCV.UseVisualStyleBackColor = true;
+            this.btnObrisiCV.Click += new System.EventHandler(this.btnObrisiCV_Click);
             // 
             // colId
             // 

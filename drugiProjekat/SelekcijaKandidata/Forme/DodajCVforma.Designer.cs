@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbIme = new System.Windows.Forms.TextBox();
             this.tbPrezime = new System.Windows.Forms.TextBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
@@ -43,6 +44,10 @@
             this.btnDodaj = new System.Windows.Forms.Button();
             this.btnOcisti = new System.Windows.Forms.Button();
             this.btnNazad = new System.Windows.Forms.Button();
+            this.labeOglas = new System.Windows.Forms.Label();
+            this.cbOglas = new System.Windows.Forms.ComboBox();
+            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbIme
@@ -150,36 +155,63 @@
             // 
             // btnDodaj
             // 
-            this.btnDodaj.Location = new System.Drawing.Point(178, 399);
+            this.btnDodaj.Location = new System.Drawing.Point(182, 465);
             this.btnDodaj.Name = "btnDodaj";
             this.btnDodaj.Size = new System.Drawing.Size(99, 23);
             this.btnDodaj.TabIndex = 12;
             this.btnDodaj.Text = "Dodaj";
             this.btnDodaj.UseVisualStyleBackColor = true;
+            this.btnDodaj.Click += new System.EventHandler(this.btnDodaj_Click);
             // 
             // btnOcisti
             // 
-            this.btnOcisti.Location = new System.Drawing.Point(178, 440);
+            this.btnOcisti.Location = new System.Drawing.Point(182, 506);
             this.btnOcisti.Name = "btnOcisti";
             this.btnOcisti.Size = new System.Drawing.Size(99, 23);
             this.btnOcisti.TabIndex = 13;
             this.btnOcisti.Text = "Očisti";
             this.btnOcisti.UseVisualStyleBackColor = true;
+            this.btnOcisti.Click += new System.EventHandler(this.btnOcisti_Click);
             // 
             // btnNazad
             // 
-            this.btnNazad.Location = new System.Drawing.Point(178, 481);
+            this.btnNazad.Location = new System.Drawing.Point(182, 547);
             this.btnNazad.Name = "btnNazad";
             this.btnNazad.Size = new System.Drawing.Size(99, 23);
             this.btnNazad.TabIndex = 14;
             this.btnNazad.Text = "Nazad";
             this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
+            // labeOglas
+            // 
+            this.labeOglas.AutoSize = true;
+            this.labeOglas.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labeOglas.Location = new System.Drawing.Point(67, 403);
+            this.labeOglas.Name = "labeOglas";
+            this.labeOglas.Size = new System.Drawing.Size(43, 16);
+            this.labeOglas.TabIndex = 15;
+            this.labeOglas.Text = "Oglas";
+            // 
+            // cbOglas
+            // 
+            this.cbOglas.FormattingEnabled = true;
+            this.cbOglas.Location = new System.Drawing.Point(195, 398);
+            this.cbOglas.Name = "cbOglas";
+            this.cbOglas.Size = new System.Drawing.Size(246, 21);
+            this.cbOglas.TabIndex = 16;
+            // 
+            // errorProvider1
+            // 
+            this.errorProvider1.ContainerControl = this;
             // 
             // DodajCVforma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(515, 548);
+            this.ClientSize = new System.Drawing.Size(494, 605);
+            this.Controls.Add(this.cbOglas);
+            this.Controls.Add(this.labeOglas);
             this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnOcisti);
             this.Controls.Add(this.btnDodaj);
@@ -197,6 +229,8 @@
             this.Controls.Add(this.tbIme);
             this.Name = "DodajCVforma";
             this.Text = "DodajCVforma";
+            this.Load += new System.EventHandler(this.DodajCVforma_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -219,5 +253,8 @@
         private System.Windows.Forms.Button btnDodaj;
         private System.Windows.Forms.Button btnOcisti;
         private System.Windows.Forms.Button btnNazad;
+        private System.Windows.Forms.Label labeOglas;
+        private System.Windows.Forms.ComboBox cbOglas;
+        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }
