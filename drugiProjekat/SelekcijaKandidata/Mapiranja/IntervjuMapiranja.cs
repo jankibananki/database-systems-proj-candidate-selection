@@ -23,7 +23,7 @@ namespace SelekcijaKandidata.Mapiranja
                 .LazyLoad();
 
             HasMany(x => x.Napomene)
-                .KeyColumn("ID_INTERVJUA")
+                .KeyColumn("ID")
                 .Inverse()
                 .Cascade.All()
                 .LazyLoad();

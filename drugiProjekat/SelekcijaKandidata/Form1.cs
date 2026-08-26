@@ -25,5 +25,13 @@ namespace SelekcijaKandidata
             this.Hide();
             forma.Show();
         }
+
+        private void btnIntervju_Click(object sender, EventArgs e)
+        {
+            IntervjuForma forma = new IntervjuForma();
+
+            this.Hide();
+            forma.Show();
+        }
     }
 }

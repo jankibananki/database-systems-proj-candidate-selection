@@ -94,11 +94,29 @@
     <Compile Include="Forme\DodajCVforma.Designer.cs">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forme\DodajIntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\DodajIntervjuForma.Designer.cs">
+      <DependentUpon>DodajIntervjuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IntervjuForma.Designer.cs">
+      <DependentUpon>IntervjuForma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forme\IzmeniCVforma.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forme\IzmeniCVforma.Designer.cs">
       <DependentUpon>IzmeniCVforma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IzmeniIntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniIntervjuForma.Designer.cs">
+      <DependentUpon>IzmeniIntervjuForma.cs</DependentUpon>
     </Compile>
     <Compile Include="Mapiranja\CVMapiranja.cs" />
     <Compile Include="Mapiranja\IntervjuMapiranja.cs" />
@@ -122,8 +140,17 @@
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forme\DodajIntervjuForma.resx">
+      <DependentUpon>DodajIntervjuForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IntervjuForma.resx">
+      <DependentUpon>IntervjuForma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniCVforma.resx">
       <DependentUpon>IzmeniCVforma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniIntervjuForma.resx">
+      <DependentUpon>IzmeniIntervjuForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

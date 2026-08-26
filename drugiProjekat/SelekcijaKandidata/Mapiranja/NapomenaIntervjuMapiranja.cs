@@ -10,7 +10,7 @@ namespace SelekcijaKandidata.Mapiranja
             Table("NAPOMENA_INTERVJU");
 
             CompositeId(x => x.Id)
-                .KeyReference(x => x.Intervju, "ID_INTERVJUA")
+                .KeyReference(x => x.Intervju, "ID")
                 .KeyProperty(x => x.Napomena, "NAPOMENA");
         }
     }
