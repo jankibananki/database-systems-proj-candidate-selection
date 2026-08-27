@@ -10,7 +10,7 @@ namespace SelekcijaKandidata.Mapiranja
             Table("INTERVJU");
             Id(x => x.Id, "ID").GeneratedBy.Increment();
             Map(x => x.Tip, "TIP");
-            Map(x => x.DatumVreme, "DATUM_VREME");
+            Map(x => x.DatumVreme, "DATUM_I_VREME");
             Map(x => x.Lokacija, "LOKACIJA");
             Map(x => x.Ocena, "OCENA");
 
@@ -23,7 +23,7 @@ namespace SelekcijaKandidata.Mapiranja
                 .LazyLoad();
 
             HasMany(x => x.Napomene)
-                .KeyColumn("ID_INTERVJUA")
+                .KeyColumn("ID")
                 .Inverse()
                 .Cascade.All()
                 .LazyLoad();

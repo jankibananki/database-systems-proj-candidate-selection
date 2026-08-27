@@ -54,6 +54,7 @@
             this.btnIntervju.TabIndex = 1;
             this.btnIntervju.Text = "Intervjui";
             this.btnIntervju.UseVisualStyleBackColor = true;
+            this.btnIntervju.Click += new System.EventHandler(this.btnIntervju_Click);
             // 
             // btnOdluka
             // 

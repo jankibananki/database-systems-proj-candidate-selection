@@ -42,5 +42,10 @@ namespace SelekcijaKandidata.Forme
                 MessageBox.Show(ec.Message);
             }
         }
+
+        private void btnDodajOglas_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

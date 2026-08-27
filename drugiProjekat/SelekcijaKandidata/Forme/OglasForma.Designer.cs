@@ -82,6 +82,7 @@
             this.btnDodajOglas.TabIndex = 8;
             this.btnDodajOglas.Text = "Dodaj oglas";
             this.btnDodajOglas.UseVisualStyleBackColor = true;
+            this.btnDodajOglas.Click += new System.EventHandler(this.btnDodajOglas_Click);
             // 
             // labeldgvCV
             // 

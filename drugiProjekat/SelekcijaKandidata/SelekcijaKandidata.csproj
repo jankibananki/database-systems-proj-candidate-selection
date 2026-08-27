@@ -62,6 +62,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataLayer.cs" />
+    <Compile Include="DTO.cs" />
+    <Compile Include="DTOManager.cs" />
     <Compile Include="Entiteti\CV.cs" />
     <Compile Include="Entiteti\Intervju.cs" />
     <Compile Include="Entiteti\NapomenaIntervju.cs" />
@@ -129,6 +131,29 @@
     </Compile>
     <Compile Include="Forme\OglasForma.Designer.cs">
       <DependentUpon>OglasForma.cs</DependentUpon>
+    <Compile Include="Forme\DodajIntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\DodajIntervjuForma.Designer.cs">
+      <DependentUpon>DodajIntervjuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IntervjuForma.Designer.cs">
+      <DependentUpon>IntervjuForma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IzmeniCVforma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniCVforma.Designer.cs">
+      <DependentUpon>IzmeniCVforma.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forme\IzmeniIntervjuForma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forme\IzmeniIntervjuForma.Designer.cs">
+      <DependentUpon>IzmeniIntervjuForma.cs</DependentUpon>
     </Compile>
     <Compile Include="Mapiranja\CVMapiranja.cs" />
     <Compile Include="Mapiranja\IntervjuMapiranja.cs" />
@@ -152,6 +177,7 @@
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </EmbeddedResource>
+<<<<<<< HEAD
     <EmbeddedResource Include="Forme\DodajOdlukuForma.resx">
       <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
@@ -163,6 +189,19 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OglasForma.resx">
       <DependentUpon>OglasForma.cs</DependentUpon>
+=======
+    <EmbeddedResource Include="Forme\DodajIntervjuForma.resx">
+      <DependentUpon>DodajIntervjuForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IntervjuForma.resx">
+      <DependentUpon>IntervjuForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniCVforma.resx">
+      <DependentUpon>IzmeniCVforma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniIntervjuForma.resx">
+      <DependentUpon>IzmeniIntervjuForma.cs</DependentUpon>
+>>>>>>> origin/cvforme
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

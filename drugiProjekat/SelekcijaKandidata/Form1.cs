@@ -37,5 +37,13 @@ namespace SelekcijaKandidata
             OdlukaForma forma = new OdlukaForma();
             forma.ShowDialog();
         }
+        
+        private void btnIntervju_Click(object sender, EventArgs e)
+        {
+            IntervjuForma forma = new IntervjuForma();
+
+            this.Hide();
+            forma.Show();
+        }
     }
 }
