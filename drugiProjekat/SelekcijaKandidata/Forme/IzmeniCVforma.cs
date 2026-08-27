@@ -31,31 +31,19 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                ISession s = DataLayer.GetSession();
-                ITransaction tr = s.BeginTransaction();
-
-                CV cv = s.Get<CV>(cvId);
-
-                if (cv == null)
+                CVBasic cv = new CVBasic
                 {
-                    MessageBox.Show("CV nije pronađen.");
-                    tr.Rollback();
-                    s.Close();
-                    return;
-                }
+                    Id = cvId,
+                    Ime = tbIme.Text.Trim(),
+                    Prezime = tbPrezime.Text.Trim(),
+                    Email = tbEmail.Text.Trim(),
+                    DatumPodnosenja = dtpDatumPodnosenja.Value.Date,
+                    Status = cbStatus.Text,
+                    BrojTelefona = tbBrojTelefona.Text.Trim(),
+                    IdOglasa = Convert.ToInt32(cbOglas.SelectedValue)
+                };
 
-                cv.Ime = tbIme.Text.Trim();
-                cv.Prezime = tbPrezime.Text.Trim();
-                cv.Email = tbEmail.Text.Trim();
-                cv.DatumPodnosenja = dtpDatumPodnosenja.Value.Date;
-                cv.Status = cbStatus.SelectedItem.ToString();
-                cv.BrojTelefona = tbBrojTelefona.Text.Trim();
-
-                int idOglasa = Convert.ToInt32(cbOglas.SelectedValue);
-                cv.Oglas = s.Get<Oglas>(idOglasa);
-
-                tr.Commit();
-                s.Close();
+                DTOManager.IzmeniCV(cv);
 
                 MessageBox.Show("CV je uspešno izmenjen.");
 
@@ -119,17 +107,9 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                IList<Oglas> oglasi = s.QueryOver<Oglas>()
-                                       .OrderBy(x => x.Id).Asc
-                                       .List<Oglas>();
-
+                cbOglas.DataSource = DTOManager.VratiOglase();
                 cbOglas.DisplayMember = "NazivPozicije";
                 cbOglas.ValueMember = "Id";
-                cbOglas.DataSource = oglasi;
-
-                s.Close();
             }
             catch (Exception ex)
             {
@@ -218,14 +198,11 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                CV cv = s.Get<CV>(cvId);
+                CVBasic cv = DTOManager.VratiCV(cvId);
 
                 if (cv == null)
                 {
                     MessageBox.Show("CV nije pronađen.");
-                    s.Close();
                     return;
                 }
 
@@ -235,12 +212,8 @@ namespace SelekcijaKandidata.Forme
                 tbBrojTelefona.Text = cv.BrojTelefona;
 
                 dtpDatumPodnosenja.Value = cv.DatumPodnosenja;
-
                 cbStatus.SelectedItem = cv.Status;
-
-                cbOglas.SelectedValue = cv.Oglas.Id;
-
-                s.Close();
+                cbOglas.SelectedValue = cv.IdOglasa;
             }
             catch (Exception ex)
             {

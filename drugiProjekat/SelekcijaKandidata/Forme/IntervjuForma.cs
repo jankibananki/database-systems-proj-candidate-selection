@@ -46,25 +46,8 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    Intervju intervju = s.Get<Intervju>(idIntervjua);
-
-                    if (intervju == null)
-                    {
-                        dgvNapomene.DataSource = null;
-                        return;
-                    }
-
-                    var napomene = intervju.Napomene
-                        .Select(n => new
-                        {
-                            Napomena = n.Id.Napomena
-                        })
-                        .ToList();
-
-                    dgvNapomene.DataSource = napomene;
-                }
+                dgvNapomene.DataSource =
+                    DTOManager.VratiNapomeneIntervjua(idIntervjua);
             }
             catch (Exception ex)
             {
@@ -82,25 +65,8 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<Intervju> intervjui = s.QueryOver<Intervju>()
-                                                 .OrderBy(x => x.Id).Asc
-                                                 .List<Intervju>();
-
-                    var prikaz = intervjui.Select(i => new
-                    {
-                        Id = i.Id,
-                        Kandidat = i.CV.Ime + " " + i.CV.Prezime,
-                        DatumIVreme = i.DatumVreme,
-                        Tip = i.Tip,
-                        Lokacija = i.Lokacija,
-                        Zaposleni = i.Zaposleni.Ime + " " + i.Zaposleni.Prezime,
-                        Ocena = i.Ocena
-                    }).ToList();
-
-                    dgvIntervju.DataSource = prikaz;
-                }
+                dgvIntervju.DataSource =
+                    DTOManager.VratiSveIntervjue();
             }
             catch (Exception ex)
             {
@@ -159,28 +125,14 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
-                {
-                    Intervju intervju = s.Get<Intervju>(idIntervjua);
-
-                    if (intervju == null)
-                        return;
-
-                    foreach (NapomenaIntervju napomena in intervju.Napomene.ToList())
-                    {
-                        s.Delete(napomena);
-                    }
-
-                    s.Delete(intervju);
-
-                    tr.Commit();
-                }
+                DTOManager.ObrisiIntervju(idIntervjua);
 
                 MessageBox.Show("Intervju je uspešno obrisan.");
 
                 UcitajIntervjue();
                 dgvNapomene.DataSource = null;
+                tbNapomena.Clear();
+                staraNapomena = null;
             }
             catch (Exception ex)
             {
@@ -247,28 +199,25 @@ namespace SelekcijaKandidata.Forme
                 return;
             }
 
+            if (tekst.Length > 100)
+            {
+                MessageBox.Show("Napomena može imati najviše 100 karaktera.");
+                return;
+            }
+
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
-                {
-                    Intervju intervju = s.Load<Intervju>(idIntervjua.Value);
+                DTOManager.DodajNapomenu(
+                    idIntervjua.Value,
+                    tekst
+                );
 
-                    NapomenaIntervju napomena = new NapomenaIntervju()
-                    {
-                        Id = new NapomenaIntervjuId()
-                        {
-                            Intervju = intervju,
-                            Napomena = tekst
-                        }
-                    };
-
-                    s.Save(napomena);
-                    tr.Commit();
-                }
+                MessageBox.Show("Napomena je uspešno dodata.");
 
                 UcitajNapomene(idIntervjua.Value);
+
                 tbNapomena.Clear();
+                staraNapomena = null;
             }
             catch (Exception ex)
             {
@@ -280,9 +229,15 @@ namespace SelekcijaKandidata.Forme
         {
             int? idIntervjua = VratiIdSelektovanogIntervjua();
 
-            if (idIntervjua == null || string.IsNullOrEmpty(staraNapomena))
+            if (idIntervjua == null)
             {
-                MessageBox.Show("Izaberite napomenu.");
+                MessageBox.Show("Izaberite intervju.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(staraNapomena))
+            {
+                MessageBox.Show("Izaberite napomenu koju želite da izmenite.");
                 return;
             }
 
@@ -294,41 +249,24 @@ namespace SelekcijaKandidata.Forme
                 return;
             }
 
+            if (novaNapomena.Length > 100)
+            {
+                MessageBox.Show("Napomena može imati najviše 100 karaktera.");
+                return;
+            }
+
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
-                {
-                    Intervju intervju = s.Load<Intervju>(idIntervjua.Value);
+                DTOManager.IzmeniNapomenu(
+                    idIntervjua.Value,
+                    staraNapomena,
+                    novaNapomena
+                );
 
-                    NapomenaIntervjuId stariId = new NapomenaIntervjuId()
-                    {
-                        Intervju = intervju,
-                        Napomena = staraNapomena
-                    };
-
-                    NapomenaIntervju stara = s.Get<NapomenaIntervju>(stariId);
-
-                    if (stara == null)
-                        return;
-
-                    s.Delete(stara);
-                    s.Flush();
-
-                    NapomenaIntervju nova = new NapomenaIntervju()
-                    {
-                        Id = new NapomenaIntervjuId()
-                        {
-                            Intervju = intervju,
-                            Napomena = novaNapomena
-                        }
-                    };
-
-                    s.Save(nova);
-                    tr.Commit();
-                }
+                MessageBox.Show("Napomena je uspešno izmenjena.");
 
                 UcitajNapomene(idIntervjua.Value);
+
                 tbNapomena.Clear();
                 staraNapomena = null;
             }
@@ -342,15 +280,21 @@ namespace SelekcijaKandidata.Forme
         {
             int? idIntervjua = VratiIdSelektovanogIntervjua();
 
-            if (idIntervjua == null || string.IsNullOrEmpty(staraNapomena))
+            if (idIntervjua == null)
             {
-                MessageBox.Show("Izaberite napomenu.");
+                MessageBox.Show("Izaberite intervju.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(staraNapomena))
+            {
+                MessageBox.Show("Izaberite napomenu koju želite da obrišete.");
                 return;
             }
 
             DialogResult rezultat = MessageBox.Show(
                 "Da li ste sigurni da želite da obrišete napomenu?",
-                "Potvrda",
+                "Potvrda brisanja",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -360,26 +304,15 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
-                {
-                    Intervju intervju = s.Load<Intervju>(idIntervjua.Value);
+                DTOManager.ObrisiNapomenu(
+                    idIntervjua.Value,
+                    staraNapomena
+                );
 
-                    NapomenaIntervjuId id = new NapomenaIntervjuId()
-                    {
-                        Intervju = intervju,
-                        Napomena = staraNapomena
-                    };
-
-                    NapomenaIntervju napomena = s.Get<NapomenaIntervju>(id);
-
-                    if (napomena != null)
-                        s.Delete(napomena);
-
-                    tr.Commit();
-                }
+                MessageBox.Show("Napomena je uspešno obrisana.");
 
                 UcitajNapomene(idIntervjua.Value);
+
                 tbNapomena.Clear();
                 staraNapomena = null;
             }

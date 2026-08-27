@@ -1,6 +1,4 @@
-﻿using NHibernate;
-using NHibernate.Linq;
-using SelekcijaKandidata.Entiteti;
+﻿using SelekcijaKandidata.Entiteti;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -32,19 +30,11 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                IList<CV> cvjevi = s.QueryOver<CV>()
-                                    .OrderBy(x => x.Id).Asc
-                                    .List<CV>();
-
-                dgvCV.DataSource = cvjevi;
-
-                s.Close();
+                dgvCV.DataSource = DTOManager.VratiSveCV();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.Message);
             }
         }
         public void OsveziCV()
@@ -68,9 +58,12 @@ namespace SelekcijaKandidata.Forme
                 return;
             }
 
-            CV izabraniCV = (CV)dgvCV.SelectedRows[0].DataBoundItem;
+            int id = Convert.ToInt32(
+                dgvCV.SelectedRows[0].Cells["colId"].Value
+            );
 
-            IzmeniCVforma forma = new IzmeniCVforma(this, izabraniCV.Id);
+            IzmeniCVforma forma =
+                new IzmeniCVforma(this, id);
 
             this.Hide();
             forma.Show();
@@ -84,11 +77,13 @@ namespace SelekcijaKandidata.Forme
                 return;
             }
 
-            CV izabraniCV = (CV)dgvCV.SelectedRows[0].DataBoundItem;
+            int id = Convert.ToInt32(
+                dgvCV.SelectedRows[0].Cells["colId"].Value
+            );
 
             DialogResult rezultat = MessageBox.Show(
-                "Da li ste sigurni da želite da obrišete izabrani CV?",
-                "Potvrda brisanja",
+                "Da li ste sigurni da želite da obrišete CV?",
+                "Potvrda",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
             );
@@ -98,49 +93,10 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
-                {
-                    CV cv = s.Get<CV>(izabraniCV.Id);
-
-                    if (cv == null)
-                    {
-                        MessageBox.Show("CV nije pronađen.");
-                        return;
-                    }
-
-                    foreach (Intervju intervju in cv.Intervjui.ToList())
-                    {
-                        foreach (NapomenaIntervju napomena in intervju.Napomene.ToList())
-                        {
-                            s.Delete(napomena);
-                        }
-
-                        s.Delete(intervju);
-                    }
-
-                    foreach (Test test in cv.Testovi.ToList())
-                    {
-                        s.Delete(test);
-                    }
-
-                    Odluka odluka = s.QueryOver<Odluka>()
-                     .Where(x => x.CV.Id == cv.Id)
-                     .SingleOrDefault();
-
-                    if (odluka != null)
-                    {
-                        s.Delete(odluka);
-                    }
-
-                    s.Delete(cv);
-
-                    tr.Commit();
-                }
+                DTOManager.ObrisiCV(id);
+                UcitajCV();
 
                 MessageBox.Show("CV je uspešno obrisan.");
-
-                UcitajCV();
             }
             catch (Exception ex)
             {

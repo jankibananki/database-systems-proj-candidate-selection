@@ -49,17 +49,10 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                IList<Oglas> oglasi = s.QueryOver<Oglas>()
-                                       .OrderBy(x => x.Id).Asc
-                                       .List<Oglas>();
-
+                cbOglas.DataSource = DTOManager.VratiOglase();
                 cbOglas.DisplayMember = "NazivPozicije";
                 cbOglas.ValueMember = "Id";
-                cbOglas.DataSource = oglasi;
-
-                s.Close();
+                cbOglas.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -148,28 +141,22 @@ namespace SelekcijaKandidata.Forme
         private void btnDodaj_Click(object sender, EventArgs e)
         {
             if (!Validacija())
-            { return; }
+                return;
 
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                Oglas izabraniOglas = (Oglas)cbOglas.SelectedItem;
-
-                CV noviCV = new CV()
+                CVBasic cv = new CVBasic
                 {
                     Ime = tbIme.Text.Trim(),
                     Prezime = tbPrezime.Text.Trim(),
                     Email = tbEmail.Text.Trim(),
                     DatumPodnosenja = dtpDatumPodnosenja.Value.Date,
-                    Status=cbStatus.SelectedItem.ToString(),
-                    BrojTelefona=tbBrojTelefona.Text.Trim(),
-                    Oglas=izabraniOglas
+                    Status = cbStatus.Text,
+                    BrojTelefona = tbBrojTelefona.Text.Trim(),
+                    IdOglasa = Convert.ToInt32(cbOglas.SelectedValue)
                 };
 
-                s.Save(noviCV);
-                s.Flush();
-                s.Close();
+                DTOManager.DodajCV(cv);
 
                 MessageBox.Show("CV je uspešno dodat.");
 

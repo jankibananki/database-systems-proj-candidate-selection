@@ -46,23 +46,9 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<CV> kandidati = s.QueryOver<CV>()
-                                           .OrderBy(x => x.Id).Asc
-                                           .List<CV>();
-
-                    cbKandidat.ValueMember = "Id";
-                    cbKandidat.DataSource = kandidati;
-
-                    cbKandidat.Format += (sender, e) =>
-                    {
-                        CV cv = e.ListItem as CV;
-
-                        if (cv != null)
-                            e.Value = cv.Ime + " " + cv.Prezime;
-                    };
-                }
+                cbKandidat.DataSource = DTOManager.VratiKandidate();
+                cbKandidat.DisplayMember = "Kandidat";
+                cbKandidat.ValueMember = "Id";
             }
             catch (Exception ex)
             {
@@ -74,23 +60,9 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<Zaposleni> zaposleni = s.QueryOver<Zaposleni>()
-                                                  .OrderBy(x => x.Id).Asc
-                                                  .List<Zaposleni>();
-
-                    cbZaposleni.ValueMember = "Id";
-                    cbZaposleni.DataSource = zaposleni;
-
-                    cbZaposleni.Format += (sender, e) =>
-                    {
-                        Zaposleni z = e.ListItem as Zaposleni;
-
-                        if (z != null)
-                            e.Value = z.Ime + " " + z.Prezime;
-                    };
-                }
+                cbZaposleni.DataSource = DTOManager.VratiZaposlene();
+                cbZaposleni.DisplayMember = "Zaposleni";
+                cbZaposleni.ValueMember = "Id";
             }
             catch (Exception ex)
             {
@@ -102,28 +74,25 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
+                IntervjuBasic intervju =
+                    DTOManager.VratiIntervju(intervjuId);
+
+                if (intervju == null)
                 {
-                    Intervju intervju = s.Get<Intervju>(intervjuId);
-
-                    if (intervju == null)
-                    {
-                        MessageBox.Show("Intervju nije pronađen.");
-                        return;
-                    }
-
-                    dtpDatumIVreme.Value = intervju.DatumVreme;
-                    cbTip.SelectedItem = intervju.Tip;
-                    tbLokacija.Text = intervju.Lokacija;
-
-                    if (intervju.Ocena.HasValue)
-                        tbOcena.Text = intervju.Ocena.Value.ToString();
-                    else
-                        tbOcena.Clear();
-
-                    cbKandidat.SelectedValue = intervju.CV.Id;
-                    cbZaposleni.SelectedValue = intervju.Zaposleni.Id;
+                    MessageBox.Show("Intervju nije pronađen.");
+                    return;
                 }
+
+                cbKandidat.SelectedValue = intervju.IdCV;
+                dtpDatumIVreme.Value = intervju.DatumVreme;
+                cbTip.SelectedItem = intervju.Tip;
+                tbLokacija.Text = intervju.Lokacija;
+                cbZaposleni.SelectedValue = intervju.IdZaposlenog;
+
+                if (intervju.Ocena.HasValue)
+                    tbOcena.Text = intervju.Ocena.Value.ToString();
+                else
+                    tbOcena.Clear();
             }
             catch (Exception ex)
             {
@@ -196,34 +165,20 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
+                IntervjuBasic intervju = new IntervjuBasic
                 {
-                    Intervju intervju = s.Get<Intervju>(intervjuId);
+                    Id = intervjuId,
+                    IdCV = Convert.ToInt32(cbKandidat.SelectedValue),
+                    DatumVreme = dtpDatumIVreme.Value,
+                    Tip = cbTip.SelectedItem.ToString(),
+                    Lokacija = tbLokacija.Text.Trim(),
+                    IdZaposlenog = Convert.ToInt32(cbZaposleni.SelectedValue),
+                    Ocena = string.IsNullOrWhiteSpace(tbOcena.Text)
+                        ? (int?)null
+                        : int.Parse(tbOcena.Text)
+                };
 
-                    if (intervju == null)
-                    {
-                        MessageBox.Show("Intervju nije pronađen.");
-                        return;
-                    }
-
-                    int idCV = Convert.ToInt32(cbKandidat.SelectedValue);
-                    int idZaposlenog = Convert.ToInt32(cbZaposleni.SelectedValue);
-
-                    intervju.CV = s.Get<CV>(idCV);
-                    intervju.Zaposleni = s.Get<Zaposleni>(idZaposlenog);
-
-                    intervju.DatumVreme = dtpDatumIVreme.Value;
-                    intervju.Tip = cbTip.SelectedItem.ToString();
-                    intervju.Lokacija = tbLokacija.Text.Trim();
-
-                    if (string.IsNullOrWhiteSpace(tbOcena.Text))
-                        intervju.Ocena = null;
-                    else
-                        intervju.Ocena = int.Parse(tbOcena.Text);
-
-                    tr.Commit();
-                }
+                DTOManager.IzmeniIntervju(intervju);
 
                 MessageBox.Show("Intervju je uspešno izmenjen.");
 

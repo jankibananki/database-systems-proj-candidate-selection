@@ -46,22 +46,10 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<CV> kandidati = s.QueryOver<CV>()
-                                           .OrderBy(x => x.Id).Asc
-                                           .List<CV>();
-
-                    cbKandidat.DataSource = kandidati;
-
-                    cbKandidat.Format += (sender, e) =>
-                    {
-                        CV cv = e.ListItem as CV;
-
-                        if (cv != null)
-                            e.Value = cv.Ime + " " + cv.Prezime;
-                    };
-                }
+                cbKandidat.DataSource = DTOManager.VratiKandidate();
+                cbKandidat.DisplayMember = "Kandidat";
+                cbKandidat.ValueMember = "Id";
+                cbKandidat.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -73,22 +61,10 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<Zaposleni> zaposleni = s.QueryOver<Zaposleni>()
-                                                  .OrderBy(x => x.Id).Asc
-                                                  .List<Zaposleni>();
-
-                    cbZaposleni.DataSource = zaposleni;
-
-                    cbZaposleni.Format += (sender, e) =>
-                    {
-                        Zaposleni z = e.ListItem as Zaposleni;
-
-                        if (z != null)
-                            e.Value = z.Ime + " " + z.Prezime;
-                    };
-                }
+                cbZaposleni.DataSource = DTOManager.VratiZaposlene();
+                cbZaposleni.DisplayMember = "Zaposleni";
+                cbZaposleni.ValueMember = "Id";
+                cbZaposleni.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -185,30 +161,19 @@ namespace SelekcijaKandidata.Forme
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tr = s.BeginTransaction())
+                IntervjuBasic intervju = new IntervjuBasic
                 {
-                    CV kandidat = (CV)cbKandidat.SelectedItem;
-                    Zaposleni zaposleni = (Zaposleni)cbZaposleni.SelectedItem;
+                    IdCV = Convert.ToInt32(cbKandidat.SelectedValue),
+                    DatumVreme = dtpDatumIVreme.Value,
+                    Tip = cbTip.SelectedItem.ToString(),
+                    Lokacija = tbLokacija.Text.Trim(),
+                    IdZaposlenog = Convert.ToInt32(cbZaposleni.SelectedValue),
+                    Ocena = string.IsNullOrWhiteSpace(tbOcena.Text)
+                        ? (int?)null
+                        : int.Parse(tbOcena.Text)
+                };
 
-                    Intervju intervju = new Intervju()
-                    {
-                        Tip = cbTip.SelectedItem.ToString(),
-                        DatumVreme = dtpDatumIVreme.Value,
-                        Lokacija = tbLokacija.Text.Trim(),
-                        CV = s.Get<CV>(kandidat.Id),
-                        Zaposleni = s.Get<Zaposleni>(zaposleni.Id)
-                    };
-
-                    if (string.IsNullOrWhiteSpace(tbOcena.Text))
-                        intervju.Ocena = null;
-                    else
-                        intervju.Ocena = int.Parse(tbOcena.Text);
-
-                    s.Save(intervju);
-
-                    tr.Commit();
-                }
+                DTOManager.DodajIntervju(intervju);
 
                 MessageBox.Show("Intervju je uspešno dodat.");
 
