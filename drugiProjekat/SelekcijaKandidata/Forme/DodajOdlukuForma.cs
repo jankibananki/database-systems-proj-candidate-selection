@@ -10,7 +10,6 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
             UcitajCV();
-            PopuniStatuse();
         }
 
         private void UcitajCV()
@@ -26,12 +25,6 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
-        }
-
-        private void PopuniStatuse()
-        {
-            cbStatus.Items.Clear();
-            cbStatus.Items.AddRange(new object[] { "izabran", "odbijen", "rezerva", "na cekanju" });
         }
 
         private void btnDodaj_Click(object sender, EventArgs e)

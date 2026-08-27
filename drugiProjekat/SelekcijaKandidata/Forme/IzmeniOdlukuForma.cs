@@ -1,12 +1,4 @@
-﻿using SelekcijaKandidata.Entiteti;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace SelekcijaKandidata.Forme
@@ -23,14 +15,7 @@ namespace SelekcijaKandidata.Forme
 
         private void IzmeniOdlukuForma_Load(object sender, EventArgs e)
         {
-            PopuniStatuse();
             UcitajPodatke();
-        }
-
-        private void PopuniStatuse()
-        {
-            cbStatus.Items.Clear();
-            cbStatus.Items.AddRange(new object[] { "izabran", "odbijen", "rezerva", "na cekanju" });
         }
 
         private void UcitajPodatke()

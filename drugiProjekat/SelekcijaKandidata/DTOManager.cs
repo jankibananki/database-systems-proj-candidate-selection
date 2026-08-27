@@ -729,21 +729,18 @@ namespace SelekcijaKandidata
                 Oglas o = session.Get<Oglas>(id)
                     ?? throw new Exception("Oglas nije pronadjen.");
 
-                // 1. Obrisi zahteve oglasa
                 var zahtevi = session.Query<ZahtevOglas>()
                     .Where(z => z.Id.Oglas.Id == id)
                     .ToList();
                 foreach (var z in zahtevi)
                     session.Delete(z);
 
-                // 2. Nadji sve CV-jeve povezane sa ovim oglasom
                 var cvjevi = session.Query<CV>()
                     .Where(c => c.Oglas.Id == id)
                     .ToList();
 
                 foreach (var cv in cvjevi)
                 {
-                    // 2a. Obrisi napomene intervjua, pa intervjue
                     var intervjui = session.Query<Intervju>()
                         .Where(i => i.CV.Id == cv.Id)
                         .ToList();
@@ -758,24 +755,20 @@ namespace SelekcijaKandidata
                         session.Delete(i);
                     }
 
-                    // 2b. Obrisi testove
                     var testovi = session.Query<Test>()
                         .Where(t => t.CV.Id == cv.Id)
                         .ToList();
                     foreach (var t in testovi)
                         session.Delete(t);
 
-                    // 2c. Obrisi odluku (ako postoji)
                     var odluka = session.Query<Odluka>()
                         .FirstOrDefault(od => od.CV.Id == cv.Id);
                     if (odluka != null)
                         session.Delete(odluka);
 
-                    // 2d. Tek sad obrisi sam CV
                     session.Delete(cv);
                 }
 
-                // 3. Na kraju obrisi sam oglas
                 session.Delete(o);
             });
         }
