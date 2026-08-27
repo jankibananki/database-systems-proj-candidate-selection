@@ -118,18 +118,6 @@
     <Compile Include="Forme\IzmeniOglasForma.Designer.cs">
       <DependentUpon>IzmeniOglasForma.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forme\ObrisiOdlukuForma.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forme\ObrisiOdlukuForma.Designer.cs">
-      <DependentUpon>ObrisiOdlukuForma.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Forme\ObrisiOglasForma.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Forme\ObrisiOglasForma.Designer.cs">
-      <DependentUpon>ObrisiOglasForma.cs</DependentUpon>
-    </Compile>
     <Compile Include="Forme\OdlukaForma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +154,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\DodajOdlukuForma.resx">
       <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniOdlukuForma.resx">
+      <DependentUpon>IzmeniOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OdlukaForma.resx">
       <DependentUpon>OdlukaForma.cs</DependentUpon>
