@@ -68,6 +68,7 @@
             // 
             // cbStatus
             // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Items.AddRange(new object[] {
             "izabran",
@@ -169,6 +170,7 @@
             // 
             // cbCV
             // 
+            this.cbCV.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbCV.FormattingEnabled = true;
             this.cbCV.Location = new System.Drawing.Point(267, 159);
             this.cbCV.Name = "cbCV";

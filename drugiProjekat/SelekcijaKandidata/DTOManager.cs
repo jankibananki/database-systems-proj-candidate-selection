@@ -480,5 +480,84 @@ namespace SelekcijaKandidata
         }
 
         #endregion
+
+        #region Odluka
+
+        public static List<OdlukaBasic> VratiSveOdluke()
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                return session.Query<Odluka>()
+                    .ToList()
+                    .Select(o => new OdlukaBasic
+                    {
+                        Id = o.Id,
+                        Datum = o.Datum,
+                        PocetakRada = o.PocetakRada,
+                        Prihvaceno = o.Prihvaceno,
+                        Status = o.Status,
+                        Plata = o.Plata,
+                        RazlogOdbijanja = o.RazlogOdbijanja,
+                        IdCV = o.CV.Id,
+                        ImePrezimeKandidata = o.CV.Ime + " " + o.CV.Prezime
+                    })
+                    .OrderBy(o => o.Id)
+                    .ToList();
+            }
+        }
+
+        public static void DodajOdluku(OdlukaBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                CV cv = session.Get<CV>(dto.IdCV)
+                    ?? throw new Exception("CV nije pronadjen.");
+
+                if (session.Query<Odluka>().Any(o => o.CV.Id == dto.IdCV))
+                    throw new Exception("Ovaj CV vec ima donetu odluku.");
+
+                session.Save(new Odluka
+                {
+                    Datum = dto.Datum,
+                    PocetakRada = dto.PocetakRada,
+                    Prihvaceno = dto.Prihvaceno,
+                    Status = dto.Status,
+                    Plata = dto.Plata,
+                    RazlogOdbijanja = dto.RazlogOdbijanja,
+                    CV = cv
+                });
+            });
+        }
+
+        public static void IzmeniOdluku(OdlukaBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Odluka o = session.Get<Odluka>(dto.Id)
+                    ?? throw new Exception("Odluka nije pronadjena.");
+
+                o.Datum = dto.Datum;
+                o.PocetakRada = dto.PocetakRada;
+                o.Prihvaceno = dto.Prihvaceno;
+                o.Status = dto.Status;
+                o.Plata = dto.Plata;
+                o.RazlogOdbijanja = dto.RazlogOdbijanja;
+
+                session.Update(o);
+            });
+        }
+
+        public static void ObrisiOdluku(int id)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Odluka o = session.Get<Odluka>(id)
+                    ?? throw new Exception("Odluka nije pronadjena.");
+                session.Delete(o);
+            });
+        }
+
+        #endregion
+
     }
 }

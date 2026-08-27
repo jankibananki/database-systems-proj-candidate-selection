@@ -1,14 +1,5 @@
-﻿using NHibernate;
-using NHibernate.Linq;
-using SelekcijaKandidata.Entiteti;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SelekcijaKandidata.Forme
@@ -26,18 +17,14 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                var cvjevi = s.Query<CV>().ToList();
-
+                var cvjevi = DTOManager.VratiSveCV();
                 cbCV.DataSource = cvjevi;
                 cbCV.DisplayMember = "Id";
-
-                s.Close();
+                cbCV.ValueMember = "Id";
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -49,38 +36,57 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
+            if (cbCV.SelectedItem == null)
+            {
+                MessageBox.Show("Izaberite CV.");
+                return;
+            }
+            if (cbStatus.SelectedItem == null)
+            {
+                MessageBox.Show("Izaberite status.");
+                return;
+            }
+            if (!cbPrihvaceno.Checked && string.IsNullOrWhiteSpace(tbRazlogOdbijanja.Text))
+            {
+                MessageBox.Show("Unesite razlog odbijanja.");
+                return;
+            }
             try
             {
-                ISession s = DataLayer.GetSession();
+                var izabraniCv = (CVPregled)cbCV.SelectedItem;
 
-                Odluka novaOdluka = new Odluka()
+                var dto = new OdlukaBasic
                 {
                     Datum = dtpDatum.Value.Date,
-                    PocetakRada = dtpPocetakRada.Value.Date,
+                    PocetakRada = cbPrihvaceno.Checked ? dtpPocetakRada.Value.Date : (DateTime?)null,
                     Prihvaceno = cbPrihvaceno.Checked ? 1 : 0,
-                    Status = cbStatus.SelectedItem?.ToString(),
+                    Status = cbStatus.SelectedItem.ToString(),
                     Plata = nudPlata.Value,
-                    RazlogOdbijanja = tbRazlogOdbijanja.Text.Trim(),
-                    CV = (CV)cbCV.SelectedItem
+                    RazlogOdbijanja = cbPrihvaceno.Checked ? null : tbRazlogOdbijanja.Text.Trim(),
+                    IdCV = izabraniCv.Id
                 };
 
-                s.Save(novaOdluka);
-                s.Flush();
-                s.Close();
+                DTOManager.DodajOdluku(dto);
 
-                MessageBox.Show("Odluka je uspešno dodata.");
+                MessageBox.Show("Odluka je uspesno dodata.");
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnOcisti_Click(object sender, EventArgs e)
         {
-
+            dtpDatum.Value = DateTime.Today;
+            dtpPocetakRada.Value = DateTime.Today;
+            cbStatus.SelectedIndex = -1;
+            nudPlata.Value = 0;
+            tbRazlogOdbijanja.Clear();
+            cbPrihvaceno.Checked = false;
+            cbCV.SelectedIndex = -1;
         }
     }
 }

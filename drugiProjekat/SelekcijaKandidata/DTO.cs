@@ -74,4 +74,21 @@ namespace SelekcijaKandidata
         public int IdIntervjua { get; set; }
         public string Napomena { get; set; }
     }
+
+    #region Odluka
+
+    public class OdlukaBasic
+    {
+        public int Id { get; set; }
+        public DateTime Datum { get; set; }
+        public DateTime? PocetakRada { get; set; }
+        public int? Prihvaceno { get; set; }
+        public string Status { get; set; }
+        public decimal? Plata { get; set; }
+        public string RazlogOdbijanja { get; set; }
+        public int IdCV { get; set; }
+        public string ImePrezimeKandidata { get; set; }
+    }
+
+    #endregion
 }

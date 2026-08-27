@@ -52,6 +52,7 @@
             this.btnObrisiOdluku.TabIndex = 17;
             this.btnObrisiOdluku.Text = "Obriši odluku";
             this.btnObrisiOdluku.UseVisualStyleBackColor = true;
+            this.btnObrisiOdluku.Click += new System.EventHandler(this.btnObrisiOdluku_Click_1);
             // 
             // btnIzmeniOdluku
             // 

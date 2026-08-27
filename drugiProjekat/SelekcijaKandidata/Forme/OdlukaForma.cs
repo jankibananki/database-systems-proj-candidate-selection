@@ -1,13 +1,4 @@
-﻿using NHibernate;
-using SelekcijaKandidata.Entiteti;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using System.Windows.Forms;
 
 namespace SelekcijaKandidata.Forme
@@ -18,6 +9,12 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
             dgvOdluke.AutoGenerateColumns = false;
+            dgvOdluke.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "colKandidat",
+                HeaderText = "Kandidat",
+                DataPropertyName = "ImePrezimeKandidata"
+            });
         }
 
         private void OdlukaForma_Load(object sender, EventArgs e)
@@ -29,13 +26,7 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                IList<Odluka> odluke = s.QueryOver<Odluka>().List<Odluka>();
-
-                dgvOdluke.DataSource = odluke;
-
-                s.Close();
+                dgvOdluke.DataSource = DTOManager.VratiSveOdluke();
             }
             catch (Exception ec)
             {
@@ -48,6 +39,36 @@ namespace SelekcijaKandidata.Forme
             var forma = new DodajOdlukuForma();
             if (forma.ShowDialog() == DialogResult.OK)
                 UcitajPodatke();
+        }
+
+        private void btnIzmeniOdluku_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void btnObrisiOdluku_Click_1(object sender, EventArgs e)
+        {
+            if (dgvOdluke.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selektujte odluku za brisanje.");
+                return;
+            }
+
+            var izabrana = (OdlukaBasic)dgvOdluke.SelectedRows[0].DataBoundItem;
+
+            if (MessageBox.Show($"Obrisati odluku (Id={izabrana.Id})?",
+                "Brisanje odluke", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            try
+            {
+                DTOManager.ObrisiOdluku(izabrana.Id);
+                UcitajPodatke();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

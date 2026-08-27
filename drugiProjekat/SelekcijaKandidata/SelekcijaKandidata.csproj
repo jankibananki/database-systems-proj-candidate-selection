@@ -131,6 +131,7 @@
     </Compile>
     <Compile Include="Forme\OglasForma.Designer.cs">
       <DependentUpon>OglasForma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forme\DodajIntervjuForma.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,7 +178,6 @@
     <EmbeddedResource Include="Forme\DodajCVforma.resx">
       <DependentUpon>DodajCVforma.cs</DependentUpon>
     </EmbeddedResource>
-<<<<<<< HEAD
     <EmbeddedResource Include="Forme\DodajOdlukuForma.resx">
       <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
@@ -189,7 +189,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OglasForma.resx">
       <DependentUpon>OglasForma.cs</DependentUpon>
-=======
+    </EmbeddedResource>
     <EmbeddedResource Include="Forme\DodajIntervjuForma.resx">
       <DependentUpon>DodajIntervjuForma.cs</DependentUpon>
     </EmbeddedResource>
@@ -201,7 +201,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniIntervjuForma.resx">
       <DependentUpon>IzmeniIntervjuForma.cs</DependentUpon>
->>>>>>> origin/cvforme
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
