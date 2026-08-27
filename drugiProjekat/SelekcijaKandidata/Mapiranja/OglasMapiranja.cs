@@ -45,12 +45,12 @@ namespace SelekcijaKandidata.Mapiranja
 
             HasMany(x => x.CVjevi)
                 .KeyColumn("ID_OGLASA")
-                .LazyLoad()
+                .Cascade.All()
                 .Inverse();
 
             HasMany(x => x.Zahtevi)
                 .KeyColumn("ID")
-                .LazyLoad()
+                .Cascade.All()
                 .Inverse();
         }
 

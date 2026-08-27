@@ -13,7 +13,6 @@ namespace SelekcijaKandidata.Mapiranja
         public PraksaMapiranja()
         {
             Table("PRAKSA");
-
             KeyColumn("ID");
 
             Map(x => x.TrajanjeMeseci)

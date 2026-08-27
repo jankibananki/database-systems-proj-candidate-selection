@@ -559,5 +559,227 @@ namespace SelekcijaKandidata
 
         #endregion
 
+        #region Oglasi
+
+        public static List<OglasPregled> VratiSveOglase()
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                return session.Query<Oglas>()
+                    .OrderBy(o => o.Id)
+                    .Select(o => new OglasPregled
+                    {
+                        Id = o.Id,
+                        NazivPozicije = o.NazivPozicije,
+                        VrstaOglasa = o.VrstaOglasa,
+                        Opis = o.Opis,
+                        MinPlata = o.MinPlata,
+                        MaxPlata = o.MaxPlata,
+                        DatumObjave = o.DatumObjave,
+                        DatumZatvaranja = o.DatumZatvaranja,
+                        Status = o.Status
+                    })
+                    .ToList();
+            }
+        }
+
+        public static PraksaBasic VratiPraksu(int id)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                Praksa p = session.Get<Praksa>(id);
+                if (p == null) return null;
+
+                return new PraksaBasic
+                {
+                    Id = p.Id,
+                    NazivPozicije = p.NazivPozicije,
+                    Opis = p.Opis,
+                    DatumObjave = p.DatumObjave,
+                    DatumZatvaranja = p.DatumZatvaranja,
+                    Status = p.Status,
+                    TrajanjeMeseci = p.TrajanjeMeseci,
+                    IdMentora = p.Mentor.Id,
+                    ImePrezimeMentora = p.Mentor.Ime + " " + p.Mentor.Prezime
+                };
+            }
+        }
+
+        public static void DodajPraksu(PraksaBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Zaposleni mentor = session.Get<Zaposleni>(dto.IdMentora)
+                    ?? throw new Exception("Mentor (zaposleni) nije pronadjen.");
+
+                Praksa p = new Praksa
+                {
+                    NazivPozicije = dto.NazivPozicije,
+                    VrstaOglasa = "praksa",
+                    Opis = dto.Opis,
+                    DatumObjave = dto.DatumObjave,
+                    DatumZatvaranja = dto.DatumZatvaranja,
+                    Status = dto.Status,
+                    TrajanjeMeseci = dto.TrajanjeMeseci,
+                    Mentor = mentor
+                };
+
+                session.Save(p);
+            });
+        }
+
+        public static PrivremeniOglasBasic VratiPrivremeniOglas(int id)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                PrivremeniOglas o = session.Get<PrivremeniOglas>(id);
+                if (o == null) return null;
+
+                return new PrivremeniOglasBasic
+                {
+                    Id = o.Id,
+                    NazivPozicije = o.NazivPozicije,
+                    Opis = o.Opis,
+                    DatumObjave = o.DatumObjave,
+                    DatumZatvaranja = o.DatumZatvaranja,
+                    Status = o.Status,
+                    Projekat = o.Projekat,
+                    PeriodAngazovanja = o.PeriodAngazovanja
+                };
+            }
+        }
+
+        public static void DodajPrivremeniOglas(PrivremeniOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                session.Save(new PrivremeniOglas
+                {
+                    NazivPozicije = dto.NazivPozicije,
+                    VrstaOglasa = "privremeni rad",
+                    Opis = dto.Opis,
+                    DatumObjave = dto.DatumObjave,
+                    DatumZatvaranja = dto.DatumZatvaranja,
+                    Status = dto.Status,
+                    Projekat = dto.Projekat,
+                    PeriodAngazovanja = dto.PeriodAngazovanja
+                });
+            });
+        }
+
+        public static SezonskiOglasBasic VratiSezonskiOglas(int id)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                SezonskiOglas o = session.Get<SezonskiOglas>(id);
+                if (o == null) return null;
+
+                return new SezonskiOglasBasic
+                {
+                    Id = o.Id,
+                    NazivPozicije = o.NazivPozicije,
+                    Opis = o.Opis,
+                    DatumObjave = o.DatumObjave,
+                    DatumZatvaranja = o.DatumZatvaranja,
+                    Status = o.Status,
+                    Sezona = o.Sezona,
+                    Lokacija = o.Lokacija
+                };
+            }
+        }
+
+        public static void DodajSezonskiOglas(SezonskiOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                session.Save(new SezonskiOglas
+                {
+                    NazivPozicije = dto.NazivPozicije,
+                    VrstaOglasa = "sezonski rad",
+                    Opis = dto.Opis,
+                    DatumObjave = dto.DatumObjave,
+                    DatumZatvaranja = dto.DatumZatvaranja,
+                    Status = dto.Status,
+                    Sezona = dto.Sezona,
+                    Lokacija = dto.Lokacija
+                });
+            });
+        }
+
+        public static void DodajStalniOglas(StalniOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                session.Save(new StalniOglas
+                {
+                    NazivPozicije = dto.NazivPozicije,
+                    VrstaOglasa = "stalni rad",
+                    Opis = dto.Opis,
+                    DatumObjave = dto.DatumObjave,
+                    DatumZatvaranja = dto.DatumZatvaranja,
+                    Status = dto.Status
+                });
+            });
+        }
+
+        public static void ObrisiOglas(int id)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Oglas o = session.Get<Oglas>(id)
+                    ?? throw new Exception("Oglas nije pronadjen.");
+
+                // 1. Obrisi zahteve oglasa
+                var zahtevi = session.Query<ZahtevOglas>()
+                    .Where(z => z.Id.Oglas.Id == id)
+                    .ToList();
+                foreach (var z in zahtevi)
+                    session.Delete(z);
+
+                // 2. Nadji sve CV-jeve povezane sa ovim oglasom
+                var cvjevi = session.Query<CV>()
+                    .Where(c => c.Oglas.Id == id)
+                    .ToList();
+
+                foreach (var cv in cvjevi)
+                {
+                    // 2a. Obrisi napomene intervjua, pa intervjue
+                    var intervjui = session.Query<Intervju>()
+                        .Where(i => i.CV.Id == cv.Id)
+                        .ToList();
+                    foreach (var i in intervjui)
+                    {
+                        var napomene = session.Query<NapomenaIntervju>()
+                            .Where(n => n.Id.Intervju.Id == i.Id)
+                            .ToList();
+                        foreach (var n in napomene)
+                            session.Delete(n);
+
+                        session.Delete(i);
+                    }
+
+                    // 2b. Obrisi testove
+                    var testovi = session.Query<Test>()
+                        .Where(t => t.CV.Id == cv.Id)
+                        .ToList();
+                    foreach (var t in testovi)
+                        session.Delete(t);
+
+                    // 2c. Obrisi odluku (ako postoji)
+                    var odluka = session.Query<Odluka>()
+                        .FirstOrDefault(od => od.CV.Id == cv.Id);
+                    if (odluka != null)
+                        session.Delete(odluka);
+
+                    // 2d. Tek sad obrisi sam CV
+                    session.Delete(cv);
+                }
+
+                // 3. Na kraju obrisi sam oglas
+                session.Delete(o);
+            });
+        }
+
+        #endregion
     }
 }

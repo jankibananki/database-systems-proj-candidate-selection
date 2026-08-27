@@ -3,7 +3,7 @@ using SelekcijaKandidata.Entiteti;
 
 namespace SelekcijaKandidata.Mapiranja
 {
-    internal class ZahteviOglasMapiranja : ClassMap<ZahtevOglas>
+    class ZahteviOglasMapiranja : ClassMap<ZahtevOglas>
     {
         public ZahteviOglasMapiranja()
         {

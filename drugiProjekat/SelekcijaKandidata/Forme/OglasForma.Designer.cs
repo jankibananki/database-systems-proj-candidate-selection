@@ -54,6 +54,7 @@
             this.btnObrisiOglas.TabIndex = 11;
             this.btnObrisiOglas.Text = "Obriši oglas";
             this.btnObrisiOglas.UseVisualStyleBackColor = true;
+            this.btnObrisiOglas.Click += new System.EventHandler(this.btnObrisiOglas_Click);
             // 
             // btnIzmeniOglas
             // 
@@ -63,6 +64,7 @@
             this.btnIzmeniOglas.TabIndex = 10;
             this.btnIzmeniOglas.Text = "Izmeni oglas";
             this.btnIzmeniOglas.UseVisualStyleBackColor = true;
+            this.btnIzmeniOglas.Click += new System.EventHandler(this.btnIzmeniOglas_Click);
             // 
             // labelOglas
             // 

@@ -29,13 +29,7 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                ISession s = DataLayer.GetSession();
-
-                IList<Oglas> oglasi = s.QueryOver<Oglas>().List<Oglas>();
-
-                dgvOglasi.DataSource = oglasi;
-
-                s.Close();
+                dgvOglasi.DataSource = DTOManager.VratiSveOglase(); 
             }
             catch (Exception ec)
             {
@@ -45,7 +39,49 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodajOglas_Click(object sender, EventArgs e)
         {
+            var forma = new DodajOglasForma();
+            if (forma.ShowDialog() == DialogResult.OK)
+                UcitajPodatke();
+        }
 
+        private void btnObrisiOglas_Click(object sender, EventArgs e)
+        {
+            if (dgvOglasi.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selektujte oglas za brisanje.");
+                return;
+            }
+
+            var izabran = (OglasPregled)dgvOglasi.SelectedRows[0].DataBoundItem;
+
+            if (MessageBox.Show($"Obrisati oglas (Id={izabran.Id})?",
+                "Brisanje oglasa", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
+            try
+            {
+                DTOManager.ObrisiOglas(izabran.Id);
+                UcitajPodatke();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void btnIzmeniOglas_Click(object sender, EventArgs e)
+        {
+            if (dgvOglasi.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selektujte oglas za izmenu.");
+                return;
+            }
+
+            var izabran = (OglasPregled)dgvOglasi.SelectedRows[0].DataBoundItem;
+
+            var forma = new IzmeniOglasForma();
+            if (forma.ShowDialog() == DialogResult.OK)
+                UcitajPodatke();
         }
     }
 }

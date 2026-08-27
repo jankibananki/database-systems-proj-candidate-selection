@@ -13,7 +13,6 @@ namespace SelekcijaKandidata.Mapiranja
         public PrivremeniOglasMapiranja()
         {
             Table("PRIVREMENI_OGLAS");
-
             KeyColumn("ID");
 
             Map(x => x.Projekat)

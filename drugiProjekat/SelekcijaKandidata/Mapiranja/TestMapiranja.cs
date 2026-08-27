@@ -8,7 +8,7 @@ using SelekcijaKandidata.Entiteti;
 
 namespace SelekcijaKandidata.Mapiranja
 {
-    internal class TestMapiranja : ClassMap<Test>
+    class TestMapiranja : ClassMap<Test>
     {
         public TestMapiranja()
         {

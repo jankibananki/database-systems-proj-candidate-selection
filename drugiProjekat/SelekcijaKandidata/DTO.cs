@@ -91,4 +91,44 @@ namespace SelekcijaKandidata
     }
 
     #endregion
+
+    #region Oglasi
+
+    public class OglasPregled
+    {
+        public int Id { get; set; }
+        public string NazivPozicije { get; set; }
+        public string VrstaOglasa { get; set; }
+        public string Opis { get; set; }
+        public decimal? MinPlata { get; set; }
+        public decimal? MaxPlata { get; set; }
+        public DateTime DatumObjave { get; set; }
+        public DateTime? DatumZatvaranja { get; set; }
+        public string Status { get; set; }
+    }
+
+    public class StalniOglasBasic : OglasPregled
+    {
+    }
+
+    public class PrivremeniOglasBasic : OglasPregled
+    {
+        public string Projekat { get; set; }
+        public string PeriodAngazovanja { get; set; }
+    }
+
+    public class SezonskiOglasBasic : OglasPregled
+    {
+        public string Sezona { get; set; }
+        public string Lokacija { get; set; }
+    }
+
+    public class PraksaBasic : OglasPregled
+    {
+        public int TrajanjeMeseci { get; set; }
+        public int IdMentora { get; set; }
+        public string ImePrezimeMentora { get; set; }
+    }
+
+    #endregion
 }

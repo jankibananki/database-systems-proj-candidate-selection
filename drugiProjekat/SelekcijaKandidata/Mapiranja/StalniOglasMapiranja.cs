@@ -8,13 +8,12 @@ using SelekcijaKandidata.Entiteti;
 
 namespace SelekcijaKandidata.Mapiranja
 {
-    internal class StalniOglasMapiranja : SubclassMap<StalniOglas>
+    class StalniOglasMapiranja : SubclassMap<StalniOglas>
     {
 
         public StalniOglasMapiranja()
         {
             Table("STALNI_OGLAS");
-
             KeyColumn("ID");
         }
 

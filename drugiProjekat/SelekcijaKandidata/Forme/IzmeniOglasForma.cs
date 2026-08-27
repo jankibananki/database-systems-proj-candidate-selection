@@ -16,5 +16,10 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
         }
+
+        private void IzmeniOglasForma_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -163,6 +163,7 @@
     <Compile Include="Mapiranja\OglasMapiranja.cs" />
     <Compile Include="Mapiranja\PraksaMapiranja.cs" />
     <Compile Include="Mapiranja\PrivremeniOglasMapiranja.cs" />
+    <Compile Include="Mapiranja\SezonskiOglasMapiranja.cs" />
     <Compile Include="Mapiranja\StalniOglasMapiranja.cs" />
     <Compile Include="Mapiranja\TestMapiranja.cs" />
     <Compile Include="Mapiranja\ZahteviOglasMapiranja.cs" />
@@ -181,8 +182,14 @@
     <EmbeddedResource Include="Forme\DodajOdlukuForma.resx">
       <DependentUpon>DodajOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forme\DodajOglasForma.resx">
+      <DependentUpon>DodajOglasForma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniOdlukuForma.resx">
       <DependentUpon>IzmeniOdlukuForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniOglasForma.resx">
+      <DependentUpon>IzmeniOglasForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OdlukaForma.resx">
       <DependentUpon>OdlukaForma.cs</DependentUpon>
