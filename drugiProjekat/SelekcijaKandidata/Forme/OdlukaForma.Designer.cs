@@ -62,6 +62,7 @@
             this.btnIzmeniOdluku.TabIndex = 16;
             this.btnIzmeniOdluku.Text = "Izmeni odluku";
             this.btnIzmeniOdluku.UseVisualStyleBackColor = true;
+            this.btnIzmeniOdluku.Click += new System.EventHandler(this.btnIzmeniOdluku_Click_1);
             // 
             // labelOdluka
             // 

@@ -41,11 +41,6 @@ namespace SelekcijaKandidata.Forme
                 UcitajPodatke();
         }
 
-        private void btnIzmeniOdluku_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btnObrisiOdluku_Click_1(object sender, EventArgs e)
         {
             if (dgvOdluke.SelectedRows.Count == 0)
@@ -69,6 +64,21 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnIzmeniOdluku_Click_1(object sender, EventArgs e)
+        {
+            if (dgvOdluke.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selektujte odluku za izmenu.");
+                return;
+            }
+
+            var izabrana = (OdlukaBasic)dgvOdluke.SelectedRows[0].DataBoundItem;
+
+            var forma = new IzmeniOdlukuForma(izabrana);
+            if (forma.ShowDialog() == DialogResult.OK)
+                UcitajPodatke();
         }
     }
 }

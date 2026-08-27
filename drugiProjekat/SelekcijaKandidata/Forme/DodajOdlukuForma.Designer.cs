@@ -164,6 +164,11 @@
             // nudPlata
             // 
             this.nudPlata.Location = new System.Drawing.Point(267, 94);
+            this.nudPlata.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
             this.nudPlata.Name = "nudPlata";
             this.nudPlata.Size = new System.Drawing.Size(246, 20);
             this.nudPlata.TabIndex = 34;
