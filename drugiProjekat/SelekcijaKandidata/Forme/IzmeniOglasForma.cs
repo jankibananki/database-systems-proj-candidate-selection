@@ -95,7 +95,108 @@ namespace SelekcijaKandidata.Forme
 
         private void btnIzmeni_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(tbNazivPozicije.Text))
+            {
+                MessageBox.Show("Unesite naziv pozicije.");
+                return;
+            }
 
+            if (cbStatus.SelectedItem == null)
+            {
+                MessageBox.Show("Izaberite status.");
+                return;
+            }
+
+            try
+            {
+                switch (_oglas.VrstaOglasa)
+                {
+                    case "stalni rad":
+                        DTOManager.IzmeniStalniOglas(new StalniOglasBasic
+                        {
+                            Id = _oglas.Id,
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString()
+                        });
+                        break;
+
+                    case "privremeni rad":
+                        if (string.IsNullOrWhiteSpace(tbProjekat.Text) || string.IsNullOrWhiteSpace(tbPeriodAngazovanja.Text))
+                        {
+                            MessageBox.Show("Unesite projekat i period angazovanja.");
+                            return;
+                        }
+                        DTOManager.IzmeniPrivremeniOglas(new PrivremeniOglasBasic
+                        {
+                            Id = _oglas.Id,
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            Projekat = tbProjekat.Text.Trim(),
+                            PeriodAngazovanja = tbPeriodAngazovanja.Text.Trim()
+                        });
+                        break;
+
+                    case "sezonski rad":
+                        if (string.IsNullOrWhiteSpace(tbSezona.Text) || string.IsNullOrWhiteSpace(tbLokacija.Text))
+                        {
+                            MessageBox.Show("Unesite sezonu i lokaciju.");
+                            return;
+                        }
+                        DTOManager.IzmeniSezonskiOglas(new SezonskiOglasBasic
+                        {
+                            Id = _oglas.Id,
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            Sezona = tbSezona.Text.Trim(),
+                            Lokacija = tbLokacija.Text.Trim()
+                        });
+                        break;
+
+                    case "praksa":
+                        if (cbMentor.SelectedItem == null)
+                        {
+                            MessageBox.Show("Izaberite mentora.");
+                            return;
+                        }
+                        DTOManager.IzmeniPraksu(new PraksaBasic
+                        {
+                            Id = _oglas.Id,
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            TrajanjeMeseci = (int)nudTrajanjeMeseci.Value,
+                            IdMentora = ((ZaposleniLookup)cbMentor.SelectedItem).Id
+                        });
+                        break;
+                }
+
+                MessageBox.Show("Oglas je uspesno izmenjen.");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
+            }
         }
     }
 }
