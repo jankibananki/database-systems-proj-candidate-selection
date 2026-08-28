@@ -37,7 +37,28 @@ namespace SelekcijaKandidata.Forme
 
         private void btnIzmeniZaposlenog_Click(object sender, EventArgs e)
         {
+            if (dgvZaposleni.SelectedRows.Count == 0)
+            {
+                MessageBox.Show(
+                    "Izaberite zaposlenog kojeg želite da izmenite."
+                );
 
+                return;
+            }
+
+            int id = Convert.ToInt32(
+                dgvZaposleni.SelectedRows[0]
+                             .Cells["Id"]
+                             .Value
+            );
+
+            IzmeniZaposlenogForma forma =
+                new IzmeniZaposlenogForma(id);
+
+            if (forma.ShowDialog() == DialogResult.OK)
+            {
+                UcitajPodatke();
+            }
         }
 
         private void btnObrisiZaposlenog_Click(object sender, EventArgs e)

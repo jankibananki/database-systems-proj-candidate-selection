@@ -203,11 +203,17 @@
     <EmbeddedResource Include="Forme\DodajOglasForma.resx">
       <DependentUpon>DodajOglasForma.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forme\DodajZaposlenogForma.resx">
+      <DependentUpon>DodajZaposlenogForma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniOdlukuForma.resx">
       <DependentUpon>IzmeniOdlukuForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniOglasForma.resx">
       <DependentUpon>IzmeniOglasForma.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forme\IzmeniZaposlenogForma.resx">
+      <DependentUpon>IzmeniZaposlenogForma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forme\OdlukaForma.resx">
       <DependentUpon>OdlukaForma.cs</DependentUpon>

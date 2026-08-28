@@ -223,6 +223,54 @@ namespace SelekcijaKandidata
             });
         }
 
+        public static ZaposleniBasic VratiZaposlenog(int id)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                Zaposleni z = session.Get<Zaposleni>(id);
+
+                if (z == null)
+                    return null;
+
+                return new ZaposleniBasic
+                {
+                    Id = z.Id,
+                    Ime = z.Ime,
+                    Prezime = z.Prezime
+                };
+            }
+        }
+
+        public static void IzmeniZaposlenog(ZaposleniBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Zaposleni z = session.Get<Zaposleni>(dto.Id);
+
+                if (z == null)
+                    throw new Exception("Zaposleni nije pronađen.");
+
+                z.Ime = dto.Ime;
+                z.Prezime = dto.Prezime;
+
+                session.Update(z);
+            });
+        }
+
+        public static void DodajZaposlenog(ZaposleniBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Zaposleni zaposleni = new Zaposleni
+                {
+                    Ime = dto.Ime,
+                    Prezime = dto.Prezime
+                };
+
+                session.Save(zaposleni);
+            });
+        }
+
         #endregion
 
         #region Intervjui
@@ -893,6 +941,126 @@ namespace SelekcijaKandidata
             });
         }
 
+        #endregion
+
+        #region Zahtevi oglasa
+
+        public static List<ZahtevOglasBasic> VratiZahteveOglasa(int idOglasa)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                Oglas oglas = session.Get<Oglas>(idOglasa);
+
+                if (oglas == null)
+                    return new List<ZahtevOglasBasic>();
+
+                return oglas.Zahtevi
+                    .Select(z => new ZahtevOglasBasic
+                    {
+                        IdOglasa = idOglasa,
+                        Zahtev = z.Id.Zahtev
+                    })
+                    .OrderBy(z => z.Zahtev)
+                    .ToList();
+            }
+        }
+
+        public static void DodajZahtev(int idOglasa, string tekst)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Oglas oglas = session.Get<Oglas>(idOglasa);
+
+                if (oglas == null)
+                    throw new Exception("Oglas nije pronađen.");
+
+                ZahtevOglasId id = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = tekst
+                };
+
+                if (session.Get<ZahtevOglas>(id) != null)
+                    throw new Exception("Ovaj zahtev već postoji.");
+
+                ZahtevOglas zahtev = new ZahtevOglas
+                {
+                    Id = id
+                };
+
+                session.Save(zahtev);
+            });
+        }
+
+        public static void IzmeniZahtev(int idOglasa,string stariTekst,string noviTekst)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Oglas oglas = session.Get<Oglas>(idOglasa);
+
+                if (oglas == null)
+                    throw new Exception("Oglas nije pronađen.");
+
+                if (stariTekst == noviTekst)
+                    return;
+
+                ZahtevOglasId stariId = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = stariTekst
+                };
+
+                ZahtevOglas stari =
+                    session.Get<ZahtevOglas>(stariId);
+
+                if (stari == null)
+                    throw new Exception("Zahtev nije pronađen.");
+
+                ZahtevOglasId noviId = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = noviTekst
+                };
+
+                if (session.Get<ZahtevOglas>(noviId) != null)
+                    throw new Exception("Ovaj zahtev već postoji.");
+
+                session.Delete(stari);
+                session.Flush();
+
+                ZahtevOglas novi = new ZahtevOglas
+                {
+                    Id = noviId
+                };
+
+                session.Save(novi);
+            });
+        }
+
+        public static void ObrisiZahtev(int idOglasa,string tekst)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Oglas oglas = session.Get<Oglas>(idOglasa);
+
+                if (oglas == null)
+                    throw new Exception("Oglas nije pronađen.");
+
+                ZahtevOglasId id = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = tekst
+                };
+
+                ZahtevOglas zahtev =
+                    session.Get<ZahtevOglas>(id);
+
+                if (zahtev == null)
+                    throw new Exception("Zahtev nije pronađen.");
+
+                session.Delete(zahtev);
+            });
+        }
         #endregion
     }
 }

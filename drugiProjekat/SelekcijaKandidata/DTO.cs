@@ -130,5 +130,19 @@ namespace SelekcijaKandidata
         public string ImePrezimeMentora { get; set; }
     }
 
+    public class ZahtevOglasBasic
+    {
+        public int IdOglasa { get; set; }
+        public string Zahtev { get; set; }
+    }
+
     #endregion
+
+    public class ZaposleniBasic
+    {
+        public int Id { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+    }
+
 }

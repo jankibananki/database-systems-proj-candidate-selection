@@ -112,6 +112,7 @@
             // 
             // Zaposleni
             // 
+            this.Zaposleni.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.Zaposleni.DataPropertyName = "Zaposleni";
             this.Zaposleni.HeaderText = "Ime i prezime";
             this.Zaposleni.Name = "Zaposleni";
