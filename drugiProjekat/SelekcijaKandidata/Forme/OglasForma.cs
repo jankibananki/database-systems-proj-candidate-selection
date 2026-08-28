@@ -79,7 +79,7 @@ namespace SelekcijaKandidata.Forme
 
             var izabran = (OglasPregled)dgvOglasi.SelectedRows[0].DataBoundItem;
 
-            var forma = new IzmeniOglasForma();
+            var forma = new IzmeniOglasForma(izabran);
             if (forma.ShowDialog() == DialogResult.OK)
                 UcitajPodatke();
         }

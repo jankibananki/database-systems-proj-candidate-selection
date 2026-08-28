@@ -773,6 +773,109 @@ namespace SelekcijaKandidata
             });
         }
 
+        public static StalniOglasBasic VratiStalniOglas(int id)
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                StalniOglas o = session.Get<StalniOglas>(id);
+                if (o == null) return null;
+
+                return new StalniOglasBasic
+                {
+                    Id = o.Id,
+                    NazivPozicije = o.NazivPozicije,
+                    Opis = o.Opis,
+                    DatumObjave = o.DatumObjave,
+                    DatumZatvaranja = o.DatumZatvaranja,
+                    Status = o.Status
+                };
+            }
+        }
+
+        public static void IzmeniStalniOglas(StalniOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                StalniOglas o = session.Get<StalniOglas>(dto.Id)
+                    ?? throw new Exception("Oglas nije pronadjen.");
+
+                o.NazivPozicije = dto.NazivPozicije;
+                o.Opis = dto.Opis;
+                o.MinPlata = dto.MinPlata;
+                o.MaxPlata = dto.MaxPlata;
+                o.DatumObjave = dto.DatumObjave;
+                o.DatumZatvaranja = dto.DatumZatvaranja;
+                o.Status = dto.Status;
+
+                session.Update(o);
+            });
+        }
+
+        public static void IzmeniPrivremeniOglas(PrivremeniOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                PrivremeniOglas o = session.Get<PrivremeniOglas>(dto.Id)
+                    ?? throw new Exception("Oglas nije pronadjen.");
+
+                o.NazivPozicije = dto.NazivPozicije;
+                o.Opis = dto.Opis;
+                o.MinPlata = dto.MinPlata;
+                o.MaxPlata = dto.MaxPlata;
+                o.DatumObjave = dto.DatumObjave;
+                o.DatumZatvaranja = dto.DatumZatvaranja;
+                o.Status = dto.Status;
+                o.Projekat = dto.Projekat;
+                o.PeriodAngazovanja = dto.PeriodAngazovanja;
+
+                session.Update(o);
+            });
+        }
+
+        public static void IzmeniSezonskiOglas(SezonskiOglasBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                SezonskiOglas o = session.Get<SezonskiOglas>(dto.Id)
+                    ?? throw new Exception("Oglas nije pronadjen.");
+
+                o.NazivPozicije = dto.NazivPozicije;
+                o.Opis = dto.Opis;
+                o.MinPlata = dto.MinPlata;
+                o.MaxPlata = dto.MaxPlata;
+                o.DatumObjave = dto.DatumObjave;
+                o.DatumZatvaranja = dto.DatumZatvaranja;
+                o.Status = dto.Status;
+                o.Sezona = dto.Sezona;
+                o.Lokacija = dto.Lokacija;
+
+                session.Update(o);
+            });
+        }
+
+        public static void IzmeniPraksu(PraksaBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Praksa p = session.Get<Praksa>(dto.Id)
+                    ?? throw new Exception("Oglas nije pronadjen.");
+                Zaposleni mentor = session.Get<Zaposleni>(dto.IdMentora)
+                    ?? throw new Exception("Mentor nije pronadjen.");
+
+                p.NazivPozicije = dto.NazivPozicije;
+                p.Opis = dto.Opis;
+                p.MinPlata = dto.MinPlata;
+                p.MaxPlata = dto.MaxPlata;
+                p.DatumObjave = dto.DatumObjave;
+                p.DatumZatvaranja = dto.DatumZatvaranja;
+                p.Status = dto.Status;
+                p.TrajanjeMeseci = dto.TrajanjeMeseci;
+                p.Mentor = mentor;
+
+                session.Update(p);
+            });
+        }
+
         #endregion
     }
 }
