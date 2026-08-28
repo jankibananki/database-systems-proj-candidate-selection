@@ -73,47 +73,32 @@ namespace SelekcijaKandidata.Forme
         }
         private bool Validacija()
         {
-            errorProvider1.Clear();
-            bool validno = true;
-
             if (cbKandidat.SelectedIndex == -1)
             {
-                errorProvider1.SetError(
-                    cbKandidat,
-                    "Izaberite kandidata!"
-                );
-
-                validno = false;
+                MessageBox.Show("Izaberite kandidata!");
+                cbKandidat.Focus();
+                return false;
             }
 
             if (cbTip.SelectedIndex == -1)
             {
-                errorProvider1.SetError(
-                    cbTip,
-                    "Izaberite tip intervjua!"
-                );
-
-                validno = false;
+                MessageBox.Show("Izaberite tip intervjua!");
+                cbTip.Focus();
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(tbLokacija.Text))
             {
-                errorProvider1.SetError(
-                    tbLokacija,
-                    "Lokacija je obavezna!"
-                );
-
-                validno = false;
+                MessageBox.Show("Lokacija je obavezna!");
+                tbLokacija.Focus();
+                return false;
             }
 
             if (cbZaposleni.SelectedIndex == -1)
             {
-                errorProvider1.SetError(
-                    cbZaposleni,
-                    "Izaberite zaposlenog!"
-                );
-
-                validno = false;
+                MessageBox.Show("Izaberite zaposlenog!");
+                cbZaposleni.Focus();
+                return false;
             }
 
             if (!string.IsNullOrWhiteSpace(tbOcena.Text))
@@ -122,36 +107,27 @@ namespace SelekcijaKandidata.Forme
 
                 if (!int.TryParse(tbOcena.Text, out ocena))
                 {
-                    errorProvider1.SetError(
-                        tbOcena,
-                        "Ocena mora biti broj!"
-                    );
-
-                    validno = false;
+                    MessageBox.Show("Ocena mora biti broj!");
+                    tbOcena.Focus();
+                    return false;
                 }
-                else if (ocena < 1 || ocena > 100)
-                {
-                    errorProvider1.SetError(
-                        tbOcena,
-                        "Ocena mora biti između 1 i 100!"
-                        //doduse u bazu nismo stavili nikakav check moz da ide dokle oce nez jel bitno da se ogranici i tamo
-                    );
 
-                    validno = false;
+                if (ocena < 1 || ocena > 100)
+                {
+                    MessageBox.Show("Ocena mora biti između 1 i 100!");
+                    tbOcena.Focus();
+                    return false;
                 }
             }
 
             if (dtpDatumIVreme.Value > DateTime.Now)
             {
-                errorProvider1.SetError(
-                    dtpDatumIVreme,
-                    "Intervju ne može biti u budućnosti!"
-                );
-
-                validno = false;
+                MessageBox.Show("Intervju ne može biti u budućnosti!");
+                dtpDatumIVreme.Focus();
+                return false;
             }
 
-            return validno;
+            return true;
         }
 
         private void btnDodajIntervju_Click(object sender, EventArgs e)
@@ -195,7 +171,6 @@ namespace SelekcijaKandidata.Forme
 
             dtpDatumIVreme.Value = DateTime.Now;
 
-            errorProvider1.Clear();
         }
 
         private void btnOcisti_Click(object sender, EventArgs e)
