@@ -110,6 +110,7 @@
             this.btnOcisti.TabIndex = 45;
             this.btnOcisti.Text = "Očisti";
             this.btnOcisti.UseVisualStyleBackColor = true;
+            this.btnOcisti.Click += new System.EventHandler(this.btnOcisti_Click);
             // 
             // btnDodaj
             // 

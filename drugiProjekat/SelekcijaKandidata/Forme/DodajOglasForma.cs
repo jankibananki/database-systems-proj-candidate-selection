@@ -13,7 +13,112 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrWhiteSpace(tbNazivPozicije.Text))
+            {
+                MessageBox.Show("Unesite naziv pozicije.");
+                return;
+            }
 
+            if (cbVrstaOglasa.SelectedItem == null)
+            {
+                MessageBox.Show("Izaberite vrstu oglasa.");
+                return;
+            }
+
+            if (cbStatus.SelectedItem == null)
+            {
+                MessageBox.Show("Izaberite status.");
+                return;
+            }
+
+            string vrsta = cbVrstaOglasa.SelectedItem.ToString();
+
+            try
+            {
+                switch (vrsta)
+                {
+                    case "stalni rad":
+                        DTOManager.DodajStalniOglas(new StalniOglasBasic
+                        {
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString()
+                        });
+                        break;
+
+                    case "privremeni rad":
+                        if (string.IsNullOrWhiteSpace(tbProjekat.Text) || string.IsNullOrWhiteSpace(tbPeriodAngazovanja.Text))
+                        {
+                            MessageBox.Show("Unesite projekat i period angazovanja.");
+                            return;
+                        }
+                        DTOManager.DodajPrivremeniOglas(new PrivremeniOglasBasic
+                        {
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            Projekat = tbProjekat.Text.Trim(),
+                            PeriodAngazovanja = tbPeriodAngazovanja.Text.Trim()
+                        });
+                        break;
+
+                    case "sezonski rad":
+                        if (string.IsNullOrWhiteSpace(tbSezona.Text) || string.IsNullOrWhiteSpace(tbLokacija.Text))
+                        {
+                            MessageBox.Show("Unesite sezonu i lokaciju.");
+                            return;
+                        }
+                        DTOManager.DodajSezonskiOglas(new SezonskiOglasBasic
+                        {
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            Sezona = tbSezona.Text.Trim(),
+                            Lokacija = tbLokacija.Text.Trim()
+                        });
+                        break;
+
+                    case "praksa":
+                        if (cbMentor.SelectedItem == null)
+                        {
+                            MessageBox.Show("Izaberite mentora.");
+                            return;
+                        }
+                        DTOManager.DodajPraksu(new PraksaBasic
+                        {
+                            NazivPozicije = tbNazivPozicije.Text.Trim(),
+                            Opis = tbOpis.Text.Trim(),
+                            MinPlata = nudMinPlata.Value,
+                            MaxPlata = nudMaxPlata.Value,
+                            DatumObjave = dtpDatumObjave.Value.Date,
+                            DatumZatvaranja = dtpDatumZatvaranja.Value.Date,
+                            Status = cbStatus.SelectedItem.ToString(),
+                            TrajanjeMeseci = (int)nudTrajanjeMeseci.Value,
+                            IdMentora = ((ZaposleniLookup)cbMentor.SelectedItem).Id
+                        });
+                        break;
+                }
+
+                MessageBox.Show("Oglas je uspesno dodat.");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
+            }
         }
 
         private void DodajOglasForma_Load(object sender, EventArgs e)
@@ -72,6 +177,25 @@ namespace SelekcijaKandidata.Forme
                 nudTrajanjeMeseci.Value = 0; 
                 cbMentor.SelectedIndex = -1; 
             }
+        }
+
+        private void btnOcisti_Click(object sender, EventArgs e)
+        {
+            tbNazivPozicije.Clear();
+            cbVrstaOglasa.SelectedIndex = -1;
+            cbStatus.SelectedIndex = -1;
+            tbOpis.Clear();
+            nudMinPlata.Value = 0;
+            nudMaxPlata.Value = 0;
+            dtpDatumObjave.Value = DateTime.Today;
+            dtpDatumZatvaranja.Value = DateTime.Today;
+            tbProjekat.Clear();
+            tbPeriodAngazovanja.Clear();
+            tbSezona.Clear();
+            tbLokacija.Clear();
+            nudTrajanjeMeseci.Value = 0;
+            cbMentor.SelectedIndex = -1;
+            AzurirajBlokiranaPolja(null);
         }
     }
 }
