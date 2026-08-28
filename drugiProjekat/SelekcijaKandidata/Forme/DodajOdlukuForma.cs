@@ -10,6 +10,14 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
             UcitajCV();
+            dtpPocetakRada.Enabled = false;
+            nudPlata.Enabled = false;
+            tbRazlogOdbijanja.Enabled = false;
+            dtpDatum.MinDate = DateTime.Today;
+            dtpPocetakRada.MinDate = DateTime.Today;
+            cbPrihvaceno.CheckedChanged += cbPrihvaceno_CheckedChanged;
+            dtpDatum.ValueChanged += dtpDatum_ValueChanged;
+            cbStatus.SelectedIndexChanged += cbStatus_SelectedIndexChanged;
         }
 
         private void UcitajCV()
@@ -39,9 +47,10 @@ namespace SelekcijaKandidata.Forme
                 MessageBox.Show("Izaberite status.");
                 return;
             }
-            if (!cbPrihvaceno.Checked && string.IsNullOrWhiteSpace(tbRazlogOdbijanja.Text))
+            if (cbStatus.SelectedItem?.ToString() == "odbijen" && string.IsNullOrWhiteSpace(tbRazlogOdbijanja.Text))
             {
                 MessageBox.Show("Unesite razlog odbijanja.");
+                tbRazlogOdbijanja.Focus();
                 return;
             }
             try
@@ -80,6 +89,46 @@ namespace SelekcijaKandidata.Forme
             tbRazlogOdbijanja.Clear();
             cbPrihvaceno.Checked = false;
             cbCV.SelectedIndex = -1;
+            cbPrihvaceno_CheckedChanged(null, EventArgs.Empty);
+        }
+
+        private void cbPrihvaceno_CheckedChanged(object sender, EventArgs e)
+        {
+            bool prihvaceno = cbPrihvaceno.Checked;
+
+            dtpPocetakRada.Enabled = prihvaceno;
+            nudPlata.Enabled = prihvaceno;
+
+            if (prihvaceno)
+            {
+                tbRazlogOdbijanja.Clear();
+                dtpPocetakRada.MinDate = dtpDatum.Value.Date;
+            }
+            else
+            {
+                nudPlata.Value = 0;
+                dtpPocetakRada.Value = dtpDatum.Value.Date;
+            }
+        }
+
+        private void dtpDatum_ValueChanged(object sender, EventArgs e)
+        {
+            dtpPocetakRada.MinDate = dtpDatum.Value.Date;
+
+            if (dtpPocetakRada.Value.Date < dtpDatum.Value.Date)
+            {
+                dtpPocetakRada.Value = dtpDatum.Value.Date;
+            }
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool odbijen = cbStatus.SelectedItem?.ToString() == "odbijen";
+
+            tbRazlogOdbijanja.Enabled = odbijen;
+
+            if (!odbijen)
+                tbRazlogOdbijanja.Clear();
         }
     }
 }

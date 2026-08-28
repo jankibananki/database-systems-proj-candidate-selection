@@ -11,6 +11,12 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
             _odluka = odluka;
+            dtpPocetakRada.Enabled = false;
+            nudPlata.Enabled = false;
+            tbRazlogOdbijanja.Enabled = false;
+            cbPrihvaceno.CheckedChanged += cbPrihvaceno_CheckedChanged;
+            dtpDatum.ValueChanged += dtpDatum_ValueChanged;
+            cbStatus.SelectedIndexChanged += cbStatus_SelectedIndexChanged;
         }
 
         private void IzmeniOdlukuForma_Load(object sender, EventArgs e)
@@ -36,7 +42,12 @@ namespace SelekcijaKandidata.Forme
                 MessageBox.Show("Izaberite status.");
                 return;
             }
-
+            if (cbStatus.SelectedItem?.ToString() == "odbijen" && string.IsNullOrWhiteSpace(tbRazlogOdbijanja.Text))
+            {
+                MessageBox.Show("Unesite razlog odbijanja.");
+                tbRazlogOdbijanja.Focus();
+                return;
+            }
             try
             {
                 _odluka.Datum = dtpDatum.Value.Date;
@@ -56,6 +67,46 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+
+        private void cbPrihvaceno_CheckedChanged(object sender, EventArgs e)
+        {
+            bool prihvaceno = cbPrihvaceno.Checked;
+
+            dtpPocetakRada.Enabled = prihvaceno;
+            nudPlata.Enabled = prihvaceno;
+
+            if (prihvaceno)
+            {
+                tbRazlogOdbijanja.Clear();
+                dtpPocetakRada.MinDate = dtpDatum.Value.Date;
+            }
+            else
+            {
+                nudPlata.Value = 0;
+                dtpPocetakRada.Value = dtpDatum.Value.Date;
+            }
+        }
+
+        private void dtpDatum_ValueChanged(object sender, EventArgs e)
+        {
+            dtpPocetakRada.MinDate = dtpDatum.Value.Date;
+
+            if (dtpPocetakRada.Value.Date < dtpDatum.Value.Date)
+            {
+                dtpPocetakRada.Value = dtpDatum.Value.Date;
+            }
+        }
+
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool odbijen = cbStatus.SelectedItem?.ToString() == "odbijen";
+
+            tbRazlogOdbijanja.Enabled = odbijen;
+
+            if (!odbijen)
+                tbRazlogOdbijanja.Clear();
         }
     }
 }
