@@ -188,7 +188,7 @@ namespace SelekcijaKandidata
 
         #endregion
 
-        #region Zaposleni lookup
+        #region Zaposleni
 
         public static List<ZaposleniLookup> VratiZaposlene()
         {
@@ -204,6 +204,23 @@ namespace SelekcijaKandidata
                     .OrderBy(z => z.Id)
                     .ToList();
             }
+        }
+
+        public static void ObrisiZaposlenog(int id)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Zaposleni z = session.Get<Zaposleni>(id)
+                    ?? throw new Exception("Zaposleni nije pronadjen.");
+
+                bool imaIntervjue = session.Query<Intervju>().Any(i => i.Zaposleni.Id == id);
+                bool jeMentor = session.Query<Praksa>().Any(p => p.Mentor.Id == id);
+
+                if (imaIntervjue || jeMentor)
+                    throw new Exception("Ne mozete obrisati zaposlenog dok postoje povezani intervjui ili prakse gde je mentor.");
+
+                session.Delete(z);
+            });
         }
 
         #endregion

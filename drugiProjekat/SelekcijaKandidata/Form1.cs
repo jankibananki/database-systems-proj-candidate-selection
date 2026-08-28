@@ -45,5 +45,11 @@ namespace SelekcijaKandidata
             this.Hide();
             forma.Show();
         }
+
+        private void btnZaposleni_Click(object sender, EventArgs e)
+        {
+            ZaposleniForma forma = new ZaposleniForma();
+            forma.ShowDialog();
+        }
     }
 }

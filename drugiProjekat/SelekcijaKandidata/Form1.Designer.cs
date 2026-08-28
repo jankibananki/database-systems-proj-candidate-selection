@@ -93,6 +93,7 @@
             this.btnZaposleni.TabIndex = 5;
             this.btnZaposleni.Text = "Zaposleni";
             this.btnZaposleni.UseVisualStyleBackColor = true;
+            this.btnZaposleni.Click += new System.EventHandler(this.btnZaposleni_Click);
             // 
             // Form1
             // 
@@ -106,7 +107,7 @@
             this.Controls.Add(this.btnIntervju);
             this.Controls.Add(this.btnCV);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Selekcija kandidata";
             this.ResumeLayout(false);
 
         }
