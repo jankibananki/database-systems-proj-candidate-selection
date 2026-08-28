@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tbIme = new System.Windows.Forms.TextBox();
             this.tbPrezime = new System.Windows.Forms.TextBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
@@ -46,8 +45,6 @@
             this.btnNazad = new System.Windows.Forms.Button();
             this.labeOglas = new System.Windows.Forms.Label();
             this.cbOglas = new System.Windows.Forms.ComboBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbIme
@@ -201,10 +198,6 @@
             this.cbOglas.Size = new System.Drawing.Size(246, 21);
             this.cbOglas.TabIndex = 16;
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // DodajCVforma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -230,7 +223,6 @@
             this.Name = "DodajCVforma";
             this.Text = "DodajCVforma";
             this.Load += new System.EventHandler(this.DodajCVforma_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -255,6 +247,5 @@
         private System.Windows.Forms.Button btnNazad;
         private System.Windows.Forms.Label labeOglas;
         private System.Windows.Forms.ComboBox cbOglas;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

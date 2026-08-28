@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnNazad = new System.Windows.Forms.Button();
             this.btnOcisti = new System.Windows.Forms.Button();
             this.btnDodaj = new System.Windows.Forms.Button();
@@ -36,8 +35,6 @@
             this.tbPrezime = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tbIme = new System.Windows.Forms.TextBox();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNazad
@@ -102,10 +99,6 @@
             this.tbIme.Size = new System.Drawing.Size(195, 20);
             this.tbIme.TabIndex = 7;
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // DodajZaposlenogForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -120,7 +113,6 @@
             this.Controls.Add(this.tbIme);
             this.Name = "DodajZaposlenogForma";
             this.Text = "DodajZaposlenogForma";
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,6 +127,5 @@
         private System.Windows.Forms.TextBox tbPrezime;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbIme;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

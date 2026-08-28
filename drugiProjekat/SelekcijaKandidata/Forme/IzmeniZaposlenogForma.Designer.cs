@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.tbIme = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -36,8 +35,6 @@
             this.btnIzmeni = new System.Windows.Forms.Button();
             this.btnOcisti = new System.Windows.Forms.Button();
             this.btnNazad = new System.Windows.Forms.Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // tbIme
@@ -102,10 +99,6 @@
             this.btnNazad.UseVisualStyleBackColor = true;
             this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // IzmeniZaposlenogForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -121,7 +114,6 @@
             this.Name = "IzmeniZaposlenogForma";
             this.Text = "IzmeniZaposlenogForma";
             this.Load += new System.EventHandler(this.IzmeniZaposlenogForma_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -136,6 +128,5 @@
         private System.Windows.Forms.Button btnIzmeni;
         private System.Windows.Forms.Button btnOcisti;
         private System.Windows.Forms.Button btnNazad;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

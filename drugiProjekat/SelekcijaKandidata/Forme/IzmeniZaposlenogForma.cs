@@ -49,49 +49,35 @@ namespace SelekcijaKandidata.Forme
 
         private bool Validacija()
         {
-            errorProvider1.Clear();
-            bool validno = true;
-
             if (string.IsNullOrWhiteSpace(tbIme.Text))
             {
-                errorProvider1.SetError(
-                    tbIme,
-                    "Ime je obavezno!"
-                );
-
-                validno = false;
+                MessageBox.Show("Ime je obavezno!");
+                tbIme.Focus();
+                return false;
             }
-            else if (!tbIme.Text.Trim().All(char.IsLetter))
-            {
-                errorProvider1.SetError(
-                    tbIme,
-                    "Ime može sadržati samo slova!"
-                );
 
-                validno = false;
+            if (!tbIme.Text.Trim().All(char.IsLetter))
+            {
+                MessageBox.Show("Ime može sadržati samo slova!");
+                tbIme.Focus();
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(tbPrezime.Text))
             {
-                errorProvider1.SetError(
-                    tbPrezime,
-                    "Prezime je obavezno!"
-                );
-
-                validno = false;
+                MessageBox.Show("Prezime je obavezno!");
+                tbPrezime.Focus();
+                return false;
             }
-            
-            else if (!tbPrezime.Text.Trim().All(char.IsLetter))
+
+            if (!tbPrezime.Text.Trim().All(char.IsLetter))
             {
-                errorProvider1.SetError(
-                    tbPrezime,
-                    "Prezime može sadržati samo slova!"
-                );
-
-                validno = false;
+                MessageBox.Show("Prezime može sadržati samo slova!");
+                tbPrezime.Focus();
+                return false;
             }
 
-            return validno;
+            return true;
         }
 
         private void btnIzmeni_Click(object sender, EventArgs e)
@@ -127,7 +113,6 @@ namespace SelekcijaKandidata.Forme
         private void btnOcisti_Click(object sender, EventArgs e)
         {
             UcitajPodatkeZaposlenog();
-            errorProvider1.Clear();
         }
 
         private void btnNazad_Click(object sender, EventArgs e)

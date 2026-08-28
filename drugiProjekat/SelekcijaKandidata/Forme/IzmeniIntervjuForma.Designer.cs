@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.btnNazad = new System.Windows.Forms.Button();
             this.btnOcisti = new System.Windows.Forms.Button();
             this.btnIzmeniIntervju = new System.Windows.Forms.Button();
@@ -44,8 +43,6 @@
             this.labelTip = new System.Windows.Forms.Label();
             this.labelDatumVreme = new System.Windows.Forms.Label();
             this.labelKandidat = new System.Windows.Forms.Label();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnNazad
@@ -179,10 +176,6 @@
             this.labelKandidat.TabIndex = 15;
             this.labelKandidat.Text = "Kandidat";
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // IzmeniIntervjuForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,7 +199,6 @@
             this.Name = "IzmeniIntervjuForma";
             this.Text = "IzmeniIntervjuForma";
             this.Load += new System.EventHandler(this.IzmeniIntervjuForma_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +221,5 @@
         private System.Windows.Forms.Label labelTip;
         private System.Windows.Forms.Label labelDatumVreme;
         private System.Windows.Forms.Label labelKandidat;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

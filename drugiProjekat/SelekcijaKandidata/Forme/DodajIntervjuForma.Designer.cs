@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.labelKandidat = new System.Windows.Forms.Label();
             this.labelDatumVreme = new System.Windows.Forms.Label();
             this.labelTip = new System.Windows.Forms.Label();
@@ -44,8 +43,6 @@
             this.btnDodajIntervju = new System.Windows.Forms.Button();
             this.btnOcisti = new System.Windows.Forms.Button();
             this.btnNazad = new System.Windows.Forms.Button();
-            this.errorProvider1 = new System.Windows.Forms.ErrorProvider(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).BeginInit();
             this.SuspendLayout();
             // 
             // labelKandidat
@@ -179,10 +176,6 @@
             this.btnNazad.UseVisualStyleBackColor = true;
             this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
-            // errorProvider1
-            // 
-            this.errorProvider1.ContainerControl = this;
-            // 
             // DodajIntervjuForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -206,7 +199,6 @@
             this.Name = "DodajIntervjuForma";
             this.Text = "DodajIntervjuForma";
             this.Load += new System.EventHandler(this.DodajIntervjuForma_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.errorProvider1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,6 +221,5 @@
         private System.Windows.Forms.Button btnDodajIntervju;
         private System.Windows.Forms.Button btnOcisti;
         private System.Windows.Forms.Button btnNazad;
-        private System.Windows.Forms.ErrorProvider errorProvider1;
     }
 }

@@ -63,79 +63,91 @@ namespace SelekcijaKandidata.Forme
 
         private bool Validacija()
         {
-            errorProvider1.Clear();
-            bool validno = true;
-
-            if(string.IsNullOrEmpty(tbIme.Text))
+            if (string.IsNullOrEmpty(tbIme.Text))
             {
-                errorProvider1.SetError(tbIme, "Ime je obavezno!");
-                validno = false;
-            }
-            else if (!tbIme.Text.All(c=>char.IsLetter(c)))
-            {
-                errorProvider1.SetError(tbIme, "Ime može sadržati samo slova!");
-                validno = false;
+                MessageBox.Show("Ime je obavezno!");
+                tbIme.Focus();
+                return false;
             }
 
+            if (!tbIme.Text.All(c => char.IsLetter(c)))
+            {
+                MessageBox.Show("Ime može sadržati samo slova!");
+                tbIme.Focus();
+                return false;
+            }
 
             if (string.IsNullOrEmpty(tbPrezime.Text))
             {
-                errorProvider1.SetError(tbPrezime, "Prezime je obavezno!");
-                validno = false;
-            }
-            else if(!tbPrezime.Text.All(c=>char.IsLetter(c)))
-            {
-                errorProvider1.SetError(tbPrezime, "Prezime može sadržati samo slova!");
-                validno=false;
+                MessageBox.Show("Prezime je obavezno!");
+                tbPrezime.Focus();
+                return false;
             }
 
+            if (!tbPrezime.Text.All(c => char.IsLetter(c)))
+            {
+                MessageBox.Show("Prezime može sadržati samo slova!");
+                tbPrezime.Focus();
+                return false;
+            }
 
             if (string.IsNullOrEmpty(tbEmail.Text))
             {
-                errorProvider1.SetError(tbEmail, "Email je obavezan!");
-                validno = false;
-            }
-            else if(!Regex.IsMatch(tbEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-            {
-                errorProvider1.SetError(tbEmail, "Email nije u ispravnom formatu.");
-                validno = false;
+                MessageBox.Show("Email je obavezan!");
+                tbEmail.Focus();
+                return false;
             }
 
-            if(string.IsNullOrEmpty(tbBrojTelefona.Text))
+            if (!Regex.IsMatch(tbEmail.Text, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
             {
-                errorProvider1.SetError(tbBrojTelefona, "Broj telefona je obavezan!");
-                validno = false;
-            }
-            else if(!tbBrojTelefona.Text.All(c=>char.IsDigit(c)))
-            {
-                errorProvider1.SetError(tbBrojTelefona, "Broj telefona može sadržati samo cifre!");
-                validno = false;
-            }
-            else if(tbBrojTelefona.Text.Length>10)
-            {
-                errorProvider1.SetError(tbBrojTelefona, "Broj telefona ne može imati više od 10 cifara!");
-                validno=false;
+                MessageBox.Show("Email nije u ispravnom formatu.");
+                tbEmail.Focus();
+                return false;
             }
 
-            if (cbStatus.SelectedIndex==-1)
+            if (string.IsNullOrEmpty(tbBrojTelefona.Text))
             {
-                errorProvider1.SetError(cbStatus, "Izaberite status!");
-                validno=false;
+                MessageBox.Show("Broj telefona je obavezan!");
+                tbBrojTelefona.Focus();
+                return false;
             }
 
-            if (cbOglas.SelectedIndex==-1)
+            if (!tbBrojTelefona.Text.All(c => char.IsDigit(c)))
             {
-                errorProvider1.SetError(cbOglas, "Izaberite oglas!");
-                validno=false;
+                MessageBox.Show("Broj telefona može sadržati samo cifre!");
+                tbBrojTelefona.Focus();
+                return false;
             }
 
-            if(dtpDatumPodnosenja.Value.Date > DateTime.Today)
+            if (tbBrojTelefona.Text.Length > 10)
             {
-                errorProvider1.SetError(dtpDatumPodnosenja, "Datum podnošenja ne može biti u budućnosti!");
-                validno=false;
+                MessageBox.Show("Broj telefona ne može imati više od 10 cifara!");
+                tbBrojTelefona.Focus();
+                return false;
             }
 
-                return validno;
+            if (cbStatus.SelectedIndex == -1)
+            {
+                MessageBox.Show("Izaberite status!");
+                cbStatus.Focus();
+                return false;
+            }
+
+            if (cbOglas.SelectedIndex == -1)
+            {
+                MessageBox.Show("Izaberite oglas!");
+                cbOglas.Focus();
+                return false;
+            }
+
+            if (dtpDatumPodnosenja.Value.Date > DateTime.Today)
+            {
+                MessageBox.Show("Datum podnošenja ne može biti u budućnosti!");
+                dtpDatumPodnosenja.Focus();
+                return false;
+            }
+
+            return true;
         }
 
         private void btnDodaj_Click(object sender, EventArgs e)
@@ -180,8 +192,6 @@ namespace SelekcijaKandidata.Forme
 
             dtpDatumPodnosenja.Value = DateTime.Today;
 
-            errorProvider1.Clear();
-
             tbIme.Focus();
         }
 
@@ -192,6 +202,7 @@ namespace SelekcijaKandidata.Forme
 
         private void btnNazad_Click(object sender, EventArgs e)
         {
+            prethodnaForma.OsveziCV();
             prethodnaForma.Show();
             this.Close();
         }
