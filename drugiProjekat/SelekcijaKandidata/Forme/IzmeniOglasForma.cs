@@ -15,6 +15,12 @@ namespace SelekcijaKandidata.Forme
         public IzmeniOglasForma(OglasPregled oglas) : this()
         {
             _oglas = oglas;
+            nudMaxPlata.Maximum = Decimal.MaxValue;
+            nudMinPlata.Maximum = Decimal.MaxValue;
+            nudMinPlata.ValueChanged += nudMinPlata_ValueChanged;
+            dtpDatumObjave.ValueChanged += dtpDatumObjave_ValueChanged;
+            dtpDatumObjave.MaxDate = DateTime.Today;
+            dtpDatumZatvaranja.MinDate = DateTime.Today;
         }
 
         private void IzmeniOglasForma_Load(object sender, EventArgs e)
@@ -56,7 +62,6 @@ namespace SelekcijaKandidata.Forme
                     tbProjekat.Enabled = true;
                     tbPeriodAngazovanja.Enabled = true;
                     break;
-
                 case "sezonski rad":
                     var sezonski = DTOManager.VratiSezonskiOglas(_oglas.Id);
                     tbSezona.Text = sezonski.Sezona;
@@ -64,7 +69,6 @@ namespace SelekcijaKandidata.Forme
                     tbSezona.Enabled = true;
                     tbLokacija.Enabled = true;
                     break;
-
                 case "praksa":
                     var praksa = DTOManager.VratiPraksu(_oglas.Id);
                     nudTrajanjeMeseci.Value = praksa.TrajanjeMeseci;
@@ -72,7 +76,6 @@ namespace SelekcijaKandidata.Forme
                     nudTrajanjeMeseci.Enabled = true;
                     cbMentor.Enabled = true;
                     break;
-
                 case "stalni rad":
                     break;
             }
@@ -124,7 +127,6 @@ namespace SelekcijaKandidata.Forme
                             Status = cbStatus.SelectedItem.ToString()
                         });
                         break;
-
                     case "privremeni rad":
                         if (string.IsNullOrWhiteSpace(tbProjekat.Text) || string.IsNullOrWhiteSpace(tbPeriodAngazovanja.Text))
                         {
@@ -145,7 +147,6 @@ namespace SelekcijaKandidata.Forme
                             PeriodAngazovanja = tbPeriodAngazovanja.Text.Trim()
                         });
                         break;
-
                     case "sezonski rad":
                         if (string.IsNullOrWhiteSpace(tbSezona.Text) || string.IsNullOrWhiteSpace(tbLokacija.Text))
                         {
@@ -166,11 +167,15 @@ namespace SelekcijaKandidata.Forme
                             Lokacija = tbLokacija.Text.Trim()
                         });
                         break;
-
                     case "praksa":
                         if (cbMentor.SelectedItem == null)
                         {
                             MessageBox.Show("Izaberite mentora.");
+                            return;
+                        }
+                        if (nudTrajanjeMeseci.Value <= 0)
+                        {
+                            MessageBox.Show("Trajanje prakse mora biti veće od 0 meseci.");
                             return;
                         }
                         DTOManager.IzmeniPraksu(new PraksaBasic
@@ -197,6 +202,24 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
             }
+        }
+
+        private void nudMinPlata_ValueChanged(object sender, EventArgs e)
+        {
+            if (nudMaxPlata.Value < nudMinPlata.Value)
+            {
+                nudMaxPlata.Value = nudMinPlata.Value;
+            }
+        }
+
+        private void dtpDatumObjave_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpDatumZatvaranja.Value.Date < dtpDatumObjave.Value.Date)
+            {
+                dtpDatumZatvaranja.Value = dtpDatumObjave.Value.Date;
+            }
+
+            dtpDatumZatvaranja.MinDate = dtpDatumObjave.Value.Date;
         }
     }
 }

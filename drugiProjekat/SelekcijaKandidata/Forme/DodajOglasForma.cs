@@ -9,6 +9,12 @@ namespace SelekcijaKandidata.Forme
         {
             InitializeComponent();
             cbVrstaOglasa.SelectedIndexChanged += cbVrstaOglasa_SelectedIndexChanged;
+            nudMaxPlata.Maximum = Decimal.MaxValue;
+            nudMinPlata.Maximum = Decimal.MaxValue;
+            nudMinPlata.ValueChanged += nudMinPlata_ValueChanged;
+            dtpDatumObjave.ValueChanged += dtpDatumObjave_ValueChanged;
+            dtpDatumObjave.MaxDate = DateTime.Today;
+            dtpDatumZatvaranja.MinDate = DateTime.Today;
         }
 
         private void btnDodaj_Click(object sender, EventArgs e)
@@ -49,7 +55,6 @@ namespace SelekcijaKandidata.Forme
                             Status = cbStatus.SelectedItem.ToString()
                         });
                         break;
-
                     case "privremeni rad":
                         if (string.IsNullOrWhiteSpace(tbProjekat.Text) || string.IsNullOrWhiteSpace(tbPeriodAngazovanja.Text))
                         {
@@ -69,7 +74,6 @@ namespace SelekcijaKandidata.Forme
                             PeriodAngazovanja = tbPeriodAngazovanja.Text.Trim()
                         });
                         break;
-
                     case "sezonski rad":
                         if (string.IsNullOrWhiteSpace(tbSezona.Text) || string.IsNullOrWhiteSpace(tbLokacija.Text))
                         {
@@ -89,11 +93,15 @@ namespace SelekcijaKandidata.Forme
                             Lokacija = tbLokacija.Text.Trim()
                         });
                         break;
-
                     case "praksa":
                         if (cbMentor.SelectedItem == null)
                         {
                             MessageBox.Show("Izaberite mentora.");
+                            return;
+                        }
+                        if (nudTrajanjeMeseci.Value <= 0)
+                        {
+                            MessageBox.Show("Trajanje prakse mora biti veće od 0 meseci.");
                             return;
                         }
                         DTOManager.DodajPraksu(new PraksaBasic
@@ -196,6 +204,24 @@ namespace SelekcijaKandidata.Forme
             nudTrajanjeMeseci.Value = 0;
             cbMentor.SelectedIndex = -1;
             AzurirajBlokiranaPolja(null);
+        }
+
+        private void nudMinPlata_ValueChanged(object sender, EventArgs e)
+        {
+            if (nudMaxPlata.Value < nudMinPlata.Value)
+            {
+                nudMaxPlata.Value = nudMinPlata.Value;
+            }
+        }
+
+        private void dtpDatumObjave_ValueChanged(object sender, EventArgs e)
+        {
+            if (dtpDatumZatvaranja.Value.Date < dtpDatumObjave.Value.Date)
+            {
+                dtpDatumZatvaranja.Value = dtpDatumObjave.Value.Date;
+            }
+
+            dtpDatumZatvaranja.MinDate = dtpDatumObjave.Value.Date;
         }
     }
 }
