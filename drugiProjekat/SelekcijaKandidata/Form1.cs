@@ -50,5 +50,18 @@ namespace SelekcijaKandidata
             forma.ShowDialog();
             this.Show();
         }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            TestForma forma = new TestForma();
+            this.Hide();
+            forma.FormClosed += (s, args) => this.Show();
+            forma.Show();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

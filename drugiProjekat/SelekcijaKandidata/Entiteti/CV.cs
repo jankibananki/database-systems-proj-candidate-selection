@@ -21,10 +21,20 @@ namespace SelekcijaKandidata.Entiteti
         public virtual IList<Intervju> Intervjui { get; set; }
         public virtual IList<Test> Testovi { get; set; }
 
+        public virtual string KandidatPrikaz
+        {
+            get { return string.Format("ID: {0} - {1} {2}", Id, Ime, Prezime).Trim(); }
+        }
+
         public CV()
         {
             Intervjui = new List<Intervju>();
             Testovi = new List<Test>();
+        }
+
+        public override string ToString()
+        {
+            return KandidatPrikaz;
         }
     }
 }
