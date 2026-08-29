@@ -8,9 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="FluentNHibernate" Version="3.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.19" />
     <PackageReference Include="NHibernate" Version="5.7.0" />
     <PackageReference Include="Oracle.ManagedDataAccess" Version="23.26.300" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Kontroleri\" />
   </ItemGroup>
 
 </Project>
