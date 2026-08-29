@@ -1,0 +1,6 @@
+@SelekcijaKandidataWebAPI_HostAddress = http://localhost:5106
+
+GET {{SelekcijaKandidataWebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
