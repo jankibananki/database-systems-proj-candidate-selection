@@ -36,6 +36,7 @@
             this.dgvZaposleni = new System.Windows.Forms.DataGridView();
             this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Zaposleni = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZaposleni)).BeginInit();
             this.SuspendLayout();
             // 
@@ -118,11 +119,22 @@
             this.Zaposleni.Name = "Zaposleni";
             this.Zaposleni.ReadOnly = true;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(845, 492);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 23);
+            this.btnNazad.TabIndex = 18;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // ZaposleniForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(943, 537);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnObrisiZaposlenog);
             this.Controls.Add(this.btnIzmeniZaposlenog);
             this.Controls.Add(this.labelOglas);
@@ -148,5 +160,6 @@
         private System.Windows.Forms.DataGridView dgvZaposleni;
         private System.Windows.Forms.DataGridViewTextBoxColumn Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn Zaposleni;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

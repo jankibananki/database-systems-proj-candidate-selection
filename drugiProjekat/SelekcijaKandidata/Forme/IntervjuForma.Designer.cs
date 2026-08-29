@@ -42,14 +42,15 @@
             this.colZaposleni = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colOcena = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgvNapomene = new System.Windows.Forms.DataGridView();
-            this.label1 = new System.Windows.Forms.Label();
             this.colNapomena = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnOsvezi = new System.Windows.Forms.Button();
             this.btnDodajNapomenu = new System.Windows.Forms.Button();
             this.btnObrisiNapomenu = new System.Windows.Forms.Button();
             this.btnIzmeniNapomenu = new System.Windows.Forms.Button();
             this.tbNapomena = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvIntervju)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvNapomene)).BeginInit();
             this.SuspendLayout();
@@ -188,6 +189,14 @@
             this.dgvNapomene.TabIndex = 12;
             this.dgvNapomene.SelectionChanged += new System.EventHandler(this.dgvNapomene_SelectionChanged);
             // 
+            // colNapomena
+            // 
+            this.colNapomena.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.colNapomena.DataPropertyName = "Napomena";
+            this.colNapomena.HeaderText = "Napomena";
+            this.colNapomena.Name = "colNapomena";
+            this.colNapomena.ReadOnly = true;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -197,14 +206,6 @@
             this.label1.Size = new System.Drawing.Size(415, 31);
             this.label1.TabIndex = 13;
             this.label1.Text = "Napomene za selektovan intervju";
-            // 
-            // colNapomena
-            // 
-            this.colNapomena.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.colNapomena.DataPropertyName = "Napomena";
-            this.colNapomena.HeaderText = "Napomena";
-            this.colNapomena.Name = "colNapomena";
-            this.colNapomena.ReadOnly = true;
             // 
             // btnOsvezi
             // 
@@ -262,11 +263,22 @@
             this.label2.TabIndex = 19;
             this.label2.Text = "Unesi ili izmeni izabranu napomenu";
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(1127, 573);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 23);
+            this.btnNazad.TabIndex = 20;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // IntervjuForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1214, 569);
+            this.ClientSize = new System.Drawing.Size(1214, 608);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbNapomena);
             this.Controls.Add(this.btnIzmeniNapomenu);
@@ -315,5 +327,6 @@
         private System.Windows.Forms.Button btnIzmeniNapomenu;
         private System.Windows.Forms.TextBox tbNapomena;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

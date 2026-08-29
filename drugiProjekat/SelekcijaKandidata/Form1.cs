@@ -1,12 +1,5 @@
 ﻿using SelekcijaKandidata.Forme;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SelekcijaKandidata
@@ -19,37 +12,43 @@ namespace SelekcijaKandidata
         }
 
         private void btnCV_Click(object sender, EventArgs e)
-        {
-            CVforma forma = new CVforma();
-
+        { 
             this.Hide();
-            forma.Show();
+            CVforma forma = new CVforma();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnOglas_Click(object sender, EventArgs e)
         {
+            this.Hide();
             OglasForma forma = new OglasForma();
             forma.ShowDialog();
+            this.Show();
         }
 
         private void btnOdluka_Click(object sender, EventArgs e)
         {
+            this.Hide();
             OdlukaForma forma = new OdlukaForma();
             forma.ShowDialog();
+            this.Show();
         }
         
         private void btnIntervju_Click(object sender, EventArgs e)
         {
-            IntervjuForma forma = new IntervjuForma();
-
             this.Hide();
-            forma.Show();
+            IntervjuForma forma = new IntervjuForma();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnZaposleni_Click(object sender, EventArgs e)
         {
+            this.Hide();
             ZaposleniForma forma = new ZaposleniForma();
             forma.ShowDialog();
+            this.Show();
         }
     }
 }

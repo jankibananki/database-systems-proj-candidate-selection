@@ -57,6 +57,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.dtpDatumObjave = new System.Windows.Forms.DateTimePicker();
             this.tbOpis = new System.Windows.Forms.TextBox();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrajanjeMeseci)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinPlata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxPlata)).BeginInit();
@@ -345,11 +346,22 @@
             this.tbOpis.Size = new System.Drawing.Size(246, 20);
             this.tbOpis.TabIndex = 70;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(254, 438);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(78, 23);
+            this.btnNazad.TabIndex = 100;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // IzmeniOglasForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 499);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.cbMentor);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.nudTrajanjeMeseci);
@@ -421,5 +433,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.DateTimePicker dtpDatumObjave;
         private System.Windows.Forms.TextBox tbOpis;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

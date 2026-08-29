@@ -58,6 +58,7 @@
             this.nudTrajanjeMeseci = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
             this.cbMentor = new System.Windows.Forms.ComboBox();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudMaxPlata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudMinPlata)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTrajanjeMeseci)).BeginInit();
@@ -104,7 +105,7 @@
             // 
             // btnOcisti
             // 
-            this.btnOcisti.Location = new System.Drawing.Point(239, 464);
+            this.btnOcisti.Location = new System.Drawing.Point(239, 452);
             this.btnOcisti.Name = "btnOcisti";
             this.btnOcisti.Size = new System.Drawing.Size(99, 23);
             this.btnOcisti.TabIndex = 45;
@@ -356,11 +357,22 @@
             this.cbMentor.Size = new System.Drawing.Size(246, 21);
             this.cbMentor.TabIndex = 69;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(251, 481);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 25);
+            this.btnNazad.TabIndex = 70;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // DodajOglasForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 499);
+            this.ClientSize = new System.Drawing.Size(621, 510);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.cbMentor);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.nudTrajanjeMeseci);
@@ -434,5 +446,6 @@
         private System.Windows.Forms.NumericUpDown nudTrajanjeMeseci;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.ComboBox cbMentor;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

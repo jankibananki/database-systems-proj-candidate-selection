@@ -29,11 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvCV = new System.Windows.Forms.DataGridView();
-            this.labeldgvCV = new System.Windows.Forms.Label();
-            this.btnDodajCV = new System.Windows.Forms.Button();
-            this.labelCV = new System.Windows.Forms.Label();
-            this.btnIzmeniCV = new System.Windows.Forms.Button();
-            this.btnObrisiCV = new System.Windows.Forms.Button();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIme = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPrezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -41,6 +36,12 @@
             this.colDatumPodnosenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBrojTelefona = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.labeldgvCV = new System.Windows.Forms.Label();
+            this.btnDodajCV = new System.Windows.Forms.Button();
+            this.labelCV = new System.Windows.Forms.Label();
+            this.btnIzmeniCV = new System.Windows.Forms.Button();
+            this.btnObrisiCV = new System.Windows.Forms.Button();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCV)).BeginInit();
             this.SuspendLayout();
             // 
@@ -62,6 +63,55 @@
             this.dgvCV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCV.Size = new System.Drawing.Size(739, 428);
             this.dgvCV.TabIndex = 0;
+            // 
+            // colId
+            // 
+            this.colId.DataPropertyName = "Id";
+            this.colId.HeaderText = "Id";
+            this.colId.Name = "colId";
+            this.colId.ReadOnly = true;
+            // 
+            // colIme
+            // 
+            this.colIme.DataPropertyName = "Ime";
+            this.colIme.HeaderText = "Ime";
+            this.colIme.Name = "colIme";
+            this.colIme.ReadOnly = true;
+            // 
+            // colPrezime
+            // 
+            this.colPrezime.DataPropertyName = "Prezime";
+            this.colPrezime.HeaderText = "Prezime";
+            this.colPrezime.Name = "colPrezime";
+            this.colPrezime.ReadOnly = true;
+            // 
+            // colEmail
+            // 
+            this.colEmail.DataPropertyName = "Email";
+            this.colEmail.HeaderText = "Email";
+            this.colEmail.Name = "colEmail";
+            this.colEmail.ReadOnly = true;
+            // 
+            // colDatumPodnosenja
+            // 
+            this.colDatumPodnosenja.DataPropertyName = "DatumPodnosenja";
+            this.colDatumPodnosenja.HeaderText = "Datum Podnošenja";
+            this.colDatumPodnosenja.Name = "colDatumPodnosenja";
+            this.colDatumPodnosenja.ReadOnly = true;
+            // 
+            // colStatus
+            // 
+            this.colStatus.DataPropertyName = "Status";
+            this.colStatus.HeaderText = "Status";
+            this.colStatus.Name = "colStatus";
+            this.colStatus.ReadOnly = true;
+            // 
+            // colBrojTelefona
+            // 
+            this.colBrojTelefona.DataPropertyName = "BrojTelefona";
+            this.colBrojTelefona.HeaderText = "BrojTelefona";
+            this.colBrojTelefona.Name = "colBrojTelefona";
+            this.colBrojTelefona.ReadOnly = true;
             // 
             // labeldgvCV
             // 
@@ -113,60 +163,22 @@
             this.btnObrisiCV.UseVisualStyleBackColor = true;
             this.btnObrisiCV.Click += new System.EventHandler(this.btnObrisiCV_Click);
             // 
-            // colId
+            // btnNazad
             // 
-            this.colId.DataPropertyName = "Id";
-            this.colId.HeaderText = "Id";
-            this.colId.Name = "colId";
-            this.colId.ReadOnly = true;
-            // 
-            // colIme
-            // 
-            this.colIme.DataPropertyName = "Ime";
-            this.colIme.HeaderText = "Ime";
-            this.colIme.Name = "colIme";
-            this.colIme.ReadOnly = true;
-            // 
-            // colPrezime
-            // 
-            this.colPrezime.DataPropertyName = "Prezime";
-            this.colPrezime.HeaderText = "Prezime";
-            this.colPrezime.Name = "colPrezime";
-            this.colPrezime.ReadOnly = true;
-            // 
-            // colEmail
-            // 
-            this.colEmail.DataPropertyName = "Email";
-            this.colEmail.HeaderText = "Email";
-            this.colEmail.Name = "colEmail";
-            this.colEmail.ReadOnly = true;
-            // 
-            // colDatumPodnosenja
-            // 
-            this.colDatumPodnosenja.DataPropertyName = "DatumPodnosenja";
-            this.colDatumPodnosenja.HeaderText = "Datum Podnošenja";
-            this.colDatumPodnosenja.Name = "colDatumPodnosenja";
-            this.colDatumPodnosenja.ReadOnly = true;
-            // 
-            // colStatus
-            // 
-            this.colStatus.DataPropertyName = "Status";
-            this.colStatus.HeaderText = "Status";
-            this.colStatus.Name = "colStatus";
-            this.colStatus.ReadOnly = true;
-            // 
-            // colBrojTelefona
-            // 
-            this.colBrojTelefona.DataPropertyName = "BrojTelefona";
-            this.colBrojTelefona.HeaderText = "BrojTelefona";
-            this.colBrojTelefona.Name = "colBrojTelefona";
-            this.colBrojTelefona.ReadOnly = true;
+            this.btnNazad.Location = new System.Drawing.Point(832, 502);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(99, 23);
+            this.btnNazad.TabIndex = 15;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
             // CVforma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(943, 537);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnObrisiCV);
             this.Controls.Add(this.btnIzmeniCV);
             this.Controls.Add(this.labelCV);
@@ -197,5 +209,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colDatumPodnosenja;
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBrojTelefona;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

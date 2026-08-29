@@ -43,12 +43,13 @@
             this.nudPlata = new System.Windows.Forms.NumericUpDown();
             this.cbCV = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlata)).BeginInit();
             this.SuspendLayout();
             // 
             // btnOcisti
             // 
-            this.btnOcisti.Location = new System.Drawing.Point(254, 258);
+            this.btnOcisti.Location = new System.Drawing.Point(254, 246);
             this.btnOcisti.Name = "btnOcisti";
             this.btnOcisti.Size = new System.Drawing.Size(99, 23);
             this.btnOcisti.TabIndex = 28;
@@ -192,11 +193,22 @@
             this.label2.TabIndex = 36;
             this.label2.Text = "CV";
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(267, 287);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 25);
+            this.btnNazad.TabIndex = 37;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // DodajOdlukuForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(621, 295);
+            this.ClientSize = new System.Drawing.Size(621, 324);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.cbCV);
             this.Controls.Add(this.nudPlata);
@@ -236,5 +248,6 @@
         private System.Windows.Forms.NumericUpDown nudPlata;
         private System.Windows.Forms.ComboBox cbCV;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

@@ -41,6 +41,7 @@
             this.Status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Plata = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RazlogOdbijanja = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOdluke)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,11 +163,22 @@
             this.RazlogOdbijanja.Name = "RazlogOdbijanja";
             this.RazlogOdbijanja.ReadOnly = true;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(856, 502);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 23);
+            this.btnNazad.TabIndex = 18;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // OdlukaForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(943, 537);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnObrisiOdluku);
             this.Controls.Add(this.btnIzmeniOdluku);
             this.Controls.Add(this.labelOdluka);
@@ -197,5 +209,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Status;
         private System.Windows.Forms.DataGridViewTextBoxColumn Plata;
         private System.Windows.Forms.DataGridViewTextBoxColumn RazlogOdbijanja;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

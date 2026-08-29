@@ -30,9 +30,11 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodajZaposlenog_Click(object sender, EventArgs e)
         {
+            this.Hide();
             var forma = new DodajZaposlenogForma();
-            if (forma.ShowDialog() == DialogResult.OK)
-                UcitajPodatke();
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
         }
 
         private void btnIzmeniZaposlenog_Click(object sender, EventArgs e)
@@ -52,13 +54,11 @@ namespace SelekcijaKandidata.Forme
                              .Value
             );
 
-            IzmeniZaposlenogForma forma =
-                new IzmeniZaposlenogForma(id);
-
-            if (forma.ShowDialog() == DialogResult.OK)
-            {
-                UcitajPodatke();
-            }
+            this.Hide();
+            var forma = new IzmeniZaposlenogForma(id);
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
         }
 
         private void btnObrisiZaposlenog_Click(object sender, EventArgs e)
@@ -84,6 +84,12 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

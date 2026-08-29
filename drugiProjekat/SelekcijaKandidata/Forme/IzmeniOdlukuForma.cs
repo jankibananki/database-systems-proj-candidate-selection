@@ -108,5 +108,11 @@ namespace SelekcijaKandidata.Forme
             if (!odbijen)
                 tbRazlogOdbijanja.Clear();
         }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

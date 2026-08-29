@@ -36,9 +36,11 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodajOdluku_Click(object sender, EventArgs e)
         {
+            this.Hide();
             var forma = new DodajOdlukuForma();
-            if (forma.ShowDialog() == DialogResult.OK)
-                UcitajPodatke();
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
         }
 
         private void btnObrisiOdluku_Click_1(object sender, EventArgs e)
@@ -76,9 +78,17 @@ namespace SelekcijaKandidata.Forme
 
             var izabrana = (OdlukaBasic)dgvOdluke.SelectedRows[0].DataBoundItem;
 
+            this.Hide();
             var forma = new IzmeniOdlukuForma(izabrana);
-            if (forma.ShowDialog() == DialogResult.OK)
-                UcitajPodatke();
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

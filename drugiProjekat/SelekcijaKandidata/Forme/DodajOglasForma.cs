@@ -223,5 +223,11 @@ namespace SelekcijaKandidata.Forme
 
             dtpDatumZatvaranja.MinDate = dtpDatumObjave.Value.Date;
         }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
     }
 }

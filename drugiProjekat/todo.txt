@@ -1,6 +1,1 @@
--da se sredi nazad/x za svaki i cenim ga da je mozda bolje da se ne vidi ona inicijalna forma na ekran kad se otvori neka druga al da ga napravimo da bude funkcionalno
-
--ja (jana) da prepravim da se i kod mene koristi message box za poruke ako nesto ne moze, cisto da budemo uskladjeni, kod mene je error provider (crveni iksic kod polje se pojavi) - ovo je manje bitno al ono eto estetike radi
-
 -kod oglas nece da unese min plata 200000 i max plata 250000 ostane prazno polje ne kontam sto
--isto kod oglas, mozda ne bi bilo lose da datum postavljanja oglasa ima proveru da ne mozes da stavis neki buduci (?da prodiskutujemo mozda i ima smisla da ostane tako)

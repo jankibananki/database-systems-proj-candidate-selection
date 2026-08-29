@@ -51,6 +51,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dgvZahtevi = new System.Windows.Forms.DataGridView();
             this.colZahtev = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnNazad = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOglasi)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvZahtevi)).BeginInit();
             this.SuspendLayout();
@@ -269,11 +270,22 @@
             this.colZahtev.Name = "colZahtev";
             this.colZahtev.ReadOnly = true;
             // 
+            // btnNazad
+            // 
+            this.btnNazad.Location = new System.Drawing.Point(1160, 565);
+            this.btnNazad.Name = "btnNazad";
+            this.btnNazad.Size = new System.Drawing.Size(75, 23);
+            this.btnNazad.TabIndex = 27;
+            this.btnNazad.Text = "Nazad";
+            this.btnNazad.UseVisualStyleBackColor = true;
+            this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
+            // 
             // OglasForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1247, 600);
+            this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbZahtev);
             this.Controls.Add(this.btnIzmeniZahtev);
@@ -322,5 +334,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dgvZahtevi;
         private System.Windows.Forms.DataGridViewTextBoxColumn colZahtev;
+        private System.Windows.Forms.Button btnNazad;
     }
 }

@@ -47,7 +47,8 @@ namespace SelekcijaKandidata.Forme
             DodajCVforma forma = new DodajCVforma(this);
 
             this.Hide();
-            forma.Show();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnIzmeniCV_Click(object sender, EventArgs e)
@@ -66,7 +67,8 @@ namespace SelekcijaKandidata.Forme
                 new IzmeniCVforma(this, id);
 
             this.Hide();
-            forma.Show();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnObrisiCV_Click(object sender, EventArgs e)
@@ -102,6 +104,12 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

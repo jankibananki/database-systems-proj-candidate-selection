@@ -41,9 +41,11 @@ namespace SelekcijaKandidata.Forme
 
         private void btnDodajOglas_Click(object sender, EventArgs e)
         {
+            this.Hide();
             var forma = new DodajOglasForma();
-            if (forma.ShowDialog() == DialogResult.OK)
-                UcitajPodatke();
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
         }
 
         private void btnObrisiOglas_Click(object sender, EventArgs e)
@@ -81,9 +83,11 @@ namespace SelekcijaKandidata.Forme
 
             var izabran = (OglasPregled)dgvOglasi.SelectedRows[0].DataBoundItem;
 
+            this.Hide();
             var forma = new IzmeniOglasForma(izabran);
-            if (forma.ShowDialog() == DialogResult.OK)
-                UcitajPodatke();
+            forma.ShowDialog();
+            this.Show();
+            UcitajPodatke();
         }
 
         private int? VratiIdSelektovanogOglasa()
@@ -289,6 +293,12 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }

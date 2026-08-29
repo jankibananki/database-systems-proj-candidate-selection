@@ -79,7 +79,8 @@ namespace SelekcijaKandidata.Forme
             DodajIntervjuForma forma = new DodajIntervjuForma(this);
 
             this.Hide();
-            forma.Show();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnIzmeniIntervju_Click(object sender, EventArgs e)
@@ -98,7 +99,8 @@ namespace SelekcijaKandidata.Forme
                 new IzmeniIntervjuForma(this, id);
 
             this.Hide();
-            forma.Show();
+            forma.ShowDialog();
+            this.Show();
         }
 
         private void btnObrisiIntervju_Click(object sender, EventArgs e)
@@ -320,6 +322,12 @@ namespace SelekcijaKandidata.Forme
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void btnNazad_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }
