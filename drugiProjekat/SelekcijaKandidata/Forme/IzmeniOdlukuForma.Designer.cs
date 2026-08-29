@@ -42,6 +42,7 @@
             this.dtpDatum = new System.Windows.Forms.DateTimePicker();
             this.tbRazlogOdbijanja = new System.Windows.Forms.TextBox();
             this.btnNazad = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudPlata)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,11 +50,11 @@
             // 
             this.lblKandidat.AutoSize = true;
             this.lblKandidat.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblKandidat.Location = new System.Drawing.Point(275, 9);
+            this.lblKandidat.Location = new System.Drawing.Point(193, 9);
             this.lblKandidat.Name = "lblKandidat";
-            this.lblKandidat.Size = new System.Drawing.Size(25, 16);
+            this.lblKandidat.Size = new System.Drawing.Size(60, 16);
             this.lblKandidat.TabIndex = 51;
-            this.lblKandidat.Text = "CV";
+            this.lblKandidat.Text = "Kandidat";
             // 
             // nudPlata
             // 
@@ -182,11 +183,22 @@
             this.btnNazad.UseVisualStyleBackColor = true;
             this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(124, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 16);
+            this.label2.TabIndex = 53;
+            this.label2.Text = "Kandidat :";
+            // 
             // IzmeniOdlukuForma
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(621, 295);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.lblKandidat);
             this.Controls.Add(this.nudPlata);
@@ -226,5 +238,6 @@
         private System.Windows.Forms.DateTimePicker dtpDatum;
         private System.Windows.Forms.TextBox tbRazlogOdbijanja;
         private System.Windows.Forms.Button btnNazad;
+        private System.Windows.Forms.Label label2;
     }
 }

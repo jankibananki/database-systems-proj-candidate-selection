@@ -209,6 +209,9 @@
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forme\DodajTestforma.resx">
+      <DependentUpon>DodajTestforma.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forme\IzmeniTestForma.resx">
       <DependentUpon>IzmeniTestForma.cs</DependentUpon>
     </EmbeddedResource>

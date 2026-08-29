@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SelekcijaKandidata
 {
+    #region CV
+
     public class CVPregled
     {
         public int Id { get; set; }
@@ -29,23 +27,32 @@ namespace SelekcijaKandidata
         public int IdOglasa { get; set; }
     }
 
-    public class OglasLookup
-    {
-        public int Id { get; set; }
-        public string NazivPozicije { get; set; }
-    }
-
     public class CVLookup
     {
         public int Id { get; set; }
         public string Kandidat { get; set; }
     }
 
+    #endregion
+
+    #region Zaposleni
+
     public class ZaposleniLookup
     {
         public int Id { get; set; }
         public string Zaposleni { get; set; }
     }
+
+    public class ZaposleniBasic
+    {
+        public int Id { get; set; }
+        public string Ime { get; set; }
+        public string Prezime { get; set; }
+    }
+
+    #endregion
+
+    #region Intervjui
 
     public class IntervjuPregled
     {
@@ -75,6 +82,8 @@ namespace SelekcijaKandidata
         public string Napomena { get; set; }
     }
 
+    #endregion
+
     #region Odluka
 
     public class OdlukaBasic
@@ -94,6 +103,11 @@ namespace SelekcijaKandidata
 
     #region Oglasi
 
+    public class OglasLookup
+    {
+        public int Id { get; set; }
+        public string NazivPozicije { get; set; }
+    }
     public class OglasPregled
     {
         public int Id { get; set; }
@@ -138,11 +152,29 @@ namespace SelekcijaKandidata
 
     #endregion
 
-    public class ZaposleniBasic
+    #region Testovi
+
+    public class TestPregled
     {
         public int Id { get; set; }
-        public string Ime { get; set; }
-        public string Prezime { get; set; }
+        public DateTime Datum { get; set; }
+        public string Vrsta { get; set; }
+        public int? Rezultat { get; set; }
+        public string Komentar { get; set; }
+        public string Kandidat { get; set; }
+        public int IdCV { get; set; }
     }
+
+    public class TestBasic
+    {
+        public int Id { get; set; }
+        public DateTime Datum { get; set; }
+        public string Vrsta { get; set; }
+        public int? Rezultat { get; set; }
+        public string Komentar { get; set; }
+        public int IdCV { get; set; }
+    }
+
+    #endregion
 
 }

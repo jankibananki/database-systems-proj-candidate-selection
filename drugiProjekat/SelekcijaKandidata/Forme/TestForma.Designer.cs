@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.dgvTestovi = new System.Windows.Forms.DataGridView();
-            this.labelTestovi = new System.Windows.Forms.Label();
-            this.btnDodajTest = new System.Windows.Forms.Button();
-            this.btnObrisiTest = new System.Windows.Forms.Button();
-            this.btnIzmeniTest = new System.Windows.Forms.Button();
             this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colIme = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colPrezime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -40,7 +36,12 @@
             this.colDatumPodnosenja = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colBrojTelefona = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnDodajTest = new System.Windows.Forms.Button();
+            this.btnObrisiTest = new System.Windows.Forms.Button();
+            this.btnIzmeniTest = new System.Windows.Forms.Button();
             this.btnNazad = new System.Windows.Forms.Button();
+            this.labelCV = new System.Windows.Forms.Label();
+            this.labeldgvCV = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestovi)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,56 +56,14 @@
             this.colDatumPodnosenja,
             this.colStatus,
             this.colBrojTelefona});
-            this.dgvTestovi.Location = new System.Drawing.Point(16, 92);
-            this.dgvTestovi.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dgvTestovi.Location = new System.Drawing.Point(12, 75);
             this.dgvTestovi.MultiSelect = false;
             this.dgvTestovi.Name = "dgvTestovi";
             this.dgvTestovi.ReadOnly = true;
             this.dgvTestovi.RowHeadersWidth = 51;
             this.dgvTestovi.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvTestovi.Size = new System.Drawing.Size(985, 527);
+            this.dgvTestovi.Size = new System.Drawing.Size(739, 428);
             this.dgvTestovi.TabIndex = 0;
-            this.dgvTestovi.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvTestovi_CellContentClick);
-            // 
-            // labelTestovi
-            // 
-            this.labelTestovi.Location = new System.Drawing.Point(13, 9);
-            this.labelTestovi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.labelTestovi.Name = "labelTestovi";
-            this.labelTestovi.Size = new System.Drawing.Size(133, 28);
-            this.labelTestovi.TabIndex = 1;
-            this.labelTestovi.Text = "Testovi";
-            this.labelTestovi.Click += new System.EventHandler(this.labelTestovi_Click);
-            // 
-            // btnDodajTest
-            // 
-            this.btnDodajTest.Location = new System.Drawing.Point(1009, 92);
-            this.btnDodajTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnDodajTest.Name = "btnDodajTest";
-            this.btnDodajTest.Size = new System.Drawing.Size(235, 60);
-            this.btnDodajTest.TabIndex = 2;
-            this.btnDodajTest.Text = "Dodaj test";
-            this.btnDodajTest.Click += new System.EventHandler(this.btnDodajTest_Click);
-            // 
-            // btnObrisiTest
-            // 
-            this.btnObrisiTest.Location = new System.Drawing.Point(1009, 160);
-            this.btnObrisiTest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.btnObrisiTest.Name = "btnObrisiTest";
-            this.btnObrisiTest.Size = new System.Drawing.Size(235, 60);
-            this.btnObrisiTest.TabIndex = 0;
-            this.btnObrisiTest.Text = "Obriši test";
-            this.btnObrisiTest.Click += new System.EventHandler(this.btnObrisiTest_Click);
-            // 
-            // btnIzmeniTest
-            // 
-            this.btnIzmeniTest.Location = new System.Drawing.Point(1009, 228);
-            this.btnIzmeniTest.Margin = new System.Windows.Forms.Padding(4);
-            this.btnIzmeniTest.Name = "btnIzmeniTest";
-            this.btnIzmeniTest.Size = new System.Drawing.Size(235, 60);
-            this.btnIzmeniTest.TabIndex = 3;
-            this.btnIzmeniTest.Text = "Izmeni test";
-            this.btnIzmeniTest.Click += new System.EventHandler(this.btnIzmeniTest_Click);
             // 
             // colId
             // 
@@ -168,39 +127,87 @@
             this.colBrojTelefona.ReadOnly = true;
             this.colBrojTelefona.Width = 125;
             // 
+            // btnDodajTest
+            // 
+            this.btnDodajTest.Location = new System.Drawing.Point(757, 75);
+            this.btnDodajTest.Name = "btnDodajTest";
+            this.btnDodajTest.Size = new System.Drawing.Size(176, 49);
+            this.btnDodajTest.TabIndex = 2;
+            this.btnDodajTest.Text = "Dodaj test";
+            this.btnDodajTest.Click += new System.EventHandler(this.btnDodajTest_Click);
+            // 
+            // btnObrisiTest
+            // 
+            this.btnObrisiTest.Location = new System.Drawing.Point(757, 185);
+            this.btnObrisiTest.Name = "btnObrisiTest";
+            this.btnObrisiTest.Size = new System.Drawing.Size(176, 49);
+            this.btnObrisiTest.TabIndex = 0;
+            this.btnObrisiTest.Text = "Obriši test";
+            this.btnObrisiTest.Click += new System.EventHandler(this.btnObrisiTest_Click);
+            // 
+            // btnIzmeniTest
+            // 
+            this.btnIzmeniTest.Location = new System.Drawing.Point(757, 130);
+            this.btnIzmeniTest.Name = "btnIzmeniTest";
+            this.btnIzmeniTest.Size = new System.Drawing.Size(176, 49);
+            this.btnIzmeniTest.TabIndex = 3;
+            this.btnIzmeniTest.Text = "Izmeni test";
+            this.btnIzmeniTest.Click += new System.EventHandler(this.btnIzmeniTest_Click);
+            // 
             // btnNazad
             // 
-            this.btnNazad.Location = new System.Drawing.Point(1082, 594);
+            this.btnNazad.Location = new System.Drawing.Point(812, 483);
+            this.btnNazad.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.btnNazad.Name = "btnNazad";
-            this.btnNazad.Size = new System.Drawing.Size(95, 25);
+            this.btnNazad.Size = new System.Drawing.Size(71, 20);
             this.btnNazad.TabIndex = 13;
             this.btnNazad.Text = "Nazad";
             this.btnNazad.Click += new System.EventHandler(this.btnNazad_Click);
             // 
+            // labelCV
+            // 
+            this.labelCV.AutoSize = true;
+            this.labelCV.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCV.Location = new System.Drawing.Point(386, 7);
+            this.labelCV.Name = "labelCV";
+            this.labelCV.Size = new System.Drawing.Size(137, 39);
+            this.labelCV.TabIndex = 15;
+            this.labelCV.Text = "Testovi";
+            // 
+            // labeldgvCV
+            // 
+            this.labeldgvCV.AutoSize = true;
+            this.labeldgvCV.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labeldgvCV.Location = new System.Drawing.Point(12, 39);
+            this.labeldgvCV.Name = "labeldgvCV";
+            this.labeldgvCV.Size = new System.Drawing.Size(209, 31);
+            this.labeldgvCV.TabIndex = 14;
+            this.labeldgvCV.Text = "Prikaz podataka";
+            // 
             // TestForma
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1257, 661);
+            this.ClientSize = new System.Drawing.Size(943, 537);
+            this.Controls.Add(this.labelCV);
+            this.Controls.Add(this.labeldgvCV);
             this.Controls.Add(this.btnNazad);
             this.Controls.Add(this.btnIzmeniTest);
             this.Controls.Add(this.btnObrisiTest);
-            this.Controls.Add(this.labelTestovi);
             this.Controls.Add(this.btnDodajTest);
             this.Controls.Add(this.dgvTestovi);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "TestForma";
             this.Text = "Testovi";
             this.Load += new System.EventHandler(this.TestForma_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvTestovi)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.DataGridView dgvTestovi;
-        private System.Windows.Forms.Label labelTestovi;
         private System.Windows.Forms.Button btnDodajTest;
         private System.Windows.Forms.Button btnObrisiTest;
         private System.Windows.Forms.Button btnIzmeniTest;
@@ -212,5 +219,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn colBrojTelefona;
         private System.Windows.Forms.Button btnNazad;
+        private System.Windows.Forms.Label labelCV;
+        private System.Windows.Forms.Label labeldgvCV;
     }
 }

@@ -9,9 +9,9 @@ namespace SelekcijaKandidata.Forme
 {
     public partial class IzmeniTestForma : Form
     {
-        private Test test;
+        private readonly TestPregled test;
 
-        public IzmeniTestForma(Test test)
+        public IzmeniTestForma(TestPregled test)
         {
             InitializeComponent();
             this.test = test;
@@ -19,28 +19,35 @@ namespace SelekcijaKandidata.Forme
 
         private void IzmeniTestForma_Load(object sender, EventArgs e)
         {
+            if (test == null)
+                return;
+
+            PopuniKandidate();
+            UcitajPodatke();
+        }
+
+        private void UcitajPodatke()
+        {
+            cbKandidat.SelectedValue = test.IdCV;
+            dtpDatum.Value = test.Datum;
+            tbVrsta.Text = test.Vrsta;
+            tbRezultat.Text = test.Rezultat?.ToString() ?? "";
+            tbKomentar.Text = test.Komentar;
+        }
+
+        private void PopuniKandidate()
+        {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<CV> cvjevi = s.QueryOver<CV>().List<CV>();
-
-                    cbCV.DataSource = cvjevi;
-                    cbCV.DisplayMember = "KandidatPrikaz";
-                    cbCV.ValueMember = "Id";
-                    cbCV.SelectedValue = test.CV.Id;
-                }
-
-                dtpDatum.Value = test.Datum;
-                tbVrsta.Text = test.Vrsta;
-                tbRezultat.Text = test.Rezultat.HasValue
-                    ? test.Rezultat.Value.ToString()
-                    : "";
-                tbKomentar.Text = test.Komentar;
+                var kandidati = DTOManager.VratiKandidate();
+                cbKandidat.DataSource = kandidati;
+                cbKandidat.DisplayMember = "Kandidat";
+                cbKandidat.ValueMember = "Id";
+                cbKandidat.Enabled = false; 
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -51,39 +58,42 @@ namespace SelekcijaKandidata.Forme
 
         private void btnSacuvaj_Click(object sender, EventArgs e)
         {
-            if (cbCV.SelectedItem == null || string.IsNullOrWhiteSpace(tbVrsta.Text))
+            if (string.IsNullOrWhiteSpace(tbVrsta.Text))
             {
-                MessageBox.Show("Izaberite kandidata i unesite vrstu testa.");
+                MessageBox.Show("Unesite vrstu testa.");
                 return;
+            }
+
+            int? rezultat = null;
+            if (!string.IsNullOrWhiteSpace(tbRezultat.Text))
+            {
+                if (!int.TryParse(tbRezultat.Text, out int r))
+                {
+                    MessageBox.Show("Rezultat mora biti ceo broj.");
+                    return;
+                }
+                rezultat = r;
             }
 
             try
             {
-                test.Datum = dtpDatum.Value;
-                test.Vrsta = tbVrsta.Text.Trim();
-                test.Rezultat = string.IsNullOrWhiteSpace(tbRezultat.Text)
-                    ? (int?)null
-                    : int.Parse(tbRezultat.Text);
-                test.Komentar = tbKomentar.Text.Trim();
-                test.CV = (CV)cbCV.SelectedItem;
-
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tx = s.BeginTransaction())
+                DTOManager.IzmeniTest(new TestBasic
                 {
-                    s.Update(test);
-                    tx.Commit();
-                }
+                    Id = test.Id,
+                    Datum = dtpDatum.Value.Date,
+                    Vrsta = tbVrsta.Text.Trim(),
+                    Rezultat = rezultat,
+                    Komentar = tbKomentar.Text.Trim(),
+                    IdCV = test.IdCV
+                });
 
-                DialogResult = DialogResult.OK;
-                Close();
+                MessageBox.Show("Test je uspesno izmenjen.");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            catch (FormatException)
+            catch (Exception ex)
             {
-                MessageBox.Show("Rezultat mora biti ceo broj ili prazan.");
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
             }
         }
     }

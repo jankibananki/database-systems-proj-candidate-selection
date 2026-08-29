@@ -16,58 +16,70 @@ namespace SelekcijaKandidata.Forme
 
         private void DodajTestforma_Load(object sender, EventArgs e)
         {
+            PopuniKandidate();
+        }
+
+        private void PopuniKandidate()
+        {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<CV> cvjevi = s.QueryOver<CV>().List<CV>();
-                    cbCV.DataSource = cvjevi;
-                    cbCV.DisplayMember = "KandidatPrikaz";
-                    cbCV.ValueMember = "Id";
-                }
+                var kandidati = DTOManager.VratiKandidate();
+                cbKandidat.DataSource = kandidati;
+                cbKandidat.DisplayMember = "Kandidat";
+                cbKandidat.ValueMember = "Id";
+                cbKandidat.SelectedIndex = -1;
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnDodaj_Click(object sender, EventArgs e)
         {
-            if (cbCV.SelectedItem == null || string.IsNullOrWhiteSpace(tbVrsta.Text))
+            if (cbKandidat.SelectedItem == null)
             {
-                MessageBox.Show("Izaberite kandidata i unesite vrstu testa.");
+                MessageBox.Show("Izaberite kandidata.");
                 return;
+            }
+
+            if (string.IsNullOrWhiteSpace(tbVrsta.Text))
+            {
+                MessageBox.Show("Unesite vrstu testa.");
+                return;
+            }
+
+            int? rezultat = null;
+            if (!string.IsNullOrWhiteSpace(tbRezultat.Text))
+            {
+                if (!int.TryParse(tbRezultat.Text, out int r))
+                {
+                    MessageBox.Show("Rezultat mora biti ceo broj.");
+                    return;
+                }
+                rezultat = r;
             }
 
             try
             {
-                Test test = new Test
+                var izabraniKandidat = (CVLookup)cbKandidat.SelectedItem;
+
+                DTOManager.DodajTest(new TestBasic
                 {
-                    Datum = dtpDatum.Value,
+                    Datum = dtpDatum.Value.Date,
                     Vrsta = tbVrsta.Text.Trim(),
-                    Rezultat = string.IsNullOrWhiteSpace(tbRezultat.Text) ? (int?)null : int.Parse(tbRezultat.Text),
+                    Rezultat = rezultat,
                     Komentar = tbKomentar.Text.Trim(),
-                    CV = (CV)cbCV.SelectedItem
-                };
+                    IdCV = izabraniKandidat.Id
+                });
 
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tx = s.BeginTransaction())
-                {
-                    s.Save(test);
-                    tx.Commit();
-                }
-
-                DialogResult = DialogResult.OK;
-                Close();
+                MessageBox.Show("Test je uspesno dodat.");
+                this.DialogResult = DialogResult.OK;
+                this.Close();
             }
-            catch (FormatException)
+            catch (Exception ex)
             {
-                MessageBox.Show("Rezultat mora biti ceo broj ili prazan.");
-            }
-            catch (Exception ec)
-            {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
             }
         }
 

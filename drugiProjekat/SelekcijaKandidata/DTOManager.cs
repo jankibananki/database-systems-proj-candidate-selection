@@ -1062,5 +1062,74 @@ namespace SelekcijaKandidata
             });
         }
         #endregion
+
+        #region Testovi
+
+        public static List<TestPregled> VratiSveTestove()
+        {
+            using (ISession session = DataLayer.GetSession())
+            {
+                return session.Query<Test>()
+                    .ToList()
+                    .Select(t => new TestPregled
+                    {
+                        Id = t.Id,
+                        Datum = t.Datum,
+                        Vrsta = t.Vrsta,
+                        Rezultat = t.Rezultat,
+                        Komentar = t.Komentar,
+                        Kandidat = t.CV.Ime + " " + t.CV.Prezime,
+                        IdCV = t.CV.Id
+                    })
+                    .OrderBy(t => t.Id)
+                    .ToList();
+            }
+        }
+
+        public static void DodajTest(TestBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                CV cv = session.Get<CV>(dto.IdCV)
+                    ?? throw new Exception("Kandidat nije pronadjen.");
+
+                session.Save(new Test
+                {
+                    Datum = dto.Datum,
+                    Vrsta = dto.Vrsta,
+                    Rezultat = dto.Rezultat,
+                    Komentar = dto.Komentar,
+                    CV = cv
+                });
+            });
+        }
+
+        public static void IzmeniTest(TestBasic dto)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Test t = session.Get<Test>(dto.Id)
+                    ?? throw new Exception("Test nije pronadjen.");
+
+                t.Datum = dto.Datum;
+                t.Vrsta = dto.Vrsta;
+                t.Rezultat = dto.Rezultat;
+                t.Komentar = dto.Komentar;
+
+                session.Update(t);
+            });
+        }
+
+        public static void ObrisiTest(int id)
+        {
+            IzvrsiUTransakciji(session =>
+            {
+                Test t = session.Get<Test>(id)
+                    ?? throw new Exception("Test nije pronadjen.");
+                session.Delete(t);
+            });
+        }
+
+        #endregion
     }
 }

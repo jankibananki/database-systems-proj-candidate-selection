@@ -24,10 +24,11 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                var cvjevi = DTOManager.VratiSveCV();
+                var cvjevi = DTOManager.VratiKandidate();
                 cbCV.DataSource = cvjevi;
-                cbCV.DisplayMember = "Id";
+                cbCV.DisplayMember = "Kandidat";
                 cbCV.ValueMember = "Id";
+                cbCV.SelectedIndex = -1;
             }
             catch (Exception ex)
             {
@@ -39,7 +40,7 @@ namespace SelekcijaKandidata.Forme
         {
             if (cbCV.SelectedItem == null)
             {
-                MessageBox.Show("Izaberite CV.");
+                MessageBox.Show("Izaberite kandidata.");
                 return;
             }
             if (cbStatus.SelectedItem == null)

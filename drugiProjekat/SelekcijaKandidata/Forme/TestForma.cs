@@ -3,12 +3,6 @@ using NHibernate.Linq;
 using SelekcijaKandidata.Entiteti;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
@@ -19,7 +13,6 @@ namespace SelekcijaKandidata.Forme
         public TestForma()
         {
             InitializeComponent();
-
             dgvTestovi.AutoGenerateColumns = false;
         }
 
@@ -32,79 +25,65 @@ namespace SelekcijaKandidata.Forme
         {
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                {
-                    IList<Test> testovi = s.QueryOver<Test>()
-                                           .Fetch(x => x.CV).Eager
-                                           .OrderBy(x => x.Id).Asc
-                                           .List<Test>();
-                    dgvTestovi.DataSource = testovi;
-                }
+                dgvTestovi.DataSource = DTOManager.VratiSveTestove();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.Message);
             }
         }
 
         private void btnDodajTest_Click(object sender, EventArgs e)
         {
-            using (DodajTestforma forma = new DodajTestforma())
-            {
-                if (forma.ShowDialog() == DialogResult.OK)
-                    UcitajTestove();
-            }
+            this.Hide();
+            var forma = new DodajTestforma();
+            forma.ShowDialog();
+            this.Show();
+            UcitajTestove();
         }
 
         private void btnObrisiTest_Click(object sender, EventArgs e)
         {
-            Test test = dgvTestovi.CurrentRow?.DataBoundItem as Test;
-            if (test == null)
+            if (dgvTestovi.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Selektujte test za brisanje.");
                 return;
+            }
 
-            if (MessageBox.Show("Da li želite da obrišete izabrani test?", "Brisanje", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            var izabran = (TestPregled)dgvTestovi.SelectedRows[0].DataBoundItem;
+
+            if (MessageBox.Show($"Obrisati test (Id={izabran.Id})?",
+                "Potvrda brisanja", MessageBoxButtons.YesNo) != DialogResult.Yes)
                 return;
 
             try
             {
-                using (ISession s = DataLayer.GetSession())
-                using (ITransaction tx = s.BeginTransaction())
-                {
-                    s.Delete(test);
-                    tx.Commit();
-                }
+                DTOManager.ObrisiTest(izabran.Id);
                 UcitajTestove();
             }
-            catch (Exception ec)
+            catch (Exception ex)
             {
-                MessageBox.Show(ec.Message);
+                MessageBox.Show(ex.InnerException?.Message ?? ex.Message);
             }
         }
 
         private void btnIzmeniTest_Click(object sender, EventArgs e)
         {
-            Test test = dgvTestovi.CurrentRow?.DataBoundItem as Test;
-            if (test == null)
+            if (dgvTestovi.SelectedRows.Count == 0)
             {
-                MessageBox.Show("Izaberite test koji želite da izmenite.");
+                MessageBox.Show("Selektujte test za izmenu.");
                 return;
             }
 
-            using (IzmeniTestForma forma = new IzmeniTestForma(test))
-            {
-                if (forma.ShowDialog() == DialogResult.OK)
-                    UcitajTestove();
-            }
-        }
+            var izabran = (TestPregled)dgvTestovi.SelectedRows[0].DataBoundItem;
 
-        private void labelTestovi_Click(object sender, EventArgs e)
-        {
+            this.Hide();
 
-        }
+            var forma = new IzmeniTestForma(izabran);
+            forma.ShowDialog();
 
-        private void dgvTestovi_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
+            this.Show();
+            UcitajTestove();
         }
 
         private void btnNazad_Click(object sender, EventArgs e)
