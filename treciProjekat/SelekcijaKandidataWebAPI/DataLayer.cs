@@ -1,4 +1,7 @@
-﻿using NHibernate;
+﻿using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
+using NHibernate;
+using SelekcijaKandidata.Mapiranja;
 
 namespace SelekcijaKandidataWebAPI
 {
@@ -20,6 +23,36 @@ namespace SelekcijaKandidataWebAPI
 
                 _connectionString = connectionString;
             }
+        }
+
+        public static ISession GetSession()
+        {
+            if (_factory == null)
+            {
+                lock (ObjLock)
+                {
+                    if (_factory == null)
+                        _factory = CreateSessionFactory();
+                }
+            }
+
+            return _factory.OpenSession();
+        }
+
+        private static ISessionFactory CreateSessionFactory()
+        {
+            string connectionString = _connectionString
+                ?? throw new InvalidOperationException(
+                    "Oracle connection string nije podesen. Popuni ConnectionStrings:OracleBanka u appsettings.json.");
+
+            var cfg = OracleManagedDataClientConfiguration.Oracle10
+                .ShowSql()
+                .ConnectionString(c => c.Is(connectionString));
+
+            return Fluently.Configure()
+                .Database(cfg)
+                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CVMapiranja>())
+                .BuildSessionFactory();
         }
     }
 }
