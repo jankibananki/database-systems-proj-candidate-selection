@@ -1,6 +1,7 @@
 ﻿using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using NHibernate;
+using NHibernate.Cfg;
 using SelekcijaKandidata.Mapiranja;
 
 namespace SelekcijaKandidataWebAPI
@@ -25,7 +26,7 @@ namespace SelekcijaKandidataWebAPI
             }
         }
 
-        public static ISession GetSession()
+        public static NHibernate.ISession GetSession()
         {
             if (_factory == null)
             {
@@ -43,16 +44,46 @@ namespace SelekcijaKandidataWebAPI
         {
             string connectionString = _connectionString
                 ?? throw new InvalidOperationException(
-                    "Oracle connection string nije podesen. Popuni ConnectionStrings:OracleBanka u appsettings.json.");
+                    "Oracle connection string nije podesen. Popuni ConnectionStrings:Konekcija u appsettings.json.");
 
-            var cfg = OracleManagedDataClientConfiguration.Oracle10
-                .ShowSql()
-                .ConnectionString(c => c.Is(connectionString));
+            try
+            {
+                var configuration = new Configuration();
+                
+                // Postavi Oracle driver i dialect
+                configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionDriver, 
+                    "NHibernate.Driver.OracleManagedDataClientDriver");
+                configuration.SetProperty(NHibernate.Cfg.Environment.Dialect, 
+                    "NHibernate.Dialect.Oracle10gDialect");
+                configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionString, connectionString);
+                configuration.SetProperty(NHibernate.Cfg.Environment.ShowSql, "true");
 
-            return Fluently.Configure()
-                .Database(cfg)
-                .Mappings(m => m.FluentMappings.AddFromAssemblyOf<CVMapiranja>())
-                .BuildSessionFactory();
+                // Učitaj mapiranja
+                var mapper = new FluentNHibernate.Cfg.MappingConfiguration();
+                mapper.FluentMappings.AddFromAssembly(typeof(CVMapiranja).Assembly);
+                mapper.Apply(configuration);
+
+                return configuration.BuildSessionFactory();
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = GetDetailedErrorMessage(ex);
+                throw new InvalidOperationException(errorMessage, ex);
+            }
+        }
+
+        private static string GetDetailedErrorMessage(Exception ex)
+        {
+            var messages = new List<string>();
+            var current = ex;
+            
+            while (current != null)
+            {
+                messages.Add($"- {current.GetType().Name}: {current.Message}");
+                current = current.InnerException;
+            }
+
+            return "NHibernate konfiguracija greška:\n" + string.Join("\n", messages);
         }
     }
 }
