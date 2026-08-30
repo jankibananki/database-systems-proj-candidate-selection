@@ -25,7 +25,7 @@ namespace SelekcijaKandidataWebAPI
             }
         }
 
-        public static ISession GetSession()
+        public static NHibernate.ISession GetSession()
         {
             if (_factory == null)
             {
