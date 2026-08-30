@@ -400,9 +400,6 @@ namespace SelekcijaKandidataWebAPI
             try
             {
                 s = DataLayer.GetSession();
-
-                Oglas oglas = await s.LoadAsync<Oglas>(idOglasa);
-
                 return await s.Query<ZahtevOglas>()
                               .Where(z => z.Id.Oglas.Id == idOglasa)
                               .Select(z => z.Id.Zahtev)
@@ -436,7 +433,6 @@ namespace SelekcijaKandidataWebAPI
                     throw new Exception("Ovaj zahtev vec postoji za dati oglas.");
 
                 await s.SaveAsync(new ZahtevOglas { Id = id });
-
                 await tx.CommitAsync();
             }
             finally
@@ -466,7 +462,50 @@ namespace SelekcijaKandidataWebAPI
                 ZahtevOglas zahtev = await s.LoadAsync<ZahtevOglas>(id);
 
                 await s.DeleteAsync(zahtev);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
 
+        public static async Task PromeniZahtevAsync(int idOglasa, string stariTekst, string noviTekst)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                if (stariTekst == noviTekst)
+                    return;
+
+                using ITransaction tx = s.BeginTransaction();
+
+                Oglas oglas = await s.LoadAsync<Oglas>(idOglasa);
+                var stariId = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = stariTekst
+                };
+
+                ZahtevOglas stari = await s.LoadAsync<ZahtevOglas>(stariId);
+                var noviId = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = noviTekst
+                };
+
+                if (await s.GetAsync<ZahtevOglas>(noviId) != null)
+                    throw new Exception("Ovaj zahtev vec postoji za dati oglas.");
+
+                await s.DeleteAsync(stari);
+                await s.FlushAsync();
+                await s.SaveAsync(new ZahtevOglas
+                {
+                    Id = noviId
+                });
                 await tx.CommitAsync();
             }
             finally
