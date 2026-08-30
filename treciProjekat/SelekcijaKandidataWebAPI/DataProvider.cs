@@ -553,6 +553,55 @@ namespace SelekcijaKandidataWebAPI
             }
         }
 
+        public static async Task IzmeniOdlukuAsync(OdlukaView view)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                Odluka o = await s.LoadAsync<Odluka>(view.Id);
+
+                o.Datum = view.Datum;
+                o.PocetakRada = view.PocetakRada;
+                o.Prihvaceno = view.Prihvaceno;
+                o.Status = view.Status ?? string.Empty;
+                o.Plata = view.Plata;
+                o.RazlogOdbijanja = view.RazlogOdbijanja ?? string.Empty;
+
+                await s.UpdateAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task ObrisiOdlukuAsync(int id)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                Odluka o = await s.LoadAsync<Odluka>(id);
+
+                await s.DeleteAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
         #endregion
     }
 }

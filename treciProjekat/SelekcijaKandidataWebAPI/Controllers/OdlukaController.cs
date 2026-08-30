@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SelekcijaKandidataWebAPI.DTOs;
 
 namespace SelekcijaKandidataWebAPI.Controllers
 {
@@ -27,6 +28,34 @@ namespace SelekcijaKandidataWebAPI.Controllers
             }
             catch (Exception ex)
             {
+                return BadRequest(ex.Message); 
+            }
+        }
+
+        [HttpPut("IzmeniOdluku")]
+        public async Task<IActionResult> IzmeniOdluku([FromBody] OdlukaView odluka)
+        {
+            try 
+            { 
+                await DataProvider.IzmeniOdlukuAsync(odluka); 
+                return Ok(); 
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message); 
+            }
+        }
+
+        [HttpDelete("DeleteOdluka/{id}")]
+        public async Task<IActionResult> DeleteOdluka(int id)
+        {
+            try 
+            { 
+                await DataProvider.ObrisiOdlukuAsync(id); 
+                return Ok(); 
+            }
+            catch (Exception ex) 
+            { 
                 return BadRequest(ex.Message); 
             }
         }
