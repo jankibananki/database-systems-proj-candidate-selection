@@ -1,4 +1,6 @@
-﻿namespace SelekcijaKandidataWebAPI.DTOs
+﻿using SelekcijaKandidata.Entiteti;
+
+namespace SelekcijaKandidataWebAPI.DTOs
 {
     public class OglasView
     {
