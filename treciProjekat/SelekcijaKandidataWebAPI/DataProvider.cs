@@ -516,5 +516,43 @@ namespace SelekcijaKandidataWebAPI
         }
 
         #endregion
+
+        #region Odluke
+
+        public static async Task<List<OdlukaView>> VratiSveOdlukeAsync()
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                var odluke = await s.QueryOver<Odluka>().ListAsync();
+                return odluke.Select(o => new OdlukaView(o)).ToList();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task<OdlukaView?> VratiOdlukuAsync(int id)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                Odluka? odluka = await s.GetAsync<Odluka>(id);
+                return odluka == null ? null : new OdlukaView(odluka);
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        #endregion
     }
 }
