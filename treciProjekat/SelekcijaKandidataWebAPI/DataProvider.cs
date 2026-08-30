@@ -267,6 +267,128 @@ namespace SelekcijaKandidataWebAPI
             }
         }
 
+        public static async Task IzmeniStalniOglasAsync(StalniOglasView view)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                StalniOglas o = await s.LoadAsync<StalniOglas>(view.Id);
+
+                o.NazivPozicije = view.NazivPozicije ?? string.Empty;
+                o.Opis = view.Opis ?? string.Empty;
+                o.MinPlata = view.MinPlata;
+                o.MaxPlata = view.MaxPlata;
+                o.DatumObjave = view.DatumObjave;
+                o.DatumZatvaranja = view.DatumZatvaranja;
+                o.Status = view.Status ?? string.Empty;
+
+                await s.UpdateAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task IzmeniPrivremeniOglasAsync(PrivremeniOglasView view)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                PrivremeniOglas o = await s.LoadAsync<PrivremeniOglas>(view.Id);
+
+                o.NazivPozicije = view.NazivPozicije ?? string.Empty;
+                o.Opis = view.Opis ?? string.Empty;
+                o.MinPlata = view.MinPlata;
+                o.MaxPlata = view.MaxPlata;
+                o.DatumObjave = view.DatumObjave;
+                o.DatumZatvaranja = view.DatumZatvaranja;
+                o.Status = view.Status ?? string.Empty;
+                o.Projekat = view.Projekat ?? string.Empty;
+                o.PeriodAngazovanja = view.PeriodAngazovanja ?? string.Empty;
+
+                await s.UpdateAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task IzmeniSezonskiOglasAsync(SezonskiOglasView view)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                SezonskiOglas o = await s.LoadAsync<SezonskiOglas>(view.Id);
+
+                o.NazivPozicije = view.NazivPozicije ?? string.Empty;
+                o.Opis = view.Opis ?? string.Empty;
+                o.MinPlata = view.MinPlata;
+                o.MaxPlata = view.MaxPlata;
+                o.DatumObjave = view.DatumObjave;
+                o.DatumZatvaranja = view.DatumZatvaranja;
+                o.Status = view.Status ?? string.Empty;
+                o.Sezona = view.Sezona ?? string.Empty;
+                o.Lokacija = view.Lokacija ?? string.Empty;
+
+                await s.UpdateAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task IzmeniPraksuAsync(PraksaView view)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                Praksa o = await s.LoadAsync<Praksa>(view.Id);
+
+                o.NazivPozicije = view.NazivPozicije ?? string.Empty;
+                o.Opis = view.Opis ?? string.Empty;
+                o.MinPlata = view.MinPlata;
+                o.MaxPlata = view.MaxPlata;
+                o.DatumObjave = view.DatumObjave;
+                o.DatumZatvaranja = view.DatumZatvaranja;
+                o.Status = view.Status ?? string.Empty;
+                o.TrajanjeMeseci = view.TrajanjeMeseci;
+                o.Mentor = await s.LoadAsync<Zaposleni>(view.IdMentora);
+
+                await s.UpdateAsync(o);
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
         #endregion
     }
 }

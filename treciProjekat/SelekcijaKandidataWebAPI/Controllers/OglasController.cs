@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using SelekcijaKandidata.Entiteti;
 using SelekcijaKandidataWebAPI.DTOs;
 
 namespace SelekcijaKandidataWebAPI.Controllers
@@ -144,5 +143,63 @@ namespace SelekcijaKandidataWebAPI.Controllers
                 return BadRequest(ex.Message); 
             }
         }
+
+
+        [HttpPut("IzmeniStalniOglas")]
+        public async Task<IActionResult> IzmeniStalniOglas([FromBody] StalniOglasView item)
+        {
+            try 
+            { 
+                await DataProvider.IzmeniStalniOglasAsync(item); 
+                return Ok(); 
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message); 
+            }
+        }
+
+        [HttpPut("IzmeniPrivremeniOglas")]
+        public async Task<IActionResult> IzmeniPrivremeniOglas([FromBody] PrivremeniOglasView item)
+        {
+            try 
+            {
+                await DataProvider.IzmeniPrivremeniOglasAsync(item);
+                return Ok(); 
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message); 
+            }
+        }
+
+        [HttpPut("IzmeniSezonskiOglas")]
+        public async Task<IActionResult> IzmeniSezonskiOglas([FromBody] SezonskiOglasView item)
+        {
+            try 
+            { 
+                await DataProvider.IzmeniSezonskiOglasAsync(item);
+                return Ok();
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("IzmeniPraksu")]
+        public async Task<IActionResult> IzmeniPraksu([FromBody] PraksaView item)
+        {
+            try 
+            { 
+                await DataProvider.IzmeniPraksuAsync(item); 
+                return Ok(); 
+            }
+            catch (Exception ex) 
+            { 
+                return BadRequest(ex.Message);
+            }
+        }
+
     }
 }
