@@ -29,6 +29,6 @@ namespace SelekcijaKandidataWebAPI.DTOs
             Status = oglas.Status;
             Sezona = oglas.Sezona;
             Lokacija = oglas.Lokacija;
-        }
+        }   
     }
 }
