@@ -390,5 +390,92 @@ namespace SelekcijaKandidataWebAPI
         }
 
         #endregion
+
+        #region Zahtevi oglasa
+
+        public static async Task<List<string>> VratiZahteveAsync(int idOglasa)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+
+                Oglas oglas = await s.LoadAsync<Oglas>(idOglasa);
+
+                return await s.Query<ZahtevOglas>()
+                              .Where(z => z.Id.Oglas.Id == idOglasa)
+                              .Select(z => z.Id.Zahtev)
+                              .ToListAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task DodajZahtevAsync(int idOglasa, string tekst)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                Oglas oglas = await s.LoadAsync<Oglas>(idOglasa);
+
+                var id = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = tekst
+                };
+
+                if (await s.GetAsync<ZahtevOglas>(id) != null)
+                    throw new Exception("Ovaj zahtev vec postoji za dati oglas.");
+
+                await s.SaveAsync(new ZahtevOglas { Id = id });
+
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        public static async Task ObrisiZahtevAsync(int idOglasa, string tekst)
+        {
+            NHibernate.ISession? s = null;
+
+            try
+            {
+                s = DataLayer.GetSession();
+                using ITransaction tx = s.BeginTransaction();
+
+                Oglas oglas = await s.LoadAsync<Oglas>(idOglasa);
+
+                var id = new ZahtevOglasId
+                {
+                    Oglas = oglas,
+                    Zahtev = tekst
+                };
+
+                ZahtevOglas zahtev = await s.LoadAsync<ZahtevOglas>(id);
+
+                await s.DeleteAsync(zahtev);
+
+                await tx.CommitAsync();
+            }
+            finally
+            {
+                s?.Close();
+                s?.Dispose();
+            }
+        }
+
+        #endregion
     }
 }
