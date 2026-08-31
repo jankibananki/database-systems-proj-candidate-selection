@@ -9,12 +9,8 @@ namespace SelekcijaKandidataWebAPI.Controllers
     [Route("api/[controller]")]
     public class ZaposleniController : ControllerBase
     {
-        /// <summary>
-        /// Pribavlja sve zaposlene.
-        /// GET: api/zaposleni
-        /// </summary>
         [HttpGet]
-        public ActionResult<IEnumerable<ZaposleniView>> GetAll()
+        public ActionResult<ZaposleniView> GetAll()
         {
             try
             {
@@ -36,15 +32,10 @@ namespace SelekcijaKandidataWebAPI.Controllers
             }
             catch (Exception ex)
             {
-                var errorDetails = GetDetailedErrorMessage(ex);
-                return StatusCode(500, new { message = "Greška pri pribavljanju zaposlenih.", error = errorDetails });
+                return StatusCode(500, new { message = "Greška pri pribavljanju zaposlenih.", error = ex.Message });
             }
         }
 
-        /// <summary>
-        /// Pribavlja jednog zaposlenog po ID-u.
-        /// GET: api/zaposleni/{id}
-        /// </summary>
         [HttpGet("{id}")]
         public ActionResult<ZaposleniView> GetById(int id)
         {
@@ -73,10 +64,6 @@ namespace SelekcijaKandidataWebAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Dodaje novog zaposlenog.
-        /// POST: api/zaposleni
-        /// </summary>
         [HttpPost]
         public ActionResult<ZaposleniView> Create([FromBody] ZaposleniView dto)
         {
@@ -116,10 +103,6 @@ namespace SelekcijaKandidataWebAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Ažurira postojećeg zaposlenog.
-        /// PUT: api/zaposleni/{id}
-        /// </summary>
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ZaposleniView dto)
         {
@@ -160,10 +143,7 @@ namespace SelekcijaKandidataWebAPI.Controllers
             }
         }
 
-        /// <summary>
-        /// Briše zaposlenog.
-        /// DELETE: api/zaposleni/{id}
-        /// </summary>
+
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
@@ -208,20 +188,6 @@ namespace SelekcijaKandidataWebAPI.Controllers
             {
                 return StatusCode(500, new { message = "Greška pri brisanju zaposlenog.", error = ex.Message });
             }
-        }
-
-        private string GetDetailedErrorMessage(Exception ex)
-        {
-            var messages = new List<string>();
-            var current = ex;
-
-            while (current != null)
-            {
-                messages.Add($"{current.GetType().Name}: {current.Message}");
-                current = current.InnerException;
-            }
-
-            return string.Join(" -> ", messages);
         }
     }
 }
