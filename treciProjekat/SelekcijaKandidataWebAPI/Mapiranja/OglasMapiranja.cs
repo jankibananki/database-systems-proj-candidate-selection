@@ -48,6 +48,7 @@ namespace SelekcijaKandidata.Mapiranja
                 .Cascade.All()
                 .Inverse();
 
+            //proveri ovo dole
             HasMany(x => x.Zahtevi)
                 .KeyColumn("ID")
                 .Cascade.All()
