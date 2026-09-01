@@ -43,14 +43,12 @@ namespace SelekcijaKandidataWebAPI
         private static ISessionFactory CreateSessionFactory()
         {
             string connectionString = _connectionString
-                ?? throw new InvalidOperationException(
-                    "Oracle connection string nije podesen. Popuni ConnectionStrings:Konekcija u appsettings.json.");
+                ?? throw new InvalidOperationException("Oracle connection string nije podesen");
 
             try
             {
                 var configuration = new Configuration();
                 
-                // Postavi Oracle driver i dialect
                 configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionDriver, 
                     "NHibernate.Driver.OracleManagedDataClientDriver");
                 configuration.SetProperty(NHibernate.Cfg.Environment.Dialect, 
@@ -58,7 +56,6 @@ namespace SelekcijaKandidataWebAPI
                 configuration.SetProperty(NHibernate.Cfg.Environment.ConnectionString, connectionString);
                 configuration.SetProperty(NHibernate.Cfg.Environment.ShowSql, "true");
 
-                // Učitaj mapiranja
                 var mapper = new FluentNHibernate.Cfg.MappingConfiguration();
                 mapper.FluentMappings.AddFromAssembly(typeof(CVMapiranja).Assembly);
                 mapper.Apply(configuration);

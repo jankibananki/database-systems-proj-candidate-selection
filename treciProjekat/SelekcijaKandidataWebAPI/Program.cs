@@ -7,8 +7,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 string connectionString = builder.Configuration.GetConnectionString("Konekcija")
-    ?? throw new InvalidOperationException(
-        "Nedostaje ConnectionStrings:OracleBanka u appsettings.json fajlu.");
+    ?? throw new InvalidOperationException("Nedostaje ConnectionStrings.");
 
 DataLayer.Configure(connectionString);
 
